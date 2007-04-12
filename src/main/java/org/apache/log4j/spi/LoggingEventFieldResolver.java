@@ -205,22 +205,10 @@ public final class LoggingEventFieldResolver {
   public Object getValue(final String fieldName,
                          final LoggingEvent event) {
     String upperField = fieldName.toUpperCase();
-    LocationInfo info = null;
-    if (event.locationInformationExists()) {
-        info = event.getLocationInformation();
-    }
     if (LOGGER_FIELD.equals(upperField)) {
       return event.getLoggerName();
     } else if (LEVEL_FIELD.equals(upperField)) {
       return event.getLevel();
-    } else if (CLASS_FIELD.equals(upperField)) {
-      return ((info == null) ? EMPTY_STRING : info.getClassName());
-    } else if (FILE_FIELD.equals(upperField)) {
-      return ((info == null) ? EMPTY_STRING : info.getFileName());
-    } else if (LINE_FIELD.equals(upperField)) {
-      return ((info == null) ? EMPTY_STRING : info.getLineNumber());
-    } else if (METHOD_FIELD.equals(upperField)) {
-      return ((info == null) ? EMPTY_STRING : info.getMethodName());
     } else if (MSG_FIELD.equals(upperField)) {
       return event.getMessage();
     } else if (NDC_FIELD.equals(upperField)) {
@@ -234,13 +222,24 @@ public final class LoggingEventFieldResolver {
             return getExceptionMessage(throwableRep);
         }
     } else if (TIMESTAMP_FIELD.equals(upperField)) {
-      return new Long(event.getTimeStamp());
+      return new Long(event.timeStamp);
     } else if (THREAD_FIELD.equals(upperField)) {
       return event.getThreadName();
     } else if (upperField.startsWith(PROP_FIELD)) {
       //note: need to use actual fieldname since case matters
-      String propValue = event.getProperty(fieldName.substring(5));
-      return ((propValue == null) ? EMPTY_STRING : propValue);
+      Object propValue = event.getMDC(fieldName.substring(5));
+      return ((propValue == null) ? EMPTY_STRING : propValue.toString());
+    } else {
+        LocationInfo info = event.getLocationInformation();
+        if (CLASS_FIELD.equals(upperField)) {
+            return ((info == null) ? EMPTY_STRING : info.getClassName());
+        } else if (FILE_FIELD.equals(upperField)) {
+            return ((info == null) ? EMPTY_STRING : info.getFileName());
+        } else if (LINE_FIELD.equals(upperField)) {
+            return ((info == null) ? EMPTY_STRING : info.getLineNumber());
+        } else if (METHOD_FIELD.equals(upperField)) {
+            return ((info == null) ? EMPTY_STRING : info.getMethodName());
+        }
     }
 
     //there wasn't a match, so throw a runtime exception

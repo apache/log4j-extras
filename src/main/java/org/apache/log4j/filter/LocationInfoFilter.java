@@ -103,18 +103,16 @@ public class LocationInfoFilter extends Filter {
    * If this event does not already contain location information,
    * evaluate the event against the expression.
    *
-   * If the expression evaluates to true, generate a LocationInfo instance
-   * by creating an exception and set this LocationInfo on the event.
+   * If the expression evaluates to true,
+   * force generation of location information by
+   * calling getLocationInfo.
    *
    * @param event event
    * @return Filter.NEUTRAL.
    */
   public int decide(final LoggingEvent event) {
-    if (!event.locationInformationExists()) {
-      if (expressionRule.evaluate(event)) {
-          Throwable t = new Exception();
-          event.setLocationInformation(new LocationInfo(t, className));
-      }
+    if (expressionRule.evaluate(event)) {
+          event.getLocationInformation();
     }
     return Filter.NEUTRAL;
   }
