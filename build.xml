@@ -27,8 +27,8 @@ Use of Maven to build this component is recommended.
     <property file="build.properties"/>
 	
 	<!--  project details  -->
-    <property name="project.name" value="apache-log4j-filter"/>
-    <property name="project.title" value="Apache Filter Companion for log4j 1.2."/>
+    <property name="project.name" value="apache-log4j-filters"/>
+    <property name="project.title" value="Apache Filters Companion for log4j 1.2."/>
     <property name="project.version" value="0.1-SNAPSHOT"/>
     <property name="project.jar" value="${project.name}-${project.version}.jar"/>
     
