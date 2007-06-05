@@ -81,9 +81,6 @@ Use of Maven to build this component is recommended.
     	  	<manifest>
     			<attribute name="Built-By" value="${user.name}"/>
     			<section name="common">
-      				<attribute name="Specification-Title" value="${project.title}"/>
-      				<attribute name="Specification-Version" value="${project.version}"/>
-      				<attribute name="Specification-Vendor" value="Apache Software Foundation"/>
       				<attribute name="Implementation-Title" value="${project.title}"/>
       				<attribute name="Implementation-Version" value="${project.version}"/> 
       				<attribute name="Implementation-Vendor" value="Apache Software Foundation"/>
