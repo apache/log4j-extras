@@ -21,7 +21,6 @@ import org.apache.log4j.rule.ExpressionRule;
 import org.apache.log4j.rule.Rule;
 import org.apache.log4j.spi.Filter;
 import org.apache.log4j.spi.LoggingEvent;
-import org.apache.log4j.spi.LocationInfo;
 
 
 /**
@@ -52,12 +51,6 @@ public class LocationInfoFilter extends Filter {
      * Compiled expression.
      */
   Rule expressionRule;
-    /**
-    HACK: Category is the last of the internal layers -
-     pass this in as the class name
-  in order for parsing to work correctly.
-    */
-  private String className = "org.apache.log4j.Category";
 
     /**
      * {@inheritDoc}

@@ -32,8 +32,8 @@ public class SimpleFilterTest extends TestCase {
   Logger root; 
   Logger logger;
 
-  public final static String FILTERED = "output/filtered";
-  public final static String TEMP = "output/temp";
+  public final static String FILTERED = "filtered";
+  public final static String TEMP = "temp";
   
   static String TEST1_PAT = "(DEBUG|INFO|WARN|ERROR|FATAL) - Message \\d";
   static String EXCEPTION1 = "java.lang.Exception: Just testing";

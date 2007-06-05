@@ -21,18 +21,18 @@
   <groupId>log4j</groupId>
   <artifactId>apache-log4j-filters</artifactId>
   <packaging>jar</packaging>
-  <version>0.1-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <name>Apache Filters Companion for log4j 1.2.</name>
   <description>This companion provides a selection of filters from the Apache log4j 1.3 project 
       for use with Apache log4j 1.2.</description>
-  <url>http://logging.apache.org/log4j/companions/filters</url>
+  <url>http://logging.apache.org:80/log4j/companions/filters</url>
   <issueManagement>
     <system>Bugzilla</system>
     <url>http://issues.apache.org/bugzilla/</url>
   </issueManagement>
   <ciManagement>
   		<system>Gump</system>
-  		 <url>http://vmgump.apache.org/gump/public/logging-log4j-filter/logging-log4j-filters/index.html</url>
+  		 <url>http://vmgump.apache.org/gump/public/logging-log4j-filters/logging-log4j-filters/index.html</url>
   </ciManagement>
 <mailingLists>
 	<mailingList>
@@ -58,14 +58,6 @@
 		</otherArchives>
 	</mailingList>
 </mailingLists>
-<developers>
-    <developer>
-    	<id>carnold</id>
-    	<name>Curt Arnold</name>
-    	<email>carnold@apache.org</email>
-    	<timezone>-6</timezone>
-    </developer>
- </developers>
 <licenses>
 	<license>
 		<name>Apache License, Version 2.0</name>
@@ -74,9 +66,9 @@
 	</license>
 </licenses>
 <scm>
-	<connection>scm:svn:http://svn.apache.org/repos/asf/logging/sandbox/log4j/expression-filter</connection>
-	<developerConnection>scm:svn:https://svn.apache.org/repos/asf/logging/sandbox/log4j/expression-filter</developerConnection>
-	<url>http://svn.apache.org/viewcvs.cgi/logging/sandbox/log4j/expression-filter</url>
+	<connection>scm:svn:http://svn.apache.org/repos/asf/logging/log4j/companions/filters/trunk</connection>
+	<developerConnection>scm:svn:https://svn.apache.org/repos/asf/logging/log4j/companions/filters/trunk</developerConnection>
+	<url>http://svn.apache.org/viewcvs.cgi/logging/log4j/companions/filters/trunk</url>
 </scm>
 <organization>
     <name>Apache Software Foundation</name>
@@ -85,48 +77,109 @@
 <build>
     <plugins>
       <plugin>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <dependencies>
-          <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.14</version>
-          </dependency>
-        </dependencies>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <workingDirectory>target</workingDirectory>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-            <source>1.3</source>
-            <target>1.3</target>
+            <source>1.2</source>
+            <target>1.1</target>
         </configuration>
       </plugin>
-	<!-- clean stray cobertura.ser -->
-  <plugin> 
-   <groupId>org.codehaus.mojo</groupId> 
-   <artifactId>cobertura-maven-plugin</artifactId> 
-   <executions> 
-    <execution> 
-     <id>clean</id> 
-     <goals> 
-      <goal>clean</goal> 
-     </goals> 
-    </execution> 
-   </executions> 
-  </plugin> 
+	  <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+                <manifestSections>
+                <manifestSection>
+                    <name>org.apache.log4j</name>
+                    <manifestEntries>
+                        <Implementation-Title>${project.name}</Implementation-Title>
+                        <Implementation-Version>${project.version}</Implementation-Version>
+                        <Implementation-Vendor>Apache Software Foundation</Implementation-Vendor>
+                    </manifestEntries>
+                </manifestSection>
+                </manifestSections>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>site</phase>
+            <id>untag-site</id>
+            <configuration>
+                <tasks>
+                    <taskdef name="replaceregexp" classname="org.apache.tools.ant.taskdefs.optional.ReplaceRegExp" />                
+                   <replaceregexp file="target/site/source-repository.html" match="/tags/[^ ]*" replace="/trunk" flags="g" />
+                </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+       <dependencies>
+          <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant-nodeps</artifactId>
+            <version>1.6.5</version>
+          </dependency>
+        </dependencies>
+      </plugin>	 
+	  <plugin>
+         <artifactId>maven-assembly-plugin</artifactId>
+         <configuration>
+           <descriptors>
+              <descriptor>src/assembly/bin.xml</descriptor>
+           </descriptors>
+        </configuration>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>assembly</goal>
+                </goals>
+            </execution>
+        </executions>
+	 </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>jar</goal>
+                    <goal>javadoc</goal>
+                </goals>
+            </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>jar</goal>
+                </goals>
+            </execution>
+        </executions>
+      </plugin>     
     </plugins>
 </build>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.3.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
-      <version>1.2.14</version>
+      <version>1.2.8</version>
     </dependency>    
 	<dependency>
       <groupId>oro</groupId>
@@ -135,36 +188,35 @@
     </dependency>    	
   </dependencies>
   <reporting>
+  
+    <excludeDefaults>true</excludeDefaults>  
     <plugins>
       <plugin>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <artifactId>maven-pmd-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>scm</report>
+              <report>dependencies</report>
+              <report>cim</report>
+              <report>issue-tracking</report>
+              <report>mailing-list</report>
+              <report>license</report>
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
       <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>jxr-maven-plugin</artifactId>
       </plugin>
- 	<!-- plugin> 
-    	<groupId>org.apache.maven.plugins</groupId> 
-    	<artifactId>maven-surefire-report-plugin</artifactId>    
-    </plugin --> 
-	<plugin> 
- 		<groupId>org.codehaus.mojo</groupId> 
- 		<artifactId>cobertura-maven-plugin</artifactId>
-		<!-- version 2.1 was flawed and reports 100% coverage  -->
-		<version>2.0</version>
-	</plugin> 
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <configuration>
+              <goals>site-deploy</goals>
+          </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-changes-plugin</artifactId>
       	<reportSets>
           <reportSet>
@@ -177,13 +229,22 @@
         	<issueLinkTemplate>%URL%/show_bug.cgi?id=%ISSUE%</issueLinkTemplate>
         </configuration>
       </plugin>      
+      <plugin>
+        <artifactId>maven-pmd-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
     </plugins>
   </reporting>
  <distributionManagement>
+    <repository>
+      <id>logging.repo</id>
+      <url>scp://people.apache.org/www/people.apache.org/builds/logging/repo/</url>
+    </repository>
     <site>
-      <id>apache.website</id>
-      <url>scp://people.apache.org/home/carnold/public_html/log4j/companions/filters</url>
+      <id>logging.site</id>
+      <url>scp://people.apache.org/www/logging.apache.org/log4j/companions/filters</url>
     </site>
   </distributionManagement> 
-  
 </project>

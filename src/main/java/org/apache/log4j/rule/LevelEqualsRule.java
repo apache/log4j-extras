@@ -70,7 +70,10 @@ public class LevelEqualsRule extends AbstractRule {
         levelList.add(Level.WARN.toString());
         levelList.add(Level.INFO.toString());
         levelList.add(Level.DEBUG.toString());
-        levelList.add(Level.TRACE.toString());
+		Level trace = Level.toLevel(5000, null);
+		if (trace != null) {
+			levelList.add(trace.toString());
+	    }
     }
 
     /**

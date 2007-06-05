@@ -72,17 +72,17 @@ public class AndFilter extends Filter {
   public void activateOptions() {
   }
 
-  public void addFilter(Filter filter) {
+  public void addFilter(final Filter filter) {
     System.out.println("add"+filter);
     if (headFilter == null) {
       headFilter = filter;
       tailFilter = filter;
     } else {
-      tailFilter.setNext(filter);
+      tailFilter.next = filter;
     }
   }
   
-  public void setAcceptOnMatch(boolean acceptOnMatch) {
+  public void setAcceptOnMatch(final boolean acceptOnMatch) {
     this.acceptOnMatch = acceptOnMatch;
   }
   /**
@@ -94,12 +94,12 @@ public class AndFilter extends Filter {
    * 
    * Returns {@link Filter#NEUTRAL}
    */
-  public int decide(LoggingEvent event) {
+  public int decide(final LoggingEvent event) {
     boolean accepted = true;
     Filter f = headFilter;
     while (f != null) {
       accepted = accepted && (Filter.ACCEPT == f.decide(event));
-      f = f.getNext();
+      f = f.next;
     }
     if (accepted) {
       if(acceptOnMatch) {
