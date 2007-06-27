@@ -20,7 +20,7 @@
     <title>Filters</title>
   </properties>
   <body>
-    <release version="1.0" date="2007-06-05" description="First release">
+    <release version="1.0" date="2007-06-27" description="First release">
       <action issue="42099" type="add">
         Initial release of filters backported from log4j 1.3.
       </action>
