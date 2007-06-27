@@ -119,8 +119,5 @@ Specify -Dcompanion.jar=foo.jar to test a previously prepared jar.
     	    <formatter type="plain" usefile="false"/>
     	</junit>
     </target>    
-	
-	<!--  This target is executed by Gump.  -->
-	<target name="gump" depends="test"/>
 
 </project>
