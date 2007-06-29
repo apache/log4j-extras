@@ -15,13 +15,12 @@
  limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>log4j</groupId>
   <artifactId>apache-log4j-extras</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>Apache Extras Companion for log4j 1.2.</name>
   <description>This companion provides additional appenders, filters and
   other capabilities for log4j 1.2.  Several of these were backported from
@@ -67,9 +66,9 @@
 	</license>
 </licenses>
 <scm>
-	<connection>scm:svn:http://svn.apache.org/repos/asf/logging/log4j/companions/extras/trunk</connection>
-	<developerConnection>scm:svn:https://svn.apache.org/repos/asf/logging/log4j/companions/extras/trunk</developerConnection>
-	<url>http://svn.apache.org/viewcvs.cgi/logging/log4j/companions/extras/trunk</url>
+	<connection>scm:svn:http://svn.apache.org/repos/asf/logging/log4j/companions/extras/tags/v1_0_rc1</connection>
+	<developerConnection>scm:svn:https://svn.apache.org/repos/asf/logging/log4j/companions/extras/tags/v1_0_rc1</developerConnection>
+	<url>http://svn.apache.org/viewcvs.cgi/logging/log4j/companions/extras/tags/v1_0_rc1</url>
 </scm>
 <organization>
     <name>Apache Software Foundation</name>
