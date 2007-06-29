@@ -21,7 +21,7 @@
 		<format>zip</format>
 		<format>tar.gz</format>
 	</formats>
-	<baseDirectory>apache-log4j-filters-${project.version}</baseDirectory>
+	<baseDirectory>apache-log4j-extras-${project.version}</baseDirectory>
 	<includeSiteDirectory>true</includeSiteDirectory>
 	<fileSets>
 		<fileSet>
@@ -37,7 +37,7 @@
 			<directory>target</directory>
 			<outputDirectory>.</outputDirectory>
 			<includes>
-				<include>apache-log4j-filters-${project.version}.jar</include>
+				<include>apache-log4j-extras-${project.version}.jar</include>
 			</includes>
 		</fileSet>
 	</fileSets>

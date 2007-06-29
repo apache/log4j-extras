@@ -29,8 +29,8 @@ Specify -Dcompanion.jar=foo.jar to test a previously prepared jar.
     <property file="build.properties"/>
 	
 	<!--  project details  -->
-    <property name="project.name" value="apache-log4j-filters"/>
-    <property name="project.title" value="Apache Filters Companion for log4j 1.2."/>
+    <property name="project.name" value="apache-log4j-extras"/>
+    <property name="project.title" value="Apache Extras Companion for log4j 1.2."/>
     <property name="project.version" value="1.0"/>
     <property name="project.jar" value="${project.name}-${project.version}.jar"/>
     

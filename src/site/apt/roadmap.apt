@@ -13,13 +13,15 @@
 ~~ See the License for the specific language governing permissions and
 ~~ limitations under the License.
  ------
- apache-log4j-filters Roadmap
+ apache-log4j-extras Roadmap
  ------
  Curt Arnold
  ------
- 4 June 2007
+ 29 June 2007
  ------
 
-apache-log4j-filters Roadmap
+apache-log4j-extras Roadmap
 
-  No additional development is anticipated.
+
+   The extras component is open to additional generally useful features that are compatible
+   with the widely deployed log4j 1.2 releases and do not add additional dependencies.
