@@ -18,12 +18,14 @@
 package org.apache.log4j.util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.*;
+import java.util.zip.GZIPInputStream;
 
 
 public class Compare {
@@ -135,4 +137,66 @@ public class Compare {
     }
     in1.close();
   }
+
+
+    public static boolean gzCompare(final Class testClass,
+                                    final String actual,
+                                    final String expected)
+      throws FileNotFoundException, IOException {
+      String resourceName = expected;
+      int lastSlash = expected.lastIndexOf("/");
+      if (lastSlash >= 0) {
+          resourceName = expected.substring(lastSlash + 1);
+      }
+      InputStream resourceStream = testClass.getResourceAsStream(resourceName);
+      if (resourceStream == null) {
+          throw new FileNotFoundException("Could not locate resource " + resourceName);
+      }
+
+      BufferedReader in1 = new BufferedReader(new InputStreamReader(new GZIPInputStream(new FileInputStream(actual))));
+      BufferedReader in2 = new BufferedReader(new InputStreamReader(new GZIPInputStream(resourceStream)));
+      try {
+        return gzCompare(testClass, actual, expected, in1, in2);
+      } finally {
+        in1.close();
+        in2.close();
+      }
+    }
+
+    public static boolean gzCompare(Class testClass, String file1, String file2, BufferedReader in1, BufferedReader in2) throws IOException {
+
+      String s1;
+      int lineCounter = 0;
+
+      while ((s1 = in1.readLine()) != null) {
+        lineCounter++;
+
+        String s2 = in2.readLine();
+
+        if (!s1.equals(s2)) {
+          System.out.println(
+            "Files [" + file1 + "] and [" + file2 + "] differ on line "
+            + lineCounter);
+          System.out.println("One reads:  [" + s1 + "].");
+          System.out.println("Other reads:[" + s2 + "].");
+          outputFile(testClass, file1);
+          outputFile(testClass, file2);
+
+          return false;
+        }
+      }
+
+      // the second file is longer
+      if (in2.read() != -1) {
+        System.out.println(
+          "File [" + file2 + "] longer than file [" + file1 + "].");
+        outputFile(testClass, file1);
+        outputFile(testClass, file2);
+
+        return false;
+      }
+
+      return true;
+    }
+
 }
