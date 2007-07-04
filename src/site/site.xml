@@ -15,7 +15,7 @@
  limitations under the License.
 
 -->
-<project name="Filters">
+<project name="Extras">
   <bannerLeft>
     <name>Logging Services</name>
     <src>images/ls-logo.jpg</src>
@@ -32,16 +32,16 @@
       <item name="Logging Services" href="http://logging.apache.org/"/>
       <item name="log4j" href="http://logging.apache.org/log4j/"/>
       <item name="Companions"  href="http://logging.apache.org/log4j/companions/"/>
-      <item name="filters"  href="http://logging.apache.org:80/log4j/companions/filters/"/>
+      <item name="extras"  href="http://logging.apache.org:80/log4j/companions/extras/"/>
     </breadcrumbs>
   
-	<menu name="Get filters">
+	<menu name="Get extras">
 	   <item name="Download" href="/download.html"/>
 	   <item name="Changes" href="/changes-report.html"/>
 	   <item name="License" href="/license.html"/>
 	</menu>
 
-	<menu name="About filters">
+	<menu name="About extras">
 	   <item name="What is it?" href="/index.html"/>
 	   <item name="Roadmap" href="/roadmap.html"/>
 	   <item name="JavaDoc" href="/apidocs/index.html"/>
@@ -60,5 +60,13 @@
 		<item name="Duplication" href="/cpd.html"/>
 		<item name="PMD" href="/pmd.html"/>
 	</menu>
+
+	<menu name="Apache">
+		<item name="Home" href="http://www.apache.org"/>	
+		<item name="Sponsorship" href="http://www.apache.org/foundation/sponsorship.html"/>
+		<item name="Thanks" href="http://www.apache.org/foundation/thanks.html"/>
+		<item name="Conferences" href="http://www.apachecon.com"/>
+	</menu>
+
   </body>
 </project>

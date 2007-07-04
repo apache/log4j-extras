@@ -74,7 +74,17 @@
     <name>Apache Software Foundation</name>
     <url>http://www.apache.org</url>
 </organization>
+<pluginRepositories>
+</pluginRepositories>
 <build>
+   <!-- See http://maven.apache.org/guides/development/guide-plugin-snapshot-repositories.html -->
+   <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-scm</artifactId>
+        <version>1.0-beta-3</version>
+      </extension>
+    </extensions>
     <plugins>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -245,7 +255,7 @@
     </repository>
     <site>
       <id>logging.site</id>
-      <url>scp://people.apache.org/www/logging.apache.org/log4j/companions/extras</url>
+      <url>scm:svn:https://svn.apache.org/repos/asf/logging/site/trunk/docs/site/log4j/companions/extras</url>
     </site>
   </distributionManagement> 
 </project>
