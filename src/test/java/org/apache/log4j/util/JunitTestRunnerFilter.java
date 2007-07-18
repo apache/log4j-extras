@@ -29,7 +29,8 @@ public class JunitTestRunnerFilter implements Filter {
           "/at junit.textui.TestRunner/",
           "/at com.intellij.rt.execution.junit/",
           "/at java.lang.reflect.Method.invoke/",
-          "/at org.apache.maven.surefire./",
+          "/at org.apache.maven./",
+          "/at org.codehaus./",
 		  "/at org.junit.internal.runners./"
   };
 
