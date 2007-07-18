@@ -16,9 +16,7 @@
  */
 package org.apache.log4j.filter;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.util.Compare;
@@ -28,7 +26,8 @@ import org.apache.log4j.util.JunitTestRunnerFilter;
 import org.apache.log4j.util.LineNumberFilter;
 import org.apache.log4j.util.SunReflectFilter;
 import org.apache.log4j.util.Transformer;
-import org.apache.log4j.xml.DOMConfigurator;
+import org.apache.log4j.rolling.RollingConfigurator;
+import org.apache.log4j.xml.Log4jEntityResolver;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -52,6 +51,7 @@ public class SimpleFilterTest extends TestCase {
   public final static String TEMP = "temp";
   
   static String TEST1_PAT = "(DEBUG|INFO|WARN|ERROR|FATAL) - Message \\d";
+  static String TEST8_PAT = "WARN org.apache.log4j.filter.SimpleFilterTest - Message \\d";
   static String EXCEPTION1 = "java.lang.Exception: Just testing";
   static String EXCEPTION2 = "\\s*at .*\\(.*:\\d{1,4}\\)";
   static String EXCEPTION3 = "\\s*at .*\\(Native Method\\)";
@@ -69,17 +69,21 @@ public class SimpleFilterTest extends TestCase {
     root.getLoggerRepository().resetConfiguration();
   }
 
-  
-  public void test1() throws Exception {
-    InputStream is = getClass().getResourceAsStream("simpleFilter1.xml");
+  private final void configure(final String resourceName) throws Exception {
+    InputStream is = getClass().getResourceAsStream(resourceName);
     if (is == null) {
         throw new FileNotFoundException(
-                "Could not find resource simpleFilter1.xml");
+                "Could not find resource " + resourceName);
     }
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     DocumentBuilder builder = factory.newDocumentBuilder();
+	builder.setEntityResolver(new Log4jEntityResolver());
     Document doc = builder.parse(is);
-    DOMConfigurator.configure(doc.getDocumentElement());
+    RollingConfigurator.configure(doc.getDocumentElement());
+  }
+  
+  public void test1() throws Exception {
+    configure("simpleFilter1.xml");
 
     common();
     
@@ -95,6 +99,112 @@ public class SimpleFilterTest extends TestCase {
              FILTERED,
              "witness/filter/simpleFilter.1"));
   }
+
+    public void test6() throws Exception {
+      configure("simpleFilter6.xml");
+      common();
+
+      ControlFilter cf = new ControlFilter(new String[]{TEST1_PAT, EXCEPTION1, EXCEPTION2, EXCEPTION3});
+
+
+      Transformer.transform(TEMP, FILTERED, new Filter[] {cf,
+          new LineNumberFilter(),
+          new SunReflectFilter(),
+          new JunitTestRunnerFilter()});
+
+       assertTrue(Compare.compare(SimpleFilterTest.class, FILTERED, "witness/filter/simpleFilter.6"));
+    }
+
+    public void test7() throws Exception {
+      configure("simpleFilter7.xml");
+      common();
+
+      ControlFilter cf = new ControlFilter(new String[]{TEST1_PAT, EXCEPTION1, EXCEPTION2, EXCEPTION3});
+
+
+      Transformer.transform(TEMP, FILTERED, new Filter[] {cf,
+          new LineNumberFilter(),
+          new SunReflectFilter(),
+          new JunitTestRunnerFilter()});
+
+       assertTrue(Compare.compare(SimpleFilterTest.class, FILTERED, "witness/filter/simpleFilter.7"));
+    }
+
+    public void test8() throws Exception {
+      configure("simpleFilter8.xml");
+      common();
+
+      ControlFilter cf = new ControlFilter(new String[]{TEST8_PAT, EXCEPTION1, EXCEPTION2, EXCEPTION3});
+
+
+      Transformer.transform(TEMP, FILTERED, new Filter[] {cf,
+          new LineNumberFilter(),
+          new SunReflectFilter(),
+          new JunitTestRunnerFilter()});
+
+       assertTrue(Compare.compare(SimpleFilterTest.class, FILTERED, "witness/filter/simpleFilter.8"));
+    }
+
+    public void test9() throws Exception {
+      configure("simpleFilter9.xml");
+      common();
+
+      ControlFilter cf = new ControlFilter(new String[]{TEST1_PAT, EXCEPTION1, EXCEPTION2, EXCEPTION3});
+
+
+      Transformer.transform(TEMP, FILTERED, new Filter[] {cf,
+          new LineNumberFilter(),
+          new SunReflectFilter(),
+          new JunitTestRunnerFilter()});
+
+       assertTrue(Compare.compare(SimpleFilterTest.class, FILTERED, "witness/filter/simpleFilter.1"));
+    }
+
+    public void test10() throws Exception {
+      configure("simpleFilter10.xml");
+      common();
+
+      ControlFilter cf = new ControlFilter(new String[]{TEST1_PAT, EXCEPTION1, EXCEPTION2, EXCEPTION3});
+
+
+      Transformer.transform(TEMP, FILTERED, new Filter[] {cf,
+          new LineNumberFilter(),
+          new SunReflectFilter(),
+          new JunitTestRunnerFilter()});
+
+       assertTrue(Compare.compare(SimpleFilterTest.class, FILTERED, "witness/filter/simpleFilter.6"));
+    }
+
+    public void test11() throws Exception {
+      configure("simpleFilter11.xml");
+      common();
+
+      ControlFilter cf = new ControlFilter(new String[]{TEST1_PAT, EXCEPTION1, EXCEPTION2, EXCEPTION3});
+
+
+      Transformer.transform(TEMP, FILTERED, new Filter[] {cf,
+          new LineNumberFilter(),
+          new SunReflectFilter(),
+          new JunitTestRunnerFilter()});
+
+       assertTrue(Compare.compare(SimpleFilterTest.class, FILTERED, "witness/filter/simpleFilter.11"));
+    }
+
+    public void test12() throws Exception {
+      configure("simpleFilter12.xml");
+      common();
+
+      ControlFilter cf = new ControlFilter(new String[]{TEST8_PAT, EXCEPTION1, EXCEPTION2, EXCEPTION3});
+
+
+      Transformer.transform(TEMP, FILTERED, new Filter[] {cf,
+          new LineNumberFilter(),
+          new SunReflectFilter(),
+          new JunitTestRunnerFilter()});
+
+       assertTrue(Compare.compare(SimpleFilterTest.class, FILTERED, "witness/filter/simpleFilter.8"));
+    }
+
   
   void common() {
     int i = -1;
@@ -122,10 +232,4 @@ public class SimpleFilterTest extends TestCase {
     root.error("Message " + i, e);    
   }
   
-  public static Test suite() {
-    TestSuite suite = new TestSuite();
-    suite.addTest(new SimpleFilterTest("test1"));
-    return suite;
-   }
-
 }

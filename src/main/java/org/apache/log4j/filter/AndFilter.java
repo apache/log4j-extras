@@ -19,6 +19,12 @@ package org.apache.log4j.filter;
 
 import org.apache.log4j.spi.Filter;
 import org.apache.log4j.spi.LoggingEvent;
+import org.apache.log4j.spi.OptionHandler;
+import org.apache.log4j.xml.UnrecognizedElementHandler;
+import org.apache.log4j.rolling.RollingConfigurator;
+import org.w3c.dom.Element;
+
+import java.util.Properties;
 
 
 /**
@@ -61,10 +67,13 @@ import org.apache.log4j.spi.LoggingEvent;
  * LEVEL == DEBUG && MSG ~= 'test'
  * or
  * ! ( LEVEL == DEBUG && MSG ~= 'test' )
- *  
+ *
+ * XML configuration of this filter requires use of either log4j 1.2.15 or later or
+ * org.apache.log4j.rolling.RollingConfigurator.
+ *
  * @author Scott Deboy sdeboy@apache.org
  */
-public class AndFilter extends Filter {
+public class AndFilter extends Filter implements UnrecognizedElementHandler {
   Filter headFilter = null;
   Filter tailFilter = null;
   boolean acceptOnMatch = true;
@@ -109,4 +118,22 @@ public class AndFilter extends Filter {
     }
     return Filter.NEUTRAL;
   }
+
+    /**
+     * {@inheritDoc}
+     */
+  public boolean parseUnrecognizedElement(final Element element,
+                                          final Properties props) throws Exception {
+      final String nodeName = element.getNodeName();
+      if ("filter".equals(nodeName)) {
+          OptionHandler filter = RollingConfigurator.parseElement(element, props, Filter.class);
+          if (filter instanceof Filter) {
+              filter.activateOptions();
+              this.addFilter((Filter) filter);
+          }
+          return true;
+      }
+      return false;
+  }
+
 }
