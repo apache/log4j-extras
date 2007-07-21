@@ -156,6 +156,11 @@
             <artifactId>ant-nodeps</artifactId>
             <version>1.6.5</version>
           </dependency>
+          <dependency>
+            <groupId>ant-contrib</groupId>
+            <artifactId>ant-contrib</artifactId>
+            <version>1.0b2</version>
+          </dependency>
         </dependencies>
       </plugin>	 
 	  <plugin>
