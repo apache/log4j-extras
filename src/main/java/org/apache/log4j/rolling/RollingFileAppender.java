@@ -49,7 +49,7 @@ import java.util.Properties;
  * <code>RollingPolicy</code> and a <code>TriggeringPolicy</code>.
  *
  * <p><code>RollingFileAppender</code> can be configured programattically or
- * using {@link org.apache.log4j.rolling.RollingConfigurator} or
+ * using {@link org.apache.log4j.extras.DOMConfigurator} or
  * {@link org.apache.log4j.xml.DOMConfigurator} in log4j 1.2.15 or later. Here is a sample
  * configration file:
 
@@ -441,7 +441,9 @@ public final class RollingFileAppender extends FileAppender
                                           final Properties props) throws Exception {
       final String nodeName = element.getNodeName();
       if ("rollingPolicy".equals(nodeName)) {
-          OptionHandler rollingPolicy = RollingConfigurator.parseElement(element, props, RollingPolicy.class);
+          OptionHandler rollingPolicy =
+                  org.apache.log4j.extras.DOMConfigurator.parseElement(
+                          element, props, RollingPolicy.class);
           if (rollingPolicy != null) {
               rollingPolicy.activateOptions();
               this.setRollingPolicy((RollingPolicy) rollingPolicy);
@@ -449,7 +451,9 @@ public final class RollingFileAppender extends FileAppender
           return true;
       }
       if ("triggeringPolicy".equals(nodeName)) {
-          OptionHandler triggerPolicy = RollingConfigurator.parseElement(element, props, TriggeringPolicy.class);
+          OptionHandler triggerPolicy =
+                  org.apache.log4j.extras.DOMConfigurator.parseElement(
+                          element, props, TriggeringPolicy.class);
           if (triggerPolicy != null) {
               triggerPolicy.activateOptions();
               this.setTriggeringPolicy((TriggeringPolicy) triggerPolicy);

@@ -32,10 +32,8 @@ import java.util.TimeZone;
  * the class will only use the cache if the
  * same value is requested.
  *
- *  @author Curt Arnold
- *  @since 1.3
  */
-final class CachedDateFormat extends DateFormat {
+public final class CachedDateFormat extends DateFormat {
   /**
    *  Constant used to represent that there was no change
    *  observed when changing the millisecond count.

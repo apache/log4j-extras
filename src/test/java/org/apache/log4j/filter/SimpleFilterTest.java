@@ -26,7 +26,7 @@ import org.apache.log4j.util.JunitTestRunnerFilter;
 import org.apache.log4j.util.LineNumberFilter;
 import org.apache.log4j.util.SunReflectFilter;
 import org.apache.log4j.util.Transformer;
-import org.apache.log4j.rolling.RollingConfigurator;
+import org.apache.log4j.extras.DOMConfigurator;
 import org.apache.log4j.xml.Log4jEntityResolver;
 import org.w3c.dom.Document;
 
@@ -79,7 +79,7 @@ public class SimpleFilterTest extends TestCase {
     DocumentBuilder builder = factory.newDocumentBuilder();
 	builder.setEntityResolver(new Log4jEntityResolver());
     Document doc = builder.parse(is);
-    RollingConfigurator.configure(doc.getDocumentElement());
+    DOMConfigurator.configure(doc.getDocumentElement());
   }
   
   public void test1() throws Exception {

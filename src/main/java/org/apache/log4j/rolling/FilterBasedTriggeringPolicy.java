@@ -132,7 +132,9 @@ public final class FilterBasedTriggeringPolicy
                                           final Properties props) throws Exception {
       final String nodeName = element.getNodeName();
       if ("filter".equals(nodeName)) {
-          OptionHandler filter = RollingConfigurator.parseElement(element, props, Filter.class);
+          OptionHandler filter =
+                  org.apache.log4j.extras.DOMConfigurator.parseElement(
+                          element, props, Filter.class);
           if (filter instanceof Filter) {
               filter.activateOptions();
               this.addFilter((Filter) filter);

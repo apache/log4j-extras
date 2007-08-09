@@ -26,7 +26,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.filter.LevelRangeFilter;
 import org.apache.log4j.util.Compare;
-import org.apache.log4j.rolling.RollingConfigurator;
+import org.apache.log4j.extras.DOMConfigurator;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -66,7 +66,7 @@ public class FilterBasedRollingTest extends TestCase {
       if (is == null) {
           throw new FileNotFoundException("Could not find resource " + resourceName);
       }
-      RollingConfigurator configurator = new RollingConfigurator();
+      DOMConfigurator configurator = new DOMConfigurator();
       configurator.doConfigure(is, LogManager.getLoggerRepository());
   }
   /**

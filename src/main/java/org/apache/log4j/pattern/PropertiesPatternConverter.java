@@ -46,7 +46,6 @@ public final class PropertiesPatternConverter
    * Name of property to output.
    */
   private final String option;
-  private final Method getKeySetMethod;
 
   /**
    * Private constructor.
@@ -58,24 +57,11 @@ public final class PropertiesPatternConverter
       ((options != null) && (options.length > 0))
       ? ("Property{" + options[0] + "}") : "Properties", "property");
 
-      //
-      //  log4j 1.2.15 and later will have method to get names
-      //     of all keys in MDC
-      //
-    Method getMethod = null;
-
     if ((options != null) && (options.length > 0)) {
       option = options[0];
     } else {
       option = null;
-      try {
-         getMethod = LoggingEvent.class.getMethod(
-                    "getPropertyKeySet", null);
-      } catch(Exception ex) {
-          getMethod = null;
-      }
     }
-    getKeySetMethod = getMethod;
   }
 
   /**
@@ -97,62 +83,18 @@ public final class PropertiesPatternConverter
     if (option == null) {
       toAppendTo.append("{");
 
-      //
-      //  MDC keys are not visible prior to log4j 1.2.15
-      //
-      Set keySet = null;
-      if (getKeySetMethod != null) {
-          try {
-            keySet = (Set) getKeySetMethod.invoke(event, null);
-          } catch(InvocationTargetException ex) {
-              LogLog.error("Exception while calling LoggingEvent.getKeySetMethod",
-                      ex.getTargetException());
-          } catch(Exception ex) {
-              LogLog.error("Exception while calling LoggingEvent.getKeySetMethod",
-                      ex);
-          }
-      } else {
-          //
-          //  for 1.2.14 and earlier could serialize and
-          //    extract MDC content
-          try {
-            ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
-            ObjectOutputStream os = new ObjectOutputStream(outBytes);
-            os.writeObject(event);
-            os.close();
-
-            byte[] raw = outBytes.toByteArray();
-            //
-            //   bytes 6 and 7 should be the length of the original classname
-            //     should be the same as our substitute class name
-            final String subClassName = LogEvent.class.getName();
-            if (raw[6] == 0 || raw[7] == subClassName.length()) {
-                //
-                //  manipulate stream to use our class name
-                //
-                for (int i = 0; i < subClassName.length(); i++) {
-                    raw[8 + i] = (byte) subClassName.charAt(i);
-                }
-                ByteArrayInputStream inBytes = new ByteArrayInputStream(raw);
-                ObjectInputStream is = new ObjectInputStream(inBytes);
-                Object cracked = is.readObject();
-                if (cracked instanceof LogEvent) {
-                    keySet = ((LogEvent) cracked).getPropertyKeySet();
-                }
-                is.close();
+      try {
+        Set keySet = MDCKeySetExtractor.INSTANCE.getPropertyKeySet(event);
+          if (keySet != null) {
+            for (Iterator i = keySet.iterator(); i.hasNext();) {
+                Object item = i.next();
+                Object val = event.getMDC(item.toString());
+                toAppendTo.append("{").append(item).append(",").append(val).append(
+                "}");
             }
-          } catch(Exception ex) {
-              LogLog.error("Unexpected exception while extracting MDC keys", ex);
           }
-      }
-
-      if (keySet != null) {
-        for (Iterator i = keySet.iterator(); i.hasNext();) {
-            Object item = i.next();
-            Object val = event.getMDC(item.toString());
-            toAppendTo.append("{").append(item).append(",").append(val).append(
-            "}");
-        }
+      } catch(Exception ex) {
+              LogLog.error("Unexpected exception while extracting MDC keys", ex);
       }
 
       toAppendTo.append("}");

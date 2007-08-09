@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.log4j.rolling;
+package org.apache.log4j.extras;
 
 import org.apache.log4j.Appender;
 import org.apache.log4j.Layout;
@@ -65,7 +65,7 @@ import java.util.Properties;
  * renamed for use with earlier versions of log4j.
  *
 */
-public class RollingConfigurator implements Configurator {
+public class DOMConfigurator implements Configurator {
 
   static final String CONFIGURATION_TAG = "log4j:configuration";
   static final String OLD_CONFIGURATION_TAG = "configuration";
@@ -113,8 +113,7 @@ public class RollingConfigurator implements Configurator {
   /**
      No argument constructor.
   */
-  public
-  RollingConfigurator () {
+  public DOMConfigurator() {
     appenderBag = new Hashtable();
   }
 
@@ -527,7 +526,7 @@ public class RollingConfigurator implements Configurator {
 	  if(tagName.equals(PARAM_TAG)) {
             setParameter(currentElement, propSetter);
 	  } else {
-          parseUnrecognizedElement(instance, layout_element, props);
+          parseUnrecognizedElement(instance, currentElement, props);
       }
 	}
       }
@@ -608,7 +607,7 @@ public class RollingConfigurator implements Configurator {
   static
   public
   void configure (Element element) {
-    RollingConfigurator configurator = new RollingConfigurator();
+    DOMConfigurator configurator = new DOMConfigurator();
     configurator.doConfigure(element,  LogManager.getLoggerRepository());
   }
 
@@ -789,7 +788,7 @@ public class RollingConfigurator implements Configurator {
   static
   public
   void configure(String filename) throws FactoryConfigurationError {
-    new RollingConfigurator().doConfigure(filename,
+    new DOMConfigurator().doConfigure(filename,
 				      LogManager.getLoggerRepository());
   }
 
@@ -799,7 +798,7 @@ public class RollingConfigurator implements Configurator {
   static
   public
   void configure(URL url) throws FactoryConfigurationError {
-    new RollingConfigurator().doConfigure(url, LogManager.getLoggerRepository());
+    new DOMConfigurator().doConfigure(url, LogManager.getLoggerRepository());
   }
 
   /**
@@ -992,11 +991,11 @@ public class RollingConfigurator implements Configurator {
       }
 
       /**
-         Call {@link RollingConfigurator#configure(String)} with the
+         Call {@link DOMConfigurator#configure(String)} with the
          <code>filename</code> to reconfigure log4j. */
       public
       void doOnChange() {
-        new RollingConfigurator().doConfigure(filename,
+        new DOMConfigurator().doConfigure(filename,
                           LogManager.getLoggerRepository());
       }
     }
