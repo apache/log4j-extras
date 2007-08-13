@@ -23,7 +23,6 @@ package org.apache.log4j.pattern;
  * the %d pattern in pattern layout.
  *
  * @author Curt Arnold
- * @since 1.3
  */
 public final class FileDatePatternConverter {
   /**

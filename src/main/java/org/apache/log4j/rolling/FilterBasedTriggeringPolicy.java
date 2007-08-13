@@ -32,7 +32,6 @@ import java.util.Properties;
  * filter rejects a message, a rolling event will be triggered.
  *
  * @author Curt Arnold
- * @since 1.3
  *
  */
 public final class FilterBasedTriggeringPolicy

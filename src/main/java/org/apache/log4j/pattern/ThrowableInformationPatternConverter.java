@@ -26,7 +26,6 @@ import org.apache.log4j.spi.ThrowableInformation;
  * unless this converter's option is 'short', where it just outputs the first line of the trace.
  *
  * @author Paul Smith
- * @since 1.3
  *
  */
 public class ThrowableInformationPatternConverter

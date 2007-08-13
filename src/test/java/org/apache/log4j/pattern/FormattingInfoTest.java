@@ -24,7 +24,6 @@ import junit.framework.TestCase;
  * Tests for FormattingInfo.
  *
  * @author Curt Arnold
- * @since 1.3
  *
  */
 public class FormattingInfoTest extends TestCase {

@@ -38,7 +38,6 @@ import org.apache.log4j.helpers.*;
  *
  * @author Paul Smith
  * @author Ceki G&uuml;lc&uuml;
- *@since 1.3
  */
 public final class PropertiesPatternConverter
   extends LoggingEventPatternConverter {

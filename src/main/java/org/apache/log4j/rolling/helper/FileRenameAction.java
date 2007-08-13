@@ -23,7 +23,6 @@ import java.io.File;
  * File rename action.
  *
  * @author Curt Arnold
- * @since 1.3
  */
 public final class FileRenameAction extends ActionBase {
   /**

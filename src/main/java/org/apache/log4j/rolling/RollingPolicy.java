@@ -25,7 +25,6 @@ import org.apache.log4j.spi.OptionHandler;
  *
  * @author Ceki G&uuml;lc&uuml;
  * @author Curt Arnold
- * @since 1.3
  * */
 public interface RollingPolicy extends OptionHandler {
   /**

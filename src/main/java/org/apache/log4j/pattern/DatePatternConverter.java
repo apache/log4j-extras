@@ -29,7 +29,6 @@ import java.util.TimeZone;
  * Convert and format the event's date in a StringBuffer.
  *
  * @author Ceki G&uuml;lc&uuml;
- * @since 1.3
  */
 public final class DatePatternConverter extends LoggingEventPatternConverter {
     /**

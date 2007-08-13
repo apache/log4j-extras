@@ -24,7 +24,6 @@ import org.apache.log4j.spi.LoggingEvent;
  * Formats the event sequence number.
  *
  * @author Ceki G&uuml;lc&uuml;
- * @since 1.3
  */
 public class SequenceNumberPatternConverter
   extends LoggingEventPatternConverter {

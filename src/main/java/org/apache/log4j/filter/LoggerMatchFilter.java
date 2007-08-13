@@ -34,7 +34,7 @@ import org.apache.log4j.spi.LoggingEvent;
    org.apache.log4j.spi.Filter#NEUTRAL} is returned.  A loggerToMatch of "root"
    matches both the root logger and a logger named "root".
 
-   @since 1.3 */
+   */
 public class LoggerMatchFilter extends Filter {
   /**
      Do we return ACCEPT when a match occurs. Default is

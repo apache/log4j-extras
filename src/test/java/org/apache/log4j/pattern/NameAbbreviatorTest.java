@@ -24,7 +24,6 @@ import junit.framework.TestCase;
  * Tests for NameAbbrevator.
  *
  * @author Curt Arnold
- * @since 1.3
  *
  */
 public class NameAbbreviatorTest extends TestCase {

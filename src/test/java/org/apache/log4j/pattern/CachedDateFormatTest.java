@@ -33,7 +33,7 @@ import java.util.Calendar;
 /**
    Unit test {@link AbsoluteTimeDateFormat}.
    @author Curt Arnold
-   @since 1.3.0 */
+   */
 public final class CachedDateFormatTest
     extends TestCase {
 

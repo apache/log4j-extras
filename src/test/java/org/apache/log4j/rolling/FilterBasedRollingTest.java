@@ -38,7 +38,6 @@ import java.io.InputStream;
  * Tests of rolling file appender with a filter based triggering policy.
  *
  * @author Curt Arnold
- * @since 1.3
  *
  */
 public class FilterBasedRollingTest extends TestCase {

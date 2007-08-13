@@ -134,7 +134,6 @@ import org.apache.log4j.spi.LoggingEvent;
  *
  * @author Ceki G&uuml;lc&uuml;
  * @author Curt Arnold
- * @since 1.3
  */
 public final class TimeBasedRollingPolicy extends RollingPolicyBase
   implements TriggeringPolicy {

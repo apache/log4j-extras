@@ -26,7 +26,6 @@ import org.apache.log4j.helpers.LogLog;
  * A group of Actions to be executed in sequence.
  *
  * @author Curt Arnold
- * @since 1.3
  *
  */
 public class CompositeAction extends ActionBase {

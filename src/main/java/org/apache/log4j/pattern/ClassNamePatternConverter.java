@@ -25,7 +25,6 @@ import org.apache.log4j.spi.LoggingEvent;
  * Formats the class name of the site of the logging request.
  *
  * @author Ceki G&uuml;lc&uuml;
- * @since 1.3
  */
 public final class ClassNamePatternConverter extends NamePatternConverter {
   /**

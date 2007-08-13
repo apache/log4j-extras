@@ -32,7 +32,6 @@ package org.apache.log4j.pattern;
    @author Chris Nokes
    @author Curt Arnold
 
-   @since 1.3
  */
 public abstract class PatternConverter {
   /**

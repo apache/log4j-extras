@@ -25,7 +25,6 @@ import java.util.List;
  * NameAbbreviator generates abbreviated logger and class names.
  *
  * @author Curt Arnold
- * @since 1.3
  */
 public abstract class NameAbbreviator {
   /**

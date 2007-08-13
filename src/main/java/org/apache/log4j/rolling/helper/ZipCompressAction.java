@@ -31,7 +31,6 @@ import java.util.zip.ZipOutputStream;
  * Compresses a file using Zip compression.
  *
  * @author Curt Arnold
- * @since 1.3
  */
 public final class ZipCompressAction extends ActionBase {
   /**

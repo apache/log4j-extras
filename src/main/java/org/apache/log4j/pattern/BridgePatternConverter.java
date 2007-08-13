@@ -31,7 +31,6 @@ import java.util.Map;
  *
  *
  * @author Curt Arnold
- * @since 1.3
  *
  */
 public final class BridgePatternConverter

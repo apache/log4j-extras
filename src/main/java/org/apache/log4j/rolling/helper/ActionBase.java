@@ -23,7 +23,6 @@ import java.io.IOException;
  * Abstract base class for implementations of Action.
  *
  * @author Curt Arnold
- * @since 1.3
  */
 public abstract class ActionBase implements Action {
   /**

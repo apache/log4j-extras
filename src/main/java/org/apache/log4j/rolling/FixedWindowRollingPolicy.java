@@ -59,7 +59,6 @@ import org.apache.log4j.helpers.LogLog;
  *
  *
  * @author Ceki G&uuml;lc&uuml;
- * @since 1.3
  * */
 public final class FixedWindowRollingPolicy extends RollingPolicyBase {
 

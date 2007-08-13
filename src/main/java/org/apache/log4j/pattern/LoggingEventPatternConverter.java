@@ -26,7 +26,6 @@ import org.apache.log4j.spi.LoggingEvent;
  *
  * @author Curt Arnold
  *
- *  @since 1.3
  */
 public abstract class LoggingEventPatternConverter extends PatternConverter {
   /**

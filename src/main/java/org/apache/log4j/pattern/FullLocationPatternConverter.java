@@ -25,7 +25,6 @@ import org.apache.log4j.spi.LoggingEvent;
  * Format the event's line location information.
  *
  * @author Ceki G&uuml;lc&uuml;
- * @since 1.3
  */
 public final class FullLocationPatternConverter
   extends LoggingEventPatternConverter {

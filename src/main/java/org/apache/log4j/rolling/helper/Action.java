@@ -25,7 +25,6 @@ import java.io.IOException;
  * the active log file.
  *
  * @author Curt Arnold
- * @since 1.3
  */
 public interface Action extends Runnable {
   /**

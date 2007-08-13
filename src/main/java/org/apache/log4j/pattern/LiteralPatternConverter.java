@@ -24,7 +24,6 @@ import org.apache.log4j.spi.LoggingEvent;
  * Formats a string literal.
  *
  * @author Curt Arnold
- * @since 1.3
  *
  */
 public final class LiteralPatternConverter extends LoggingEventPatternConverter {

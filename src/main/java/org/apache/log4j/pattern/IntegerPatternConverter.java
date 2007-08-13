@@ -24,7 +24,6 @@ import java.util.Date;
  * Formats an integer.
  *
  * @author Curt Arnold
- * @since 1.3
  */
 public final class IntegerPatternConverter extends PatternConverter {
   /**

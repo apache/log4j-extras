@@ -23,7 +23,6 @@ import org.apache.log4j.rolling.helper.Action;
  * Description of actions needed to complete rollover.
  *
  * @author Curt Arnold
- * @since 1.3
  *
  */
 public interface RolloverDescription {

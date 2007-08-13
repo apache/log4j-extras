@@ -30,7 +30,6 @@ import java.util.zip.GZIPOutputStream;
  * Compresses a file using GZ compression.
  *
  * @author Curt Arnold
- * @since 1.3
  */
 public final class GZCompressAction extends ActionBase {
   /**

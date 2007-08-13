@@ -25,7 +25,6 @@ import org.apache.log4j.spi.LoggingEvent;
  * Formats a line separator.
  *
  * @author Ceki G&uuml;lc&uuml;
- * @since 1.3
  */
 public final class LineSeparatorPatternConverter
   extends LoggingEventPatternConverter {

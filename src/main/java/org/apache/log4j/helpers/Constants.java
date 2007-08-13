@@ -21,7 +21,6 @@ package org.apache.log4j.helpers;
 /**
  * Constants used internally throughout log4j.
  *
- * @since 1.3
  */
 public interface Constants {
 

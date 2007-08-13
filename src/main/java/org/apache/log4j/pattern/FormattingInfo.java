@@ -27,7 +27,6 @@ package org.apache.log4j.pattern;
  *  @author Ceki G&uuml;lc&uuml;
  *  @author Curt Arnold
  *
- *  @since 1.3
  */
 public final class FormattingInfo {
   /**

@@ -25,7 +25,6 @@ import org.apache.log4j.spi.LoggingEvent;
  * Return the event's level in a StringBuffer.
  *
  * @author Ceki G&uuml;lc&uuml;
- * @since 1.3
  */
 public final class LevelPatternConverter extends LoggingEventPatternConverter {
 

@@ -44,7 +44,6 @@ import java.util.Set;
  * @author Paul Smith
  * @author Curt Arnold
  *
- * @since 1.3
 */
 public final class PatternParser {
   /**
