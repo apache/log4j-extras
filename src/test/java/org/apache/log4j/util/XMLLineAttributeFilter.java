@@ -17,22 +17,19 @@
 
 package org.apache.log4j.util;
 
-import org.apache.oro.text.perl.Perl5Util;
-
+import java.util.regex.Pattern;
 
 public class XMLLineAttributeFilter implements Filter {
-  Perl5Util util = new Perl5Util();
 
-  public String filter(String in) {
+  public String filter(final String in) {
     if(in == null) {
       return null;
     }
-    if (util.match("/line=\"\\d{1,3}\"/", in)) {
-      return util.substitute("s/line=\"\\d{1,3}\"/line=\"X\"/", in);
-    } else if (util.match("/line=\"?\"/", in)) {
-      return util.substitute("s/line=\"?\"/line=\"X\"/", in);
-    } else {
-      return in;
+    if (Pattern.compile("line=\"\\d{1,3}\"").matcher(in).find()) {
+        return Pattern.compile("line=\"\\d{1,3}\"").matcher(in).replaceAll("line=\"X\"");
+    } else if (Pattern.compile("line=\"?\"").matcher(in).find()) {
+      return Pattern.compile("line=\"?\"").matcher(in).replaceAll("line=\"X\"");
     }
+    return in;
   }
 }

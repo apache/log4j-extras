@@ -17,22 +17,30 @@
 
 package org.apache.log4j.util;
 
-import org.apache.oro.text.perl.Perl5Util;
+import java.util.regex.Pattern;
 
 
 public class JunitTestRunnerFilter implements Filter {
-  Perl5Util util = new Perl5Util();
 
-  private static final String[] patterns = {
-          "/at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner/",
-          "/at org.apache.tools.ant/",
-          "/at junit.textui.TestRunner/",
-          "/at com.intellij.rt.execution.junit/",
-          "/at java.lang.reflect.Method.invoke/",
-          "/at org.apache.maven./",
-          "/at org.codehaus./",
-		  "/at org.junit.internal.runners./"
+  private static final String[] PATTERNS = {
+          "at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner",
+          "at org.apache.tools.ant",
+          "at junit.textui.TestRunner",
+          "at com.intellij.rt.execution.junit",
+          "at java.lang.reflect.Method.invoke",
+          "at org.apache.maven.",
+          "at org.codehaus.",
+		  "at org.junit.internal.runners."
   };
+  private final Pattern[] patterns;
+
+  public JunitTestRunnerFilter() {
+      patterns = new Pattern[PATTERNS.length];
+      for (int i = 0; i < PATTERNS.length; i++) {
+          patterns[i] = Pattern.compile(PATTERNS[i]);
+      }
+
+  }
 
   /**
    * Filter out stack trace lines coming from the various JUnit TestRunners.
@@ -45,12 +53,12 @@ public class JunitTestRunnerFilter implements Filter {
       //
       //  restore the one instance of Method.invoke that we actually want
       //
-    if (util.match("/at junit.framework.TestCase.runTest/", in)) {
+    if (in.indexOf("at junit.framework.TestCase.runTest") != -1) {
         return "\tat java.lang.reflect.Method.invoke(X)\n" + in;
     }
 
     for (int i = 0; i < patterns.length; i++) {
-        if(util.match(patterns[i], in)) {
+        if(patterns[i].matcher(in).find()) {
             return null;
         }
     }

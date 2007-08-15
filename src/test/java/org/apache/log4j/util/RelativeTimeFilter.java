@@ -17,18 +17,19 @@
 
 package org.apache.log4j.util;
 
-import org.apache.oro.text.perl.Perl5Util;
+import java.util.regex.Pattern;
 
 
 public class RelativeTimeFilter implements Filter {
-  Perl5Util util = new Perl5Util();
+  private final Pattern relativePattern;
+
+  public RelativeTimeFilter() {
+      relativePattern = Pattern.compile(Filter.RELATIVE_TIME_PAT);
+  }
 
   public String filter(String in) {
-    String pat = "/" + Filter.RELATIVE_TIME_PAT + "/";
-
-    if (util.match(pat, in)) {
-      //System.out.println("Removing relative time from line ["+in+"]");
-      return util.substitute("s/" + Filter.RELATIVE_TIME_PAT + "//", in);
+    if (relativePattern.matcher(in).find()) {
+        return relativePattern.matcher(in).replaceAll("");
     } else {
       return in;
     }

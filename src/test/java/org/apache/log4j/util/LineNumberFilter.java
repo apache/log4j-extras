@@ -17,17 +17,24 @@
 
 package org.apache.log4j.util;
 
-import org.apache.oro.text.perl.Perl5Util;
+import java.util.regex.Pattern;
 
 
 public class LineNumberFilter implements Filter {
-  Perl5Util util = new Perl5Util();
+  private Pattern linePattern;
+  private Pattern nativePattern;
 
-  public String filter(String in) {
-    if (util.match("/\\(.*:\\d{1,4}\\)/", in)) {
-      return util.substitute("s/\\(.*:\\d{1,4}\\)/\\(X\\)/", in);
-    } else if (util.match("/\\(Native Method\\)/", in)) {
-      return util.substitute("s/\\(Native Method\\)/\\(X\\)/", in);
+  public LineNumberFilter() {
+      linePattern = Pattern.compile("\\(.*:\\d{1,4}\\)");
+      nativePattern = Pattern.compile("\\(Native Method\\)");
+  }
+
+  public String filter(final String in) {
+
+    if (linePattern.matcher(in).find()) {
+        return linePattern.matcher(in).replaceAll("(X)");
+    } else if (nativePattern.matcher(in).find()) {
+        return nativePattern.matcher(in).replaceAll("(X)");
     } else {
       return in;
     }

@@ -16,19 +16,20 @@
  */
 package org.apache.log4j.util;
 
-import org.apache.oro.text.perl.Perl5Util;
+import java.util.regex.Pattern;
 
 public class XMLDateFilter implements Filter {
-    private Perl5Util util = new Perl5Util();
     private final static String PATTERN  =
-            "/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}/";
+            "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}";
+    private final Pattern pattern;
 
     public XMLDateFilter() {
+        pattern = Pattern.compile(PATTERN);
     }
 
     public String filter(final String in) {
-      if (in != null && util.match(PATTERN, in)) {
-        return util.substitute("s" + PATTERN + "yyyy-MM-ddTHH:mm:ss.SSS/", in);
+      if (in != null && pattern.matcher(in).find()) {
+          return pattern.matcher(in).replaceAll("yyyy-MM-ddTHH:mm:ss.SSS");
       } else {
         return in;
       }

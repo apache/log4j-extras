@@ -17,19 +17,20 @@
 
 package org.apache.log4j.util;
 
-import org.apache.oro.text.perl.Perl5Util;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class XMLTimestampFilter implements Filter {
-  Perl5Util util = new Perl5Util();
 
   public String filter(String in) {
     if(in == null) {
       return null;
     }
-    if (util.match("/timestamp=\"\\d{10,13}\"/", in)) {
-      return util.substitute(
-        "s/timestamp=\"\\d{10,13}\"/timestamp=\"XXX\"/", in);
+    Pattern pattern = Pattern.compile("timestamp=\"\\d{10,13}\"");
+    Matcher matcher = pattern.matcher(in);
+    if (matcher.find()) {
+        return matcher.replaceAll("timestamp=\"XXX\"");
     } else {
       return in;
     }

@@ -17,15 +17,14 @@
 
 package org.apache.log4j.rule;
 
-import java.io.IOException;
-import java.util.Stack;
-
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.spi.LoggingEventFieldResolver;
-import org.apache.oro.text.regex.MalformedPatternException;
-import org.apache.oro.text.regex.Pattern;
-import org.apache.oro.text.regex.Perl5Compiler;
-import org.apache.oro.text.regex.Perl5Matcher;
+
+import java.io.IOException;
+import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * A Rule class providing support for ORO-based regular expression syntax.
@@ -50,7 +49,7 @@ public class LikeRule extends AbstractRule {
     /**
      * Regular expression matcher.
      */
-  private transient Perl5Matcher matcher = new Perl5Matcher();
+  private transient Matcher matcher = null;
     /**
      * Field.
      */
@@ -96,24 +95,26 @@ public class LikeRule extends AbstractRule {
      * @return new instance
      */
   public static Rule getRule(final String field, final String pattern) {
-    Perl5Compiler compiler = new Perl5Compiler();
-    Pattern pattern1 = null;
-
     try {
-      pattern1 = compiler.compile(pattern, Perl5Compiler.CASE_INSENSITIVE_MASK);
-    } catch (MalformedPatternException e) {
+        return new LikeRule(field, Pattern.compile(pattern, Pattern.CASE_INSENSITIVE));
+    } catch (PatternSyntaxException e) {
         throw new IllegalArgumentException(
                 "Invalid LIKE rule - " + e.getMessage());
     }
-
-    return new LikeRule(field, pattern1);
   }
 
     /** {@inheritDoc} */
   public boolean evaluate(final LoggingEvent event) {
     Object input = RESOLVER.getValue(field, event);
-    return ((input != null) && (pattern != null)
-            && (matcher.matches(input.toString(), pattern)));
+    if((input != null) && (pattern != null)) {
+        if (matcher == null) {
+            matcher = pattern.matcher(input.toString());
+        } else {
+            matcher.reset(input.toString());
+        }
+        return matcher.matches();
+    }
+    return false;
   }
 
   /**
@@ -129,11 +130,8 @@ public class LikeRule extends AbstractRule {
          try {
            field = (String) in.readObject();
            String patternString = (String) in.readObject();
-           Perl5Compiler compiler = new Perl5Compiler();
-           matcher = new Perl5Matcher();
-           pattern = compiler.compile(patternString,
-                   Perl5Compiler.CASE_INSENSITIVE_MASK);
-         } catch (MalformedPatternException e) {
+           pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE);
+         } catch (PatternSyntaxException e) {
              throw new IOException("Invalid LIKE rule - " + e.getMessage());
          }
    }
@@ -148,6 +146,6 @@ public class LikeRule extends AbstractRule {
    private void writeObject(final java.io.ObjectOutputStream out)
      throws IOException {
      out.writeObject(field);
-     out.writeObject(pattern.getPattern());
+     out.writeObject(pattern.pattern());
    }
 }
