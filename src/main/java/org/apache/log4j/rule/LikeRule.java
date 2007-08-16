@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 /**
- * A Rule class providing support for ORO-based regular expression syntax.
+ * A Rule class supporting java.util.regex regular expression syntax.
  *
  * @author Scott Deboy (sdeboy@apache.org)
  */

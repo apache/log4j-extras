@@ -28,9 +28,8 @@ import org.apache.log4j.LogManager;
  * A Factory class which, given a string representation of the rule,
  * and a context stack, will
  * return a Rule ready for evaluation against events.
- * If an operator is requested that isn't supported,
- * or if a LIKE rule is requested and the ORO package
- * is not available, an IllegalArgumentException is thrown.
+ * If an operator is requested that isn't supported, 
+ * an IllegalArgumentException is thrown.
  *
  * @author Scott Deboy (sdeboy@apache.org)
  */

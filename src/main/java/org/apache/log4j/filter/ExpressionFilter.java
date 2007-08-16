@@ -49,7 +49,7 @@ import org.apache.log4j.spi.LoggingEvent;
  * infomsg-45 or infomsg-44 in the message,
  * as well as all messages with a level of WARN or higher,
  * build an expression using
- * the LikeRule (supports ORO-based regular expressions) and the InequalityRule.
+ * the LikeRule (supports java.util.regex based regular expressions) and the InequalityRule.
  * <b> ( MSG LIKE infomsg-4[4,5] ) && ( LEVEL >= WARN ) </b>
  * <p/>
  * Three options are required:
