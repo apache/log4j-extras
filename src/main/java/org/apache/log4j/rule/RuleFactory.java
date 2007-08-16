@@ -98,14 +98,7 @@ public final class RuleFactory {
     RULES.add(NOT_EQUALS_RULE);
     RULES.add(EQUALS_RULE);
     RULES.add(PARTIAL_TEXT_MATCH_RULE);
-    try {
-        Class.forName("org.apache.log4j.rule.LikeRule");
-        RULES.add(LIKE_RULE);
-    } catch (Exception e) {
-        LogManager.getLogger(RuleFactory.class).info(
-                "Like (regular expression) rule not supported");
-    }
-
+    RULES.add(LIKE_RULE);
     RULES.add(EXISTS_RULE);
     RULES.add(LESS_THAN_RULE);
     RULES.add(GREATER_THAN_RULE);
@@ -168,25 +161,8 @@ public final class RuleFactory {
       return PartialTextMatchRule.getRule(stack);
     }
 
-    //in order to avoid compile-time dependency on LikeRule,
-        // call getRule(stack) using reflection
     if (RULES.contains(LIKE_RULE) && LIKE_RULE.equalsIgnoreCase(symbol)) {
-      String methodName = "getRule";
-      try {
-        Class likeClass = Class.forName("org.apache.log4j.rule.LikeRule");
-        Method method =
-          likeClass.getDeclaredMethod(methodName, new Class[]{Stack.class});
-
-        return (Rule) method.invoke(null, new Object[]{stack});
-      } catch (ClassNotFoundException cnfe) {
-          throw new IllegalArgumentException("Invalid rule: " + symbol);
-      } catch (NoSuchMethodException nsme) {
-          throw new IllegalArgumentException("Invalid rule: " + symbol);
-      } catch (IllegalAccessException iae) {
-          throw new IllegalArgumentException("Invalid rule: " + symbol);
-      } catch (InvocationTargetException iae) {
-          throw new IllegalArgumentException("Invalid rule: " + symbol);
-      }
+      return LikeRule.getRule(stack);
     }
 
     if (EXISTS_RULE.equalsIgnoreCase(symbol)) {

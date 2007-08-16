@@ -25,8 +25,7 @@ import java.util.StringTokenizer;
 
 /**
  * A singleton helper utility which accepts a field name
- * and a LoggingEvent and returns the
- * String value of that field.
+ * and a LoggingEvent and returns the value of that field.
  *
  * This class defines a grammar used in creation of an expression-based Rule.
  *
