@@ -20,7 +20,7 @@ package org.apache.log4j.spi;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-
+import java.util.Locale;
 
 
 /**
@@ -160,7 +160,7 @@ public final class LoggingEventFieldResolver {
 
       while (tokenizer.hasMoreTokens()) {
           String token = tokenizer.nextToken();
-          if (isField(token) || token.toUpperCase().startsWith(PROP_FIELD)) {
+          if (isField(token) || token.toUpperCase(Locale.US).startsWith(PROP_FIELD)) {
               result.append(getValue(token, event).toString());
               found = true;
           } else {
@@ -189,7 +189,7 @@ public final class LoggingEventFieldResolver {
   public boolean isField(final String fieldName) {
     if (fieldName != null) {
         return (KEYWORD_LIST.contains(
-                fieldName.toUpperCase())
+                fieldName.toUpperCase(Locale.US))
                 || fieldName.toUpperCase().startsWith(PROP_FIELD));
     }
     return false;
@@ -203,7 +203,7 @@ public final class LoggingEventFieldResolver {
      */
   public Object getValue(final String fieldName,
                          final LoggingEvent event) {
-    String upperField = fieldName.toUpperCase();
+    String upperField = fieldName.toUpperCase(Locale.US);
     if (LOGGER_FIELD.equals(upperField)) {
       return event.getLoggerName();
     } else if (LEVEL_FIELD.equals(upperField)) {
