@@ -202,17 +202,17 @@ public class TimeFilterTest extends TestCase {
     }
 
     /**
-     * Test 2 AM UTC today event against 2 AM - 3 AM UTC filter.
+     * Test 2 AM UTC today event against 2 AM - 3 AM GMT filter.
      */
-    public void test2AMUTC() {
-        common2AM("UTC", 0);
+    public void test2AMGMT() {
+        common2AM("GMT", 0);
     }
 
     /**
-     * Test 3 AM UTC today event against 2 AM - 3 AM UTC filter.
+     * Test 3 AM UTC today event against 2 AM - 3 AM GMT filter.
      */
-    public void test3AMUTC() {
-        common3AM("UTC", 0);
+    public void test3AMGMT() {
+        common3AM("GMT", 0);
     }
 
     /**
@@ -257,7 +257,7 @@ public class TimeFilterTest extends TestCase {
      */
     public void testConfig2() throws Exception {
       configure("timeFilter2.xml");
-      common(Calendar.getInstance(TimeZone.getTimeZone("UTC")));
+      common(Calendar.getInstance(TimeZone.getTimeZone("GMT")));
 
       assertTrue(Compare.compare(TimeFilterTest.class,
                  "timeFilter.2", "timeFilter2.log"));

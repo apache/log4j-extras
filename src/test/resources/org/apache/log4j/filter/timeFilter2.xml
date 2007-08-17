@@ -24,14 +24,13 @@
     <param name="File"   value="timeFilter.2" />
 
     <layout class="org.apache.log4j.EnhancedPatternLayout">
-      <param name="ConversionPattern" value="%d{HH:mm:ss}{UTC} - %m\n"/>
+      <param name="ConversionPattern" value="%d{HH:mm:ss}{GMT} - %m\n"/>
     </layout>
-    <!-- Accept all LoggingEvents containing the string
-         "1" in the message field. -->
+    <!--   deny all messages between 2 AM and 3 AM GMT   -->
     <filter class="org.apache.log4j.filter.TimeFilter">
       <param name="start" value="02:00:00"/>
       <param name="end" value="03:00:00"/>
-      <param name="timeZone" value="UTC-6"/>
+      <param name="timeZone" value="GMT"/>
       <param name="acceptOnMatch" value="false"/>
     </filter>
   </appender>

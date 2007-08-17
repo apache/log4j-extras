@@ -26,8 +26,7 @@
     <layout class="org.apache.log4j.PatternLayout">
       <param name="ConversionPattern" value="%d{HH:mm:ss} - %m\n"/>
     </layout>
-    <!-- Accept all LoggingEvents containing the string
-         "1" in the message field. -->
+    <!-- Accept messages between 2 AM and 3 AM local time. -->
     <filter class="org.apache.log4j.filter.TimeFilter">
       <param name="start" value="02:00:00"/>
       <param name="end" value="03:00:00"/>
