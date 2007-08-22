@@ -93,6 +93,7 @@ public class DOMConfigurator implements Configurator {
   static final String THRESHOLD_ATTR       = "threshold";
   static final String CONFIG_DEBUG_ATTR  = "configDebug";
   static final String INTERNAL_DEBUG_ATTR  = "debug";
+  private static final String RESET_ATTR  = "reset";
   static final String RENDERING_CLASS_ATTR = "renderingClass";
   static final String RENDERED_CLASS_ATTR = "renderedClass";
 
@@ -832,6 +833,18 @@ public class DOMConfigurator implements Configurator {
       LogLog.setInternalDebugging(OptionConverter.toBoolean(debugAttrib, true));
     } else {
       LogLog.debug("Ignoring " + INTERNAL_DEBUG_ATTR + " attribute.");
+    }
+
+      //
+      //   reset repository before configuration if reset="true"
+      //       on configuration element.
+      //
+    String resetAttrib = subst(element.getAttribute(RESET_ATTR));
+    LogLog.debug("reset attribute= \"" + resetAttrib +"\".");
+    if(!("".equals(resetAttrib))) {
+         if (OptionConverter.toBoolean(resetAttrib, false)) {
+             repository.resetConfiguration();
+         }
     }
 
 
