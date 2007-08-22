@@ -20,6 +20,7 @@ import org.apache.log4j.Appender;
 import org.apache.log4j.spi.Filter;
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.spi.OptionHandler;
+import org.apache.log4j.spi.TriggeringEventEvaluator;
 import org.apache.log4j.xml.UnrecognizedElementHandler;
 import org.w3c.dom.Element;
 
@@ -35,7 +36,7 @@ import java.util.Properties;
  *
  */
 public final class FilterBasedTriggeringPolicy
-        implements TriggeringPolicy, UnrecognizedElementHandler {
+        implements TriggeringPolicy, TriggeringEventEvaluator, UnrecognizedElementHandler {
   /**
    * The first filter in the filter chain. Set to <code>null</code> initially.
    */
@@ -52,16 +53,13 @@ public final class FilterBasedTriggeringPolicy
   public FilterBasedTriggeringPolicy() {
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   */
-  public boolean isTriggeringEvent(
-    final Appender appender, final LoggingEvent event, final String file,
-    final long fileLength) {
+    /**
+     * {@inheritDoc}
+     */
+  public boolean isTriggeringEvent(LoggingEvent event) {
     //
     //   in the abnormal case of no contained filters
-    //     always return true to avoid each logging event 
+    //     always return true to avoid each logging event
     //     from having its own file.
     if (headFilter == null) {
       return false;
@@ -81,6 +79,17 @@ public final class FilterBasedTriggeringPolicy
     }
 
     return true;
+   }
+
+
+  /**
+   * {@inheritDoc}
+   *
+   */
+  public boolean isTriggeringEvent(
+    final Appender appender, final LoggingEvent event, final String file,
+    final long fileLength) {
+    return isTriggeringEvent(event);
   }
 
   /**
