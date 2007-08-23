@@ -50,6 +50,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -1021,19 +1022,18 @@ public class DOMConfigurator implements Configurator {
      *
      * @author Paul Austin
      * */
-    private static class Log4jEntityResolver implements EntityResolver {
+    private static final class Log4jEntityResolver implements EntityResolver {
 
       public InputSource resolveEntity (String publicId, String systemId) {
         if (systemId.endsWith("log4j.dtd")) {
-          Class clazz = getClass();
-          InputStream in = clazz.getResourceAsStream("log4j.dtd");
+          InputStream in = Log4jEntityResolver.class.getResourceAsStream("log4j.dtd");
           if (in == null) {
-        LogLog.error("Could not find [log4j.dtd]. Used [" + clazz.getClassLoader()
+            LogLog.error("Could not find [log4j.dtd]. Used [" +
+                    Log4jEntityResolver.class.getClassLoader()
                  + "] class loader in the search.");
-        return null;
-          } else {
-        return new InputSource(in);
+            in = new ByteArrayInputStream(new byte[0]);
           }
+          return new InputSource(in);
         } else {
           return null;
         }
