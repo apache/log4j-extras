@@ -22,7 +22,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import org.apache.log4j.helpers.Constants;
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.spi.LoggingEventFieldResolver;
 
@@ -45,7 +44,7 @@ public class TimestampInequalityRule extends AbstractRule {
      * Date format.
      */
   private static final DateFormat DATE_FORMAT =
-          new SimpleDateFormat(Constants.TIMESTAMP_RULE_FORMAT);
+          new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     /**
      * Inequality symbol.
      */
