@@ -20,7 +20,7 @@
   <groupId>log4j</groupId>
   <artifactId>apache-log4j-extras</artifactId>
   <packaging>jar</packaging>
-  <version>1.0</version>
+  <version>1.1-SNAPSHOT</version>
   <name>Apache Extras Companion for log4j 1.2.</name>
   <description>This companion provides additional appenders, filters and
   other capabilities for log4j 1.2.  Several of these were backported from
@@ -66,9 +66,9 @@
 	</license>
 </licenses>
 <scm>
-	<connection>scm:svn:http://svn.apache.org/repos/asf/logging/log4j/companions/extras/tags/v1_0_rc2</connection>
-	<developerConnection>scm:svn:https://svn.apache.org/repos/asf/logging/log4j/companions/extras/tags/v1_0_rc2</developerConnection>
-	<url>http://svn.apache.org/viewcvs.cgi/logging/log4j/companions/extras/tags/v1_0_rc2</url>
+	<connection>scm:svn:http://svn.apache.org/repos/asf/logging/log4j/companions/extras/trunk</connection>
+	<developerConnection>scm:svn:https://svn.apache.org/repos/asf/logging/log4j/companions/extras/trunk</developerConnection>
+	<url>http://svn.apache.org/viewcvs.cgi/logging/log4j/companions/extras/trunk</url>
 </scm>
 <organization>
     <name>Apache Software Foundation</name>
