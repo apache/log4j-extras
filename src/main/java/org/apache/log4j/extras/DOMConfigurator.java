@@ -1028,9 +1028,9 @@ public class DOMConfigurator implements Configurator {
         if (systemId.endsWith("log4j.dtd")) {
           InputStream in = Log4jEntityResolver.class.getResourceAsStream("log4j.dtd");
           if (in == null) {
-            LogLog.error("Could not find [log4j.dtd]. Used [" +
+            LogLog.warn("Could not find [log4j.dtd] using [" +
                     Log4jEntityResolver.class.getClassLoader()
-                 + "] class loader in the search.");
+                 + "] class loader, parsed without DTD.");
             in = new ByteArrayInputStream(new byte[0]);
           }
           return new InputSource(in);
