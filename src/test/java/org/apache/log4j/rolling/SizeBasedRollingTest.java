@@ -246,6 +246,10 @@ public class SizeBasedRollingTest extends TestCase {
      * to the indexed files.
      */
   public void test5() throws Exception {
+    //
+	//   delete any stray files that might confuse test
+    new File("sizeBased-test5.2").delete();
+    new File("sizeBased-test5.3").delete();
     PatternLayout layout = new PatternLayout("%m\n");
     RollingFileAppender rfa = new RollingFileAppender();
     rfa.setName("ROLLING");
@@ -268,7 +272,7 @@ public class SizeBasedRollingTest extends TestCase {
     root.addAppender(rfa);
 
     //
-    //   put stray file about locked file
+    //   put stray file above locked file
     FileOutputStream os1 = new FileOutputStream("sizeBased-test5.1");
     os1.close();
 

@@ -377,10 +377,10 @@ public final class XSLTLayout extends Layout
             if (body.startsWith("<?xml ")) {
                 int endDecl = body.indexOf("?>");
                 if (endDecl != -1) {
-                    endDecl += 2;
-                    if (endDecl < body.length() && body.charAt(endDecl) == '\n') {
-                        endDecl++;
-                    }
+                    for(endDecl += 2; 
+					     endDecl < body.length() &&
+						 (body.charAt(endDecl) == '\n' || body.charAt(endDecl) == '\r'); 
+						 endDecl++);
                     return body.substring(endDecl);
                 }
             }
