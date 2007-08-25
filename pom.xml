@@ -20,7 +20,7 @@
   <groupId>log4j</groupId>
   <artifactId>apache-log4j-extras</artifactId>
   <packaging>jar</packaging>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <name>Apache Extras Companion for log4j 1.2.</name>
   <description>This companion provides additional appenders, filters and
   other capabilities for log4j 1.2.  Several of these were backported from
@@ -246,7 +246,7 @@
           <artifactId>maven-release-plugin</artifactId>
 		  <!--  attempt to work-around MRELEASE-273, see bug 42099 for release build notes -->
           <configuration>
-              <goals>test site-deploy assembly:attached deploy</goals>
+              <goals>package site-deploy assembly:attached deploy</goals>
           </configuration>
       </plugin>
       <plugin>
