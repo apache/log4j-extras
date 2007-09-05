@@ -20,6 +20,11 @@
     <title>apache-log4j-extras</title>
   </properties>
   <body>
+    <release version="1.1" date="TBD" description="">
+       <action action="fix" issue="43312">Mangled source-repository.html</action>
+    </release>
+
+
     <release version="1.0" date="2007-08-25" description="Initial release">
 	  <action issue="42783" type="add">Create an "extras" companion for log4j 1.2</action>
 	  <action issue="42251" type="add">Backport log4j 1.3 rolling file appender for use with log4j 1.2.</action>
