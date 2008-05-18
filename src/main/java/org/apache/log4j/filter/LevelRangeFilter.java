@@ -35,7 +35,7 @@ import org.apache.log4j.spi.LoggingEvent;
    <b>AcceptOnMatch</b> is true, {@link org.apache.log4j.spi.Filter#ACCEPT} is returned, and if
    <b>AcceptOnMatch</b> is false, {@link org.apache.log4j.spi.Filter#NEUTRAL} is returned.
    
-   <p>If <code>LevelMin</code>w is not defined, then there is no
+   <p>If <code>LevelMin</code> is not defined, then there is no
    minimum acceptable level (ie a level is never rejected for
    being too "low"/unimportant).  If <code>LevelMax</code> is not
    defined, then there is no maximum acceptable level (ie a

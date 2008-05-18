@@ -81,7 +81,6 @@ public class AndFilter extends Filter implements UnrecognizedElementHandler {
   }
 
   public void addFilter(final Filter filter) {
-    System.out.println("add"+filter);
     if (headFilter == null) {
       headFilter = filter;
       tailFilter = filter;
