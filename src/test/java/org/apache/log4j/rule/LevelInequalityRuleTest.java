@@ -60,11 +60,11 @@ public class LevelInequalityRuleTest extends TestCase {
     }
 
     /**
-     * Tests evaluate of a deserialized clone when levels are equal.
+     * Tests evaluate of a deserialized clone when level satisfies rule.
      */
     public void test3() throws IOException, ClassNotFoundException {
-        LevelEqualsRule rule = (LevelEqualsRule)
-                SerializationTestHelper.serializeClone(LevelEqualsRule.getRule("info"));
+        Rule rule = (Rule)
+                SerializationTestHelper.serializeClone(LevelInequalityRule.getRule(">=", "info"));
         LoggingEvent event = new LoggingEvent("org.apache.log4j.Logger",
                 Logger.getRootLogger(), System.currentTimeMillis(), Level.INFO,
                 "Hello, World", null);
@@ -72,22 +72,22 @@ public class LevelInequalityRuleTest extends TestCase {
     }
 
     /**
-     * Tests evaluate of a deserialized clone when levels are equal.
+     * Tests evaluate of a deserialized clone when level does not satisfy rule.
      */
     public void test4() throws IOException, ClassNotFoundException {
-        LevelEqualsRule rule = (LevelEqualsRule)
-                SerializationTestHelper.serializeClone(LevelEqualsRule.getRule("info"));
+        Rule rule = (Rule)
+                SerializationTestHelper.serializeClone(LevelInequalityRule.getRule("<", "info"));
         LoggingEvent event = new LoggingEvent("org.apache.log4j.Logger",
-                Logger.getRootLogger(), System.currentTimeMillis(), Level.WARN,
+                Logger.getRootLogger(), System.currentTimeMillis(), Level.INFO,
                 "Hello, World", null);
         assertFalse(rule.evaluate(event));
     }
 
     /**
-     * Tests evaluate when levels are JDK 1.4 levels and equal.
+     * Tests evaluate when levels are JDK 1.4 levels and satisified.
      */
     public void test5() {
-        LevelEqualsRule rule = (LevelEqualsRule) LevelEqualsRule.getRule("finer");
+        Rule rule = (Rule) LevelInequalityRule.getRule(">=", "finer");
         LoggingEvent event = new LoggingEvent("org.apache.log4j.Logger",
                 Logger.getRootLogger(), System.currentTimeMillis(), UtilLoggingLevel.FINER,
                 "Hello, World", null);
@@ -98,19 +98,19 @@ public class LevelInequalityRuleTest extends TestCase {
      * Tests evaluate when levels are JDK 1.4 levels and not equal.
      */
     public void test6() {
-        LevelEqualsRule rule = (LevelEqualsRule) LevelEqualsRule.getRule("finer");
+        Rule rule = (Rule) LevelInequalityRule.getRule("<", "finer");
         LoggingEvent event = new LoggingEvent("org.apache.log4j.Logger",
-                Logger.getRootLogger(), System.currentTimeMillis(), UtilLoggingLevel.FINE,
+                Logger.getRootLogger(), System.currentTimeMillis(), UtilLoggingLevel.FINER,
                 "Hello, World", null);
         assertFalse(rule.evaluate(event));
     }
 
     /**
-     * Tests evaluate of a deserialized clone when levels are JDK 1.4 levels and equal.
+     * Tests evaluate of a deserialized clone when levels are JDK 1.4 levels and satisified.
      */
     public void test7() throws IOException, ClassNotFoundException {
-        LevelEqualsRule rule = (LevelEqualsRule)
-                SerializationTestHelper.serializeClone(LevelEqualsRule.getRule("finer"));
+        Rule rule = (Rule)
+                SerializationTestHelper.serializeClone(LevelInequalityRule.getRule(">=", "finer"));
         LoggingEvent event = new LoggingEvent("org.apache.log4j.Logger",
                 Logger.getRootLogger(), System.currentTimeMillis(), UtilLoggingLevel.FINER,
                 "Hello, World", null);
@@ -118,13 +118,13 @@ public class LevelInequalityRuleTest extends TestCase {
     }
 
     /**
-     * Tests evaluate of a deserialized clone when levels are JDK 1.4 levels and not equal.
+     * Tests evaluate of a deserialized clone when levels are JDK 1.4 levels and not satified.
      */
     public void test8() throws IOException, ClassNotFoundException {
-        LevelEqualsRule rule = (LevelEqualsRule)
-                SerializationTestHelper.serializeClone(LevelEqualsRule.getRule("finer"));
+        Rule rule = (Rule)
+                SerializationTestHelper.serializeClone(LevelInequalityRule.getRule("<", "finer"));
         LoggingEvent event = new LoggingEvent("org.apache.log4j.Logger",
-                Logger.getRootLogger(), System.currentTimeMillis(), UtilLoggingLevel.FINE,
+                Logger.getRootLogger(), System.currentTimeMillis(), UtilLoggingLevel.FINER,
                 "Hello, World", null);
         assertFalse(rule.evaluate(event));
     }

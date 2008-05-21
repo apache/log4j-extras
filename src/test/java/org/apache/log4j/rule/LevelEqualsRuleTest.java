@@ -75,7 +75,7 @@ public class LevelEqualsRuleTest extends TestCase {
     }
 
     /**
-     * Tests evaluate of a deserialized clone when levels are equal.
+     * Tests evaluate of a deserialized clone when levels are not equal.
      */
     public void test4() throws IOException, ClassNotFoundException {
         LevelEqualsRule rule = (LevelEqualsRule)
