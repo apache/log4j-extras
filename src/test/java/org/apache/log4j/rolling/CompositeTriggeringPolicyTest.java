@@ -87,20 +87,48 @@ public class CompositeTriggeringPolicyTest extends TestCase {
         Assert.assertTrue(composite.isTriggeringEvent(appender, event, "file", 100));
     }
     
+    public void testActivateOptionsCalledByCompositeActivateOptions() {
+        TestTriggeringPolicy policy1 = new TestTriggeringPolicy(true);
+        TestTriggeringPolicy policy2 = new TestTriggeringPolicy(true);
+        
+        composite.addTriggeringPolicy(policy1);
+        composite.addTriggeringPolicy(policy2);
+        composite.activateOptions();
+        
+        Assert.assertTrue(policy1.activateOptionsCalled());
+        Assert.assertTrue(policy2.activateOptionsCalled());
+    }
+
+    public void testActivateOptionsNotCalledByAddTriggeringPolicy() {
+        TestTriggeringPolicy policy1 = new TestTriggeringPolicy(true);
+        TestTriggeringPolicy policy2 = new TestTriggeringPolicy(true);
+        
+        composite.addTriggeringPolicy(policy1);
+        composite.addTriggeringPolicy(policy2);
+        
+        Assert.assertFalse(policy1.activateOptionsCalled());
+        Assert.assertFalse(policy2.activateOptionsCalled());
+    }
+
     class TestTriggeringPolicy implements TriggeringPolicy {
         private final boolean result;
+        private boolean activateOptionsCalled = false;
 
         public TestTriggeringPolicy(boolean result) {
             this.result = result;
         }
         
+        public boolean activateOptionsCalled() {
+            return activateOptionsCalled;
+        }
+
         public boolean isTriggeringEvent(Appender appender, LoggingEvent event,
                 String filename, long fileLength) {
             return result;
         }
 
         public void activateOptions() {
-            //no-op
+            activateOptionsCalled = true;
         }
     }
 }
