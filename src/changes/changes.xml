@@ -22,6 +22,7 @@
   <body>
     <release version="1.1" date="TBD" description="">
        <action action="fix" issue="43312">Mangled source-repository.html</action>
+       <action action="fix" issue="44899">Extra NPE error message when using missing appender class with DOMConfigurator.</action>
     </release>
 
 
