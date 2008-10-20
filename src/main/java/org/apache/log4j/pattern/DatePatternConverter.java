@@ -21,6 +21,9 @@ import org.apache.log4j.helpers.LogLog;
 import org.apache.log4j.spi.LoggingEvent;
 
 import java.text.SimpleDateFormat;
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -63,6 +66,41 @@ public final class DatePatternConverter extends LoggingEventPatternConverter {
    */
   private final CachedDateFormat df;
 
+    /**
+     * This class wraps a DateFormat and forces the time zone to the
+     *   default time zone before each format and parse request.
+     */
+  private class DefaultZoneDateFormat extends DateFormat {
+        /**
+         * Wrapped instance of DateFormat.
+         */
+    private final DateFormat dateFormat;
+
+        /**
+         * Construct new instance.
+         * @param format format, may not be null.
+         */
+    public DefaultZoneDateFormat(final DateFormat format) {
+        dateFormat = format;
+    }
+
+        /**
+         * @{inheritDoc}
+         */
+    public StringBuffer format(Date date, StringBuffer toAppendTo, FieldPosition fieldPosition) {
+        dateFormat.setTimeZone(TimeZone.getDefault());
+        return dateFormat.format(date, toAppendTo, fieldPosition);
+    }
+
+        /**
+         * @{inheritDoc}
+         */
+    public Date parse(String source, ParsePosition pos) {
+        dateFormat.setTimeZone(TimeZone.getDefault());
+        return dateFormat.parse(source, pos);
+    }
+  }
+  
   /**
    * Private constructor.
    * @param options options, may be null.
@@ -95,7 +133,7 @@ public final class DatePatternConverter extends LoggingEventPatternConverter {
     }
 
     int maximumCacheValidity = 1000;
-    SimpleDateFormat simpleFormat = null;
+    DateFormat simpleFormat = null;
 
     try {
       simpleFormat = new SimpleDateFormat(pattern);
@@ -113,6 +151,8 @@ public final class DatePatternConverter extends LoggingEventPatternConverter {
     if ((options != null) && (options.length > 1)) {
       TimeZone tz = TimeZone.getTimeZone((String) options[1]);
       simpleFormat.setTimeZone(tz);
+    } else {
+      simpleFormat = new DefaultZoneDateFormat(simpleFormat);
     }
 
     df = new CachedDateFormat(simpleFormat, maximumCacheValidity);
