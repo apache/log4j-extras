@@ -70,7 +70,7 @@ public final class DatePatternConverter extends LoggingEventPatternConverter {
      * This class wraps a DateFormat and forces the time zone to the
      *   default time zone before each format and parse request.
      */
-  private class DefaultZoneDateFormat extends DateFormat {
+  private static class DefaultZoneDateFormat extends DateFormat {
         /**
          * Wrapped instance of DateFormat.
          */
