@@ -17,10 +17,10 @@
 
 package org.apache.log4j.rule;
 
+import java.util.Stack;
+
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.spi.LoggingEventFieldResolver;
-
-import java.util.Stack;
 
 
 /**
@@ -70,7 +70,11 @@ public class NotEqualsRule extends AbstractRule {
      * @return new instance.
      */
   public static Rule getRule(final String field, final String value) {
-    return new NotEqualsRule(field, value);
+    if (field.equalsIgnoreCase(LoggingEventFieldResolver.LEVEL_FIELD)) {
+        return NotLevelEqualsRule.getRule(value);
+    } else {
+        return new NotEqualsRule(field, value);
+    }
   }
 
     /**
@@ -88,7 +92,11 @@ public class NotEqualsRule extends AbstractRule {
     String p2 = stack.pop().toString();
     String p1 = stack.pop().toString();
 
-    return new NotEqualsRule(p1, p2);
+    if (p1.equalsIgnoreCase(LoggingEventFieldResolver.LEVEL_FIELD)) {
+        return NotLevelEqualsRule.getRule(p2);
+    } else {
+        return new NotEqualsRule(p1, p2);
+    }
   }
 
     /** {@inheritDoc} */

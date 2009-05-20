@@ -26,11 +26,11 @@ import org.apache.log4j.helpers.UtilLoggingLevel;
 import org.apache.log4j.spi.LoggingEvent;
 
 /**
- * A Rule class implementing equals against two levels.
+ * A Rule class implementing not equals against two levels.
  *
  * @author Scott Deboy (sdeboy@apache.org)
  */
-public class LevelEqualsRule extends AbstractRule {
+public class NotLevelEqualsRule extends AbstractRule {
     /**
      * Serialization ID.
      */
@@ -54,7 +54,7 @@ public class LevelEqualsRule extends AbstractRule {
      * Create new instance.
      * @param level level.
      */
-    private LevelEqualsRule(final Level level) {
+    private NotLevelEqualsRule(final Level level) {
         super();
         this.level = level;
     }
@@ -79,7 +79,7 @@ public class LevelEqualsRule extends AbstractRule {
     /**
      * Create new rule.
      * @param value name of level.
-     * @return instance of LevelEqualsRule.
+     * @return instance of NotLevelEqualsRule.
      */
     public static Rule getRule(final String value) {
         Level thisLevel;
@@ -89,7 +89,7 @@ public class LevelEqualsRule extends AbstractRule {
             thisLevel = UtilLoggingLevel.toLevel(value.toUpperCase());
         }
 
-        return new LevelEqualsRule(thisLevel);
+        return new NotLevelEqualsRule(thisLevel);
     }
 
     /**
@@ -98,7 +98,7 @@ public class LevelEqualsRule extends AbstractRule {
     public boolean evaluate(final LoggingEvent event) {
         //both util.logging and log4j contain 'info' - use the int values instead of equality
         //info level set to the same value for both levels
-        return level.toInt() == event.getLevel().toInt();
+        return level.toInt() != event.getLevel().toInt();
     }
 
     /**
