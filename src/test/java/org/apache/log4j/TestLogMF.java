@@ -20,6 +20,7 @@ import junit.framework.TestCase;
 
 import java.io.CharArrayWriter;
 import java.text.MessageFormat;
+import java.text.NumberFormat;
 import java.util.Date;
 
 
@@ -221,8 +222,9 @@ public class TestLogMF extends TestCase {
         logger.setLevel(TRACE);
 
         float val = 3.14f;
+        NumberFormat format = NumberFormat.getInstance();
         LogMF.trace(logger, "Iteration {0}", val);
-        assertEquals("Iteration 3.14", capture.getMessage());
+        assertEquals("Iteration "+ format.format(val), capture.getMessage());
     }
 
     /**
@@ -233,8 +235,9 @@ public class TestLogMF extends TestCase {
         logger.setLevel(TRACE);
 
         double val = 3.14;
+        NumberFormat format = NumberFormat.getInstance();
         LogMF.trace(logger, "Iteration {0}", val);
-        assertEquals("Iteration 3.14", capture.getMessage());
+        assertEquals("Iteration "+ format.format(val), capture.getMessage());
     }
 
     /**
