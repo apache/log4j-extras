@@ -510,6 +510,54 @@ public class PatternLayoutTestCase extends TestCase {
     layout.activateOptions();
     root.debug("finished mdc pattern test");
 
+
+      Transformer.transform(
+        OUTPUT_FILE, FILTERED,
+        new Filter[] {
+          new LineNumberFilter(), new SunReflectFilter(),
+          new JunitTestRunnerFilter(),
+          new MDCOrderFilter()
+        });
+
+    assertTrue(compare(FILTERED, WITNESS_FILE));
+  }
+
+  /**
+    Test case for throwable conversion pattern. */
+  public void testThrowable() throws Exception {
+    String OUTPUT_FILE   = "patternLayout.throwable";
+    String WITNESS_FILE  = "witness/pattern/patternLayout.throwable";
+    
+    
+    // set up appender
+    EnhancedPatternLayout layout = new EnhancedPatternLayout("%m%n");
+    Appender appender = new FileAppender(layout, OUTPUT_FILE, false);
+            
+    // set appender on root and set level to debug
+    root.addAppender(appender);
+    root.setLevel(Level.DEBUG);
+    
+    // output starting message
+    root.debug("starting throwable pattern test");
+     Exception ex = new Exception("Test Exception");
+    root.debug("plain pattern, no exception");
+    root.debug("plain pattern, with exception", ex);
+    layout.setConversionPattern("%m%n%throwable");
+    layout.activateOptions();
+    root.debug("%throwable, no exception");
+    root.debug("%throwable, with exception", ex);
+
+    layout.setConversionPattern("%m%n%throwable{short}");
+    layout.activateOptions();
+    root.debug("%throwable{short}, no exception");
+    root.debug("%throwable{short}, with exception", ex);
+
+    layout.setConversionPattern("%m%n%throwable{none}");
+    layout.activateOptions();
+    root.debug("%throwable{none}, no exception");
+    root.debug("%throwable{none}, with exception", ex);
+
+
       Transformer.transform(
         OUTPUT_FILE, FILTERED,
         new Filter[] {

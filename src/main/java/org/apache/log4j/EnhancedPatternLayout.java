@@ -280,7 +280,9 @@ import org.apache.log4j.spi.LoggingEvent;
      <p>Used to output the Throwable trace that has been bound to the LoggingEvent, by
      default this will output the full trace as one would normally find by a call to Throwable.printStackTrace().
      The throwable conversion word can be followed by an option in the form <b>%throwable{short}</b>
-     which will only output the first line of the ThrowableInformation.</p>
+     which will only output the first line of the ThrowableInformation, or <b>%throwable{none}</b> which
+     will suppress the stack trace.  If no %throwable pattern is provided, the appender may provide its
+     rendering of the exception.</p>
      </td>
    </tr>
 

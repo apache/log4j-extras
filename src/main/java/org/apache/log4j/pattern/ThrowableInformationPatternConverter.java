@@ -65,26 +65,21 @@ public class ThrowableInformationPatternConverter
    * {@inheritDoc}
    */
   public void format(final LoggingEvent event, final StringBuffer toAppendTo) {
-    ThrowableInformation information = event.getThrowableInformation();
+    if (!"none".equals(option)) {
+      ThrowableInformation information = event.getThrowableInformation();
 
-    if (information != null) {
-      String[] stringRep = information.getThrowableStrRep();
+      if (information != null) {
+        String[] stringRep = information.getThrowableStrRep();
 
-      int length = 0;
+        int length = stringRep.length;
+        if ("short".equals(option)) {
+           length = 1;
+        }
 
-      if (option == null) {
-        length = stringRep.length;
-      } else if (option.equals("full")) {
-        length = stringRep.length;
-      } else if (option.equals("short")) {
-        length = 1;
-      } else {
-        length = stringRep.length;
-      }
-
-      for (int i = 0; i < length; i++) {
-        String string = stringRep[i];
-        toAppendTo.append(string).append("\n");
+        for (int i = 0; i < length; i++) {
+            String string = stringRep[i];
+            toAppendTo.append(string).append("\n");
+        }
       }
     }
   }
