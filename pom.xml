@@ -77,6 +77,13 @@
 <build>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <workingDirectory>target</workingDirectory>
@@ -87,6 +94,7 @@
         <configuration>
             <source>1.4</source>
             <target>1.4</target>
+	    <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
 	  <plugin>
