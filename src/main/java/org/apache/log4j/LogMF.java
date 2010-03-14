@@ -23,6 +23,7 @@ import java.text.MessageFormat;
 import java.text.NumberFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.Locale;
 
 
 /**
@@ -36,6 +37,55 @@ public final class LogMF extends LogXF {
      *
      */
     private LogMF() {
+    }
+
+    /**
+     * Number format.
+     */
+    private static NumberFormat numberFormat = null;
+    /**
+     * Locale at time of last number format request.
+     */
+    private static Locale numberLocale = null;
+    /**
+     * Date format.
+     */
+    private static DateFormat dateFormat = null;
+    /**
+     * Locale at time of last date format request.
+     */
+    private static Locale dateLocale = null;
+
+    /**
+     * Format number.
+     * @param n number to format, may not be null.
+     * @return formatted value.
+     */
+    private static synchronized String formatNumber(final Object n) {
+        Locale currentLocale = Locale.getDefault();
+        if (currentLocale != numberLocale || numberFormat == null) {
+            numberLocale = currentLocale;
+            numberFormat = NumberFormat.getInstance(currentLocale);
+        }
+        return numberFormat.format(n);
+    }
+
+
+    /**
+     * Format date.
+     * @param d date, may not be null.
+     * @return formatted value.
+     */
+    private static synchronized String formatDate(final Object d) {
+        Locale currentLocale = Locale.getDefault();
+        if (currentLocale != dateLocale || dateFormat == null) {
+            dateLocale = currentLocale;
+            dateFormat = DateFormat.getDateTimeInstance(
+                                DateFormat.SHORT,
+                                DateFormat.SHORT,
+                                currentLocale);
+        }
+        return dateFormat.format(d);
     }
 
 
@@ -67,12 +117,11 @@ public final class LogMF extends LogXF {
 
                     if (arg0 instanceof String) {
                         replacement = arg0.toString();
-                    } else if (arg0 instanceof Number) {
-                        replacement = NumberFormat.getInstance().format(arg0);
+                    } else if (arg0 instanceof Double ||
+                               arg0 instanceof Float) {
+                       replacement = formatNumber(arg0);
                     } else if (arg0 instanceof Date) {
-                        replacement = DateFormat.getDateTimeInstance(
-                                DateFormat.SHORT,
-                                DateFormat.SHORT).format(arg0);
+                        replacement = formatDate(arg0);
                     } else {
                         replacement = String.valueOf(arg0);
                     }
