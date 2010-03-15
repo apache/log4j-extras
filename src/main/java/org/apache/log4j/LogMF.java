@@ -88,61 +88,48 @@ public final class LogMF extends LogXF {
         return dateFormat.format(d);
     }
 
+    /**
+     * Format a single parameter like a "{0}" formatting specifier.
+     *
+     * @param arg0 parameter, may be null.
+     * @return string representation of arg0.
+     */
+    private static String formatObject(final Object arg0) {
+        if (arg0 instanceof String) {
+            return arg0.toString();
+        } else if (arg0 instanceof Double ||
+                   arg0 instanceof Float) {
+           return formatNumber(arg0);
+        } else if (arg0 instanceof Date) {
+            return formatDate(arg0);
+        }
+        return String.valueOf(arg0);
+    }
+
 
     /**
-     * Formats arguments using a minimal subset
-     * of MessageFormat syntax.
+     * Determines if pattern contains only {n} format elements
+     * and not apostrophes.
+     *
      * @param pattern pattern, may not be null.
-     * @param arg0 argument, may be null.
-     * @return Message string or null if pattern
-     * is not supported.
+     * @return true if pattern only contains {n} format elements.
      */
-    private static String subsetFormat(final String pattern,
-                                       final Object arg0) {
-        if (pattern != null) {
-            //
-            //  find position of first brace
-            //    if none then format is a literal
-            int bracePos = pattern.indexOf("{");
-
-            //
-            //  if the first format is {0}
-            //    and there are no other format specifiers
-            //    and no quotes then substitute for {0}
-            if (bracePos != -1) {
-                if ((pattern.indexOf("{0}", bracePos) == bracePos)
-                        && (pattern.indexOf("{", bracePos + 1) == -1)
-                        && (pattern.indexOf("'") == -1)) {
-                    String replacement;
-
-                    if (arg0 instanceof String) {
-                        replacement = arg0.toString();
-                    } else if (arg0 instanceof Double ||
-                               arg0 instanceof Float) {
-                       replacement = formatNumber(arg0);
-                    } else if (arg0 instanceof Date) {
-                        replacement = formatDate(arg0);
-                    } else {
-                        replacement = String.valueOf(arg0);
-                    }
-
-                    final StringBuffer buf = new StringBuffer(pattern);
-                    buf.replace(bracePos,
-                            bracePos + "{0}".length(), replacement);
-
-                    return buf.toString();
-                }
-            } else {
-                //
-                //   pattern is a literal with no braces
-                //    and not quotes, return pattern.
-                if (pattern.indexOf("'") == -1) {
-                    return pattern;
-                }
+    private static boolean isSimple(final String pattern) {
+        if (pattern.indexOf('\'') != -1) {
+            return false;
+        }
+        for(int pos = pattern.indexOf('{');
+            pos != -1;
+            pos = pattern.indexOf('{', pos + 1)) {
+            if (pos + 2 >= pattern.length() ||
+                    pattern.charAt(pos+2) != '}' ||
+                    pattern.charAt(pos+1) < '0' ||
+                    pattern.charAt(pos+1) > '9') {
+                return false;
             }
         }
+        return true;
 
-        return null;
     }
 
     /**
@@ -155,6 +142,34 @@ public final class LogMF extends LogXF {
                                  final Object[] arguments) {
         if (pattern == null) {
             return null;
+        } else if(isSimple(pattern)) {
+            String formatted[] = new String[10];
+            int prev = 0;
+            String retval = "";
+            int pos = pattern.indexOf('{');
+            while(pos >= 0) {
+                if(pos + 2 < pattern.length() && 
+                      pattern.charAt(pos+2) == '}' &&
+                      pattern.charAt(pos+1) >= '0' &&
+                      pattern.charAt(pos+1) <= '9') {
+                    int index = pattern.charAt(pos+1) - '0';
+                    retval += pattern.substring(prev, pos);
+                    if (formatted[index] == null) {
+                         if (arguments == null || index >= arguments.length) {
+                            formatted[index] = pattern.substring(pos, pos+3);
+                         } else {
+                            formatted[index] = formatObject(arguments[index]);
+                         }
+                    }
+                    retval += formatted[index];
+                    prev = pos + 3;
+                    pos = pattern.indexOf('{', prev);
+                } else {
+                    pos = pattern.indexOf('{', pos + 1);
+                }
+            }
+            retval += pattern.substring(prev);
+            return retval;
         }
         try {
             return MessageFormat.format(pattern, arguments);
@@ -164,20 +179,51 @@ public final class LogMF extends LogXF {
     }
 
     /**
-     * Formats arguments using MessageFormat.
-     * @param pattern pattern, may be malformed.
-     * @param arg0 argument, may be null or mismatched.
-     * @return Message string
+     * Formats a single argument using MessageFormat.
+     * @param pattern pattern, may be malformed or null.
+     * @param arguments arguments, may be null or mismatched.
+     * @return Message string or null
      */
-    private static String format(final String pattern, final Object arg0) {
-        String msg = subsetFormat(pattern, arg0);
-
-        if (msg == null) {
-            msg = format(pattern, toArray(arg0));
+    private static String format(final String pattern,
+                                 final Object arg0) {
+        if (pattern == null) {
+            return null;
+        } else if(isSimple(pattern)) {
+            String formatted = null;
+            int prev = 0;
+            String retval = "";
+            int pos = pattern.indexOf('{');
+            while(pos >= 0) {
+                if(pos + 2 < pattern.length() &&
+                      pattern.charAt(pos+2) == '}' &&
+                      pattern.charAt(pos+1) >= '0' &&
+                      pattern.charAt(pos+1) <= '9') {
+                    int index = pattern.charAt(pos+1) - '0';
+                    retval += pattern.substring(prev, pos);
+                    if (index != 0) {
+                        retval += pattern.substring(pos, pos+3);
+                    } else {
+                        if (formatted == null) {
+                            formatted = formatObject(arg0);
+                        }
+                        retval += formatted;
+                    }
+                    prev = pos + 3;
+                    pos = pattern.indexOf('{', prev);
+                } else {
+                    pos = pattern.indexOf('{', pos + 1);
+                }
+            }
+            retval += pattern.substring(prev);
+            return retval;
         }
-
-        return msg;
+        try {
+            return MessageFormat.format(pattern, new Object[] { arg0 });
+        } catch (IllegalArgumentException ex) {
+            return pattern;
+        }
     }
+
 
     /**
      * Formats arguments using MessageFormat using a pattern from

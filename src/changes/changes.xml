@@ -30,6 +30,7 @@
        <action action="fix" issue="48531">Unit tests fail for system dates after 2009-12-31</action>
        <action action="fix" issue="48778">LogMF performance improvement for number and date types.</action>
        <action action="fix" issue="48910">LogSF did not support \\{ escape sequence.</action>
+       <action action="fix" issue="48911">LogMF did not optimize simple patterns on multiple parameter log requests.</action>
     </release>
 
 

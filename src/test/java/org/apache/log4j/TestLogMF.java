@@ -1236,4 +1236,45 @@ public class TestLogMF extends TestCase {
         assertEquals("Hello, World.", capture.getMessage());
     }
 
+
+    /**
+     * Test LogMF.info with a pattern containing {9} and one argument.
+     */
+    public void testInfo1ParamBrace9() {
+        LogCapture capture = new LogCapture(Level.INFO);
+        LogMF.info(logger, "Hello, {9}{0}", "World");
+        assertEquals("Hello, {9}World", capture.getMessage());
+    }
+
+    /**
+     * Test LogMF.info with a pattern containing {9} and two arguments.
+     */
+    public void testInfo2ParamBrace9() {
+        LogCapture capture = new LogCapture(Level.INFO);
+        LogMF.info(logger, "{1}, {9}{0}", "World", "Hello");
+        assertEquals("Hello, {9}World", capture.getMessage());
+    }
+
+    /**
+     * Test LogMF.info with a pattern containing {9} and two arguments.
+     */
+    public void testInfo10ParamBrace9() {
+        LogCapture capture = new LogCapture(Level.INFO);
+        LogMF.info(logger, "{1}, {9}{0}",
+                new Object[] { "World", "Hello", null, null, null,
+                                null, null, null, null, "New " });
+        assertEquals("Hello, New World", capture.getMessage());
+    }
+
+    /**
+     * Test LogMF.info with indexes just outside of 0 to 9.
+     */
+    public void testInfo1ParamBraceSlashColon() {
+        LogCapture capture = new LogCapture(Level.INFO);
+        String pattern = "Hello, {/}{0}{:}";
+        LogMF.info(logger, pattern, "World");
+        assertEquals(pattern, capture.getMessage());
+    }
+
+
 }
