@@ -46,22 +46,34 @@ public final class LogSF extends LogXF {
      */
     private static String format(final String pattern,
                                  final Object[] arguments) {
-        if (arguments == null || pattern == null) {
-            return pattern;
-        }
-        StringBuffer buf = new StringBuffer(pattern);
-        int index = 0;
-        int pos = buf.indexOf("{");
-        while (pos >= 0 && pos < buf.length() - 1 && index < arguments.length) {
-            if (buf.charAt(pos + 1) == '}') {
-                String subst = String.valueOf(arguments[index++]);
-                buf.replace(pos, pos + 2, subst);
-                pos += subst.length();
-            } else {
-                pos = buf.indexOf("{", pos + 1);
+        if (pattern != null) {
+            String retval = "";
+            int count = 0;
+            int prev = 0;
+            int pos = pattern.indexOf("{");
+            while(pos >= 0) {
+                if (pos == 0 || pattern.charAt(pos-1) != '\\') {
+                    retval += pattern.substring(prev, pos);
+                    if (pos + 1 < pattern.length() && pattern.charAt(pos+1) == '}') {
+                        if(arguments != null && count < arguments.length) {
+                            retval += arguments[count++];
+                        } else {
+                            retval += "{}";
+                        }
+                        prev = pos + 2;
+                    } else {
+                        retval += "{";
+                        prev = pos + 1;
+                    }
+                } else {
+                    retval += pattern.substring(prev, pos - 1) + "{";
+                    prev = pos + 1;
+                }
+                pos = pattern.indexOf("{", prev);
             }
+            return retval + pattern.substring(prev);
         }
-        return buf.toString();
+        return null;
     }
 
     /**
@@ -71,7 +83,18 @@ public final class LogSF extends LogXF {
      * @return Message string
      */
     private static String format(final String pattern, final Object arg0) {
-        return format(pattern, toArray(arg0));
+        if (pattern != null) {
+            //
+            //  if there is an escaped brace, delegate to multi-param formatter
+            if (pattern.indexOf("\\{") >= 0) {
+                return format(pattern, new Object[] { arg0 });
+            }
+            int pos = pattern.indexOf("{}");
+            if (pos >= 0) {
+                return pattern.substring(0, pos) + arg0 + pattern.substring(pos+2);
+            }
+        }
+        return pattern;
     }
 
     /**

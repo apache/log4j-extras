@@ -19,8 +19,6 @@ package org.apache.log4j;
 import junit.framework.TestCase;
 
 import java.io.CharArrayWriter;
-import java.text.MessageFormat;
-import java.util.Date;
 
 
 /**
@@ -1171,4 +1169,23 @@ public class TestLogSF extends TestCase {
         assertEquals("Hello, World.", capture.getMessage());
     }
 
+    /**
+     * Test \\{ escape sequence when only one parameter is present.
+     *
+     */
+    public void testEscapeOneParam() {
+        LogCapture capture = new LogCapture(Level.INFO);
+        LogSF.info(logger, "\\{}\\{{}}, World}\\{","Hello");
+        assertEquals("{}{Hello}, World}{", capture.getMessage());
+    }
+
+    /**
+     * Test \\{ escape sequence when more than one parameter is present.
+     *
+     */
+    public void testEscapeTwoParam() {
+        LogCapture capture = new LogCapture(Level.INFO);
+        LogSF.info(logger, "\\{}\\{{}}, {}}{}\\{","Hello", "World");
+        assertEquals("{}{Hello}, World}{}{", capture.getMessage());
+    }
 }
