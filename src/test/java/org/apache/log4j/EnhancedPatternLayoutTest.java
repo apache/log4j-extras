@@ -23,15 +23,14 @@ import org.apache.log4j.spi.LoggingEvent;
 /**
  * Test for EnhancedPatternLayout.
  *
- * @author Curt Arnold
  */
-public class PatternLayoutTest extends LayoutTest {
+public class EnhancedPatternLayoutTest extends LayoutTest {
   /**
    * Construct new instance of PatternLayoutTest.
    *
    * @param testName test name.
    */
-  public PatternLayoutTest(final String testName) {
+  public EnhancedPatternLayoutTest(final String testName) {
     super(testName, "text/plain", true, null, null);
   }
 

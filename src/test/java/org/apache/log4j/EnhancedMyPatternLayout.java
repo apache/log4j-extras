@@ -34,14 +34,14 @@ import org.apache.log4j.helpers.PatternParser;
   @see org.apache.log4j.EnhancedPatternLayout
  @author Anders Kristensen
 */
-public class MyPatternLayout extends EnhancedPatternLayout {
+public class EnhancedMyPatternLayout extends EnhancedPatternLayout {
   public
-  MyPatternLayout() {
+  EnhancedMyPatternLayout() {
     this(DEFAULT_CONVERSION_PATTERN);
   }
 
   public
-  MyPatternLayout(String pattern) {
+  EnhancedMyPatternLayout(String pattern) {
     super(pattern);
   }
     

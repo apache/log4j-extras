@@ -2,7 +2,7 @@ starting throwable pattern test
 plain pattern, no exception
 plain pattern, with exception
 java.lang.Exception: Test Exception
-	at org.apache.log4j.PatternLayoutTestCase.testThrowable(X)
+	at org.apache.log4j.EnhancedPatternLayoutTestCase.testThrowable(X)
 	at java.lang.reflect.Method.invoke(X)
 	at junit.framework.TestCase.runTest(X)
 	at junit.framework.TestCase.runBare(X)
@@ -15,7 +15,7 @@ java.lang.Exception: Test Exception
 %throwable, no exception
 %throwable, with exception
 java.lang.Exception: Test Exception
-	at org.apache.log4j.PatternLayoutTestCase.testThrowable(X)
+	at org.apache.log4j.EnhancedPatternLayoutTestCase.testThrowable(X)
 	at java.lang.reflect.Method.invoke(X)
 	at junit.framework.TestCase.runTest(X)
 	at junit.framework.TestCase.runBare(X)
