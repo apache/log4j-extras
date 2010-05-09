@@ -150,7 +150,7 @@ public class ExpressionFilter extends Filter {
      * @return {@link Filter#NEUTRAL} is there is no string match.
      */
     public int decide(final LoggingEvent event) {
-        if (expressionRule.evaluate(event)) {
+        if (expressionRule.evaluate(event, null)) {
             if (acceptOnMatch) {
                 return Filter.ACCEPT;
             } else {

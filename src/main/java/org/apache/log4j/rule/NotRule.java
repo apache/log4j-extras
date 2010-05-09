@@ -19,6 +19,11 @@ package org.apache.log4j.rule;
 
 import org.apache.log4j.spi.LoggingEvent;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -75,7 +80,25 @@ public class NotRule extends AbstractRule {
   }
 
     /** {@inheritDoc} */
-  public boolean evaluate(final LoggingEvent event) {
-    return !(rule.evaluate(event));
+  public boolean evaluate(final LoggingEvent event, Map matches) {
+    if (matches == null) {
+      return !(rule.evaluate(event, null));
+    }
+    Map tempMatches = new HashMap();
+    boolean result = !(rule.evaluate(event, tempMatches));
+    if (result) {
+        for (Iterator iter = tempMatches.entrySet().iterator();iter.hasNext();) {
+            Map.Entry entry = (Map.Entry)iter.next();
+            Object key = entry.getKey();
+            Set value = (Set)entry.getValue();
+            Set mainSet = (Set) matches.get(key);
+            if (mainSet == null) {
+                mainSet = new HashSet();
+                matches.put(key, mainSet);
+            }
+            mainSet.addAll(value);
+        }
+    }
+    return result;
   }
 }

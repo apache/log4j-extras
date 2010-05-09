@@ -21,6 +21,9 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.spi.LoggingEventFieldResolver;
@@ -82,9 +85,10 @@ public class TimestampInequalityRule extends AbstractRule {
   }
 
     /** {@inheritDoc} */
-  public boolean evaluate(final LoggingEvent event) {
+  public boolean evaluate(final LoggingEvent event, Map matches) {
+    String eventTimeStampString = RESOLVER.getValue(LoggingEventFieldResolver.TIMESTAMP_FIELD, event).toString();
     long eventTimeStamp = Long.parseLong(
-            RESOLVER.getValue("TIMESTAMP", event).toString()) / 1000 * 1000;
+                eventTimeStampString) / 1000 * 1000;
     boolean result = false;
     long first = eventTimeStamp;
     long second = timeStamp;
@@ -98,7 +102,14 @@ public class TimestampInequalityRule extends AbstractRule {
     } else if (">=".equals(inequalitySymbol)) {
       result = first >= second;
     }
-
+    if (result && matches != null) {
+        Set entries = (Set) matches.get(LoggingEventFieldResolver.TIMESTAMP_FIELD);
+        if (entries == null) {
+            entries = new HashSet();
+            matches.put(LoggingEventFieldResolver.TIMESTAMP_FIELD, entries);
+        }
+        entries.add(eventTimeStampString);
+    }
     return result;
   }
 

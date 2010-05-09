@@ -104,7 +104,7 @@ public class LocationInfoFilter extends Filter {
    * @return Filter.NEUTRAL.
    */
   public int decide(final LoggingEvent event) {
-    if (expressionRule.evaluate(event)) {
+    if (expressionRule.evaluate(event, null)) {
           event.getLocationInformation();
     }
     return Filter.NEUTRAL;

@@ -20,6 +20,9 @@ package org.apache.log4j.rule;
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.spi.LoggingEventFieldResolver;
 
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 
@@ -85,9 +88,18 @@ public class ExistsRule extends AbstractRule {
     /**
      * {@inheritDoc}
      */
-  public boolean evaluate(final LoggingEvent event) {
+  public boolean evaluate(final LoggingEvent event, Map matches) {
     Object p2 = RESOLVER.getValue(field, event);
 
-    return (!((p2 == null) || ((p2 != null) && p2.toString().equals(""))));
+    boolean result = !((p2 == null) || (p2.toString().equals("")));
+    if (result && matches != null) {
+        Set entries = (Set) matches.get(field.toUpperCase());
+        if (entries == null) {
+            entries = new HashSet();
+            matches.put(field.toUpperCase(), entries);
+        }
+        entries.add(p2);
+    }
+    return result;
   }
 }

@@ -20,6 +20,9 @@ package org.apache.log4j.rule;
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.spi.LoggingEventFieldResolver;
 
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 
@@ -119,12 +122,10 @@ public class InequalityRule extends AbstractRule {
   }
 
     /** {@inheritDoc} */
-  public boolean evaluate(final LoggingEvent event) {
+  public boolean evaluate(final LoggingEvent event, Map matches) {
     long first = 0;
-
-    try {
-      first =
-        new Long(RESOLVER.getValue(field, event).toString()).longValue();
+      try {
+          first = new Long(RESOLVER.getValue(field, event).toString()).longValue();
     } catch (NumberFormatException nfe) {
       return false;
     }
@@ -148,7 +149,14 @@ public class InequalityRule extends AbstractRule {
     } else if (">=".equals(inequalitySymbol)) {
       result = first >= second;
     }
-
+    if (result && matches != null) {
+        Set entries = (Set) matches.get(field.toUpperCase());
+        if (entries == null) {
+            entries = new HashSet();
+            matches.put(field.toUpperCase(), entries);
+        }
+        entries.add(String.valueOf(first));
+    }
     return result;
   }
 }

@@ -19,6 +19,7 @@ package org.apache.log4j.rule;
 
 import org.apache.log4j.spi.LoggingEvent;
 
+import java.util.Map;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
@@ -103,8 +104,8 @@ public class ExpressionRule extends AbstractRule {
     /**
      * {@inheritDoc}
      */
-  public boolean evaluate(final LoggingEvent event) {
-    return rule.evaluate(event);
+  public boolean evaluate(final LoggingEvent event, Map matches) {
+    return rule.evaluate(event, matches);
   }
 
     /**
@@ -130,62 +131,50 @@ public class ExpressionRule extends AbstractRule {
       Stack stack = new Stack();
       StringTokenizer tokenizer = new StringTokenizer(expression);
 
-      while (tokenizer.hasMoreTokens()) {
-        //examine each token
-        String token = tokenizer.nextToken();
-        if ((token.startsWith("'"))
-                && (token.endsWith("'")
-                && (token.length() > 2))) {
-            token = token.substring(1, token.length() - 1);
-        }
-        if ((token.startsWith("'"))
-                && (token.endsWith("'")
-                && (token.length() == 2))) {
-            token = "";
-        }
-
-        boolean inText = token.startsWith("'");
-        if (inText) {
-            token = token.substring(1);
-            while (inText && tokenizer.hasMoreTokens()) {
-              token = token + " " + tokenizer.nextToken();
-              inText = !(token.endsWith("'"));
+          while (tokenizer.hasMoreTokens()) {
+            //examine each token
+            String token = tokenizer.nextToken();
+              if (token.startsWith("'")) {
+                token = token.substring(1);
+                while (!token.endsWith("'") && tokenizer.hasMoreTokens()) {
+                  token = token + " " + tokenizer.nextToken();
+                }
+                if (token.length() > 0) {
+                  token = token.substring(0, token.length() - 1);
+                }
+              } else {
+                //if a symbol is found, pop 2 off the stack,
+                  // evaluate and push the result
+                if (factory.isRule(token)) {
+                  Rule r = factory.getRule(token, stack);
+                  stack.push(r);
+                  //null out the token so we don't try to push it below
+                  token = null;
+                }
+            }
+              //variables or constants are pushed onto the stack
+              if (token != null && token.length() > 0) {
+                  stack.push(token);
+              }
           }
-          if (token.length() > 0) {
-              token = token.substring(0, token.length() - 1);
+
+          if ((stack.size() == 1) && (!(stack.peek() instanceof Rule))) {
+            //while this may be an attempt at creating an expression,
+            //for ease of use, convert this single entry to a partial-text
+            //match on the MSG field
+            Object o = stack.pop();
+            stack.push("MSG");
+            stack.push(o);
+            return factory.getRule("~=", stack);
+          }
+
+          //stack should contain a single rule if the expression is valid
+          if ((stack.size() != 1) || (!(stack.peek() instanceof Rule))) {
+            throw new IllegalArgumentException("invalid expression: " + expression);
+          } else {
+            return (Rule) stack.pop();
           }
         }
-
-        //if a symbol is found, pop 2 off the stack,
-          // evaluate and push the result
-        if (factory.isRule(token)) {
-          Rule r = factory.getRule(token, stack);
-          stack.push(r);
-        } else {
-          //variables or constants are pushed onto the stack
-          if (token.length() > 0) {
-              stack.push(token);
-          }
-        }
-      }
-
-      if ((stack.size() == 1) && (!(stack.peek() instanceof Rule))) {
-        //while this may be an attempt at creating an expression,
-        //for ease of use, convert this single entry to a partial-text
-        //match on the MSG field
-        Object o = stack.pop();
-        stack.push("MSG");
-        stack.push(o);
-        return factory.getRule("~=", stack);
-      }
-
-      //stack should contain a single rule if the expression is valid
-      if ((stack.size() != 1) || (!(stack.peek() instanceof Rule))) {
-        throw new IllegalArgumentException("invalid expression: " + expression);
-      } else {
-        return (Rule) stack.pop();
-      }
-    }
   }
 }
 

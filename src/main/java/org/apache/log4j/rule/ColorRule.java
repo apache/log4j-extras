@@ -19,6 +19,7 @@ package org.apache.log4j.rule;
 
 import java.awt.Color;
 import java.io.Serializable;
+import java.util.Map;
 
 import org.apache.log4j.spi.LoggingEvent;
 
@@ -104,8 +105,9 @@ public class ColorRule extends AbstractRule implements Serializable {
     /**
      * {@inheritDoc}
      */
-  public boolean evaluate(final LoggingEvent event) {
-    return (rule != null && rule.evaluate(event));
+  public boolean evaluate(final LoggingEvent event, Map matches) {
+    //no need for color rules to build matches
+    return (rule != null && rule.evaluate(event, null));
   }
 
     /**

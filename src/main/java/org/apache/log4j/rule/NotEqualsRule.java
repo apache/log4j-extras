@@ -17,6 +17,9 @@
 
 package org.apache.log4j.rule;
 
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 import org.apache.log4j.spi.LoggingEvent;
@@ -100,9 +103,19 @@ public class NotEqualsRule extends AbstractRule {
   }
 
     /** {@inheritDoc} */
-  public boolean evaluate(final LoggingEvent event) {
+  public boolean evaluate(final LoggingEvent event, Map matches) {
     Object p2 = RESOLVER.getValue(field, event);
 
-    return ((p2 != null) && !(p2.toString().equals(value)));
+    boolean result = (p2 != null) && !(p2.toString().equals(value));
+    if (result && matches != null) {
+        //not equals - add the text that isn't equal (p2)
+        Set entries = (Set) matches.get(field.toUpperCase());
+        if (entries == null) {
+            entries = new HashSet();
+            matches.put(field.toUpperCase(), entries);
+        }
+        entries.add(value);
+    }
+    return result;
   }
 }

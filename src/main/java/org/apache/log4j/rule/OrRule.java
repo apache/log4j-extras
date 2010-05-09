@@ -19,6 +19,11 @@ package org.apache.log4j.rule;
 
 import org.apache.log4j.spi.LoggingEvent;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -83,7 +88,40 @@ public class OrRule extends AbstractRule {
   }
 
   /** {@inheritDoc} */
-  public boolean evaluate(final LoggingEvent event) {
-    return (rule1.evaluate(event) || rule2.evaluate(event));
+  public boolean evaluate(final LoggingEvent event, Map matches) {
+      if (matches == null) {
+        return (rule1.evaluate(event, null) || rule2.evaluate(event, null));
+      }
+      Map tempMatches1 = new HashMap();
+      Map tempMatches2 = new HashMap();
+      //not short-circuiting because we want to build the matches list
+      boolean result1 = rule1.evaluate(event, tempMatches1);
+      boolean result2 = rule2.evaluate(event, tempMatches2);
+      boolean result = result1 || result2;
+      if (result) {
+          for (Iterator iter = tempMatches1.entrySet().iterator();iter.hasNext();) {
+              Map.Entry entry = (Map.Entry)iter.next();
+              Object key = entry.getKey();
+              Set value = (Set)entry.getValue();
+              Set mainSet = (Set) matches.get(key);
+              if (mainSet == null) {
+                  mainSet = new HashSet();
+                  matches.put(key, mainSet);
+              }
+              mainSet.addAll(value);
+          }
+          for (Iterator iter = tempMatches2.entrySet().iterator();iter.hasNext();) {
+              Map.Entry entry = (Map.Entry)iter.next();
+              Object key = entry.getKey();
+              Set value = (Set)entry.getValue();
+              Set mainSet = (Set) matches.get(key);
+              if (mainSet == null) {
+                  mainSet = new HashSet();
+                  matches.put(key, mainSet);
+              }
+              mainSet.addAll(value);
+          }
+      }
+      return result;
   }
 }

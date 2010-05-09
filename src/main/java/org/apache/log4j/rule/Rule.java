@@ -22,6 +22,7 @@ package org.apache.log4j.rule;
 import org.apache.log4j.spi.LoggingEvent;
 
 import java.beans.PropertyChangeListener;
+import java.util.Map;
 
 
 /**
@@ -40,9 +41,12 @@ public interface Rule {
    * <p>What True/False means can be client-specific.
    *
    * @param e LoggingEvent this instance will evaluate
+   * @param matches a Map of event field keys to Sets of matching strings (may be null) which will be
+   * updated during execution of this method to include field and string matches based on the rule
+   * evaluation results 
    * @return true if this Rule instance accepts the event, otherwise false.
    */
-  boolean evaluate(LoggingEvent e);
+  boolean evaluate(LoggingEvent e, Map matches);
 
   /**
    * Adds a PropertyChangeListener to this instance, which is notified when

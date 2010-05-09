@@ -18,12 +18,16 @@
 package org.apache.log4j.rule;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.helpers.UtilLoggingLevel;
 import org.apache.log4j.spi.LoggingEvent;
+import org.apache.log4j.spi.LoggingEventFieldResolver;
 
 /**
  * A Rule class implementing not equals against two levels.
@@ -95,10 +99,20 @@ public class NotLevelEqualsRule extends AbstractRule {
     /**
      * {@inheritDoc}
      */
-    public boolean evaluate(final LoggingEvent event) {
+    public boolean evaluate(final LoggingEvent event, Map matches) {
         //both util.logging and log4j contain 'info' - use the int values instead of equality
         //info level set to the same value for both levels
-        return level.toInt() != event.getLevel().toInt();
+        Level eventLevel = event.getLevel();
+        boolean result = level.toInt() != eventLevel.toInt();
+        if (result && matches != null) {
+            Set entries = (Set) matches.get(LoggingEventFieldResolver.LEVEL_FIELD);
+            if (entries == null) {
+                entries = new HashSet();
+                matches.put(LoggingEventFieldResolver.LEVEL_FIELD, entries);
+            }
+            entries.add(eventLevel);
+        }
+        return result;
     }
 
     /**

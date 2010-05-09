@@ -17,12 +17,16 @@
 
 package org.apache.log4j.rule;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.helpers.UtilLoggingLevel;
 import org.apache.log4j.spi.LoggingEvent;
+import org.apache.log4j.spi.LoggingEventFieldResolver;
 
 /**
  * A Rule class implementing inequality evaluation for Levels (log4j and
@@ -143,8 +147,18 @@ public class LevelInequalityRule {
         }
 
         /** {@inheritDoc} */
-        public boolean evaluate(final LoggingEvent event) {
-            return (event.getLevel().toInt() < newLevelInt);
+        public boolean evaluate(final LoggingEvent event, Map matches) {
+            Level eventLevel = event.getLevel();
+            boolean result = (eventLevel.toInt() < newLevelInt);
+            if (result && matches != null) {
+                Set entries = (Set) matches.get(LoggingEventFieldResolver.LEVEL_FIELD);
+                if (entries == null) {
+                    entries = new HashSet();
+                    matches.put(LoggingEventFieldResolver.LEVEL_FIELD, entries);
+                }
+                entries.add(eventLevel);
+            }
+            return result;
         }
     }
 
@@ -167,8 +181,18 @@ public class LevelInequalityRule {
         }
 
         /** {@inheritDoc} */
-        public boolean evaluate(final LoggingEvent event) {
-            return (event.getLevel().toInt() > newLevelInt);
+        public boolean evaluate(final LoggingEvent event, Map matches) {
+            Level eventLevel = event.getLevel();
+            boolean result = (eventLevel.toInt() > newLevelInt);
+            if (result && matches != null) {
+                Set entries = (Set) matches.get(LoggingEventFieldResolver.LEVEL_FIELD);
+                if (entries == null) {
+                    entries = new HashSet();
+                    matches.put(LoggingEventFieldResolver.LEVEL_FIELD, entries);
+                }
+                entries.add(eventLevel);
+            }
+            return result;
         }
     }
 
@@ -192,8 +216,18 @@ public class LevelInequalityRule {
         }
 
         /** {@inheritDoc} */
-        public boolean evaluate(final LoggingEvent event) {
-            return event.getLevel().toInt() >= newLevelInt;
+        public boolean evaluate(final LoggingEvent event, Map matches) {
+            Level eventLevel = event.getLevel();
+            boolean result = eventLevel.toInt() >= newLevelInt;
+            if (result && matches != null) {
+                Set entries = (Set) matches.get(LoggingEventFieldResolver.LEVEL_FIELD);
+                if (entries == null) {
+                    entries = new HashSet();
+                    matches.put(LoggingEventFieldResolver.LEVEL_FIELD, entries);
+                }
+                entries.add(eventLevel);
+            }
+            return result;
         }
     }
 
@@ -218,8 +252,19 @@ public class LevelInequalityRule {
         }
 
         /** {@inheritDoc} */
-        public boolean evaluate(final LoggingEvent event) {
-            return (event.getLevel().toInt() <= newLevelInt);
+        public boolean evaluate(final LoggingEvent event, Map matches) {
+            Level eventLevel = event.getLevel();
+            boolean result = eventLevel.toInt() <= newLevelInt;
+            if (result && matches != null) {
+                Set entries = (Set) matches.get(LoggingEventFieldResolver.LEVEL_FIELD);
+                if (entries == null) {
+                    entries = new HashSet();
+                    matches.put(LoggingEventFieldResolver.LEVEL_FIELD, entries);
+                }
+                entries.add(eventLevel);
+            }
+
+            return result;
         }
     }
 }

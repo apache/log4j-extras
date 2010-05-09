@@ -19,6 +19,11 @@ package org.apache.log4j.rule;
 
 import org.apache.log4j.spi.LoggingEvent;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 
@@ -86,7 +91,37 @@ public class AndRule extends AbstractRule {
     /**
      * {@inheritDoc}
      */
-  public boolean evaluate(final LoggingEvent event) {
-    return (firstRule.evaluate(event) && secondRule.evaluate(event));
+  public boolean evaluate(final LoggingEvent event, Map matches) {
+        if (matches == null) {
+            return firstRule.evaluate(event, null) && secondRule.evaluate(event, null);
+        }
+        Map tempMatches1 = new HashMap();
+        Map tempMatches2 = new HashMap();
+        boolean result = firstRule.evaluate(event, tempMatches1) && secondRule.evaluate(event, tempMatches2);
+        if (result) {
+            for (Iterator iter = tempMatches1.entrySet().iterator();iter.hasNext();) {
+                Map.Entry entry = (Map.Entry)iter.next();
+                Object key = entry.getKey();
+                Set value = (Set)entry.getValue();
+                Set mainSet = (Set) matches.get(key);
+                if (mainSet == null) {
+                    mainSet = new HashSet();
+                    matches.put(key, mainSet);
+                }
+                mainSet.addAll(value);
+            }
+            for (Iterator iter = tempMatches2.entrySet().iterator();iter.hasNext();) {
+                Map.Entry entry = (Map.Entry)iter.next();
+                Object key = entry.getKey();
+                Set value = (Set)entry.getValue();
+                Set mainSet = (Set) matches.get(key);
+                if (mainSet == null) {
+                    mainSet = new HashSet();
+                    matches.put(key, mainSet);
+                }
+                mainSet.addAll(value);
+            }
+        }
+        return result;
   }
 }

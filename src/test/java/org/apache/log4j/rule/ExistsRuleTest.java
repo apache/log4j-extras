@@ -76,7 +76,7 @@ public class ExistsRuleTest extends TestCase {
         LoggingEvent event = new LoggingEvent("org.apache.log4j.Logger",
                 Logger.getRootLogger(), System.currentTimeMillis(), Level.INFO,
                 "Hello, World", null);
-        assertTrue(rule.evaluate(event));
+        assertTrue(rule.evaluate(event, null));
     }
 
     /**
@@ -90,7 +90,7 @@ public class ExistsRuleTest extends TestCase {
         LoggingEvent event = new LoggingEvent("org.apache.log4j.Logger",
                 Logger.getRootLogger(), System.currentTimeMillis(), Level.INFO,
                 "", null);
-        assertFalse(rule.evaluate(event));
+        assertFalse(rule.evaluate(event, null));
     }
 
     /**
@@ -104,7 +104,7 @@ public class ExistsRuleTest extends TestCase {
         LoggingEvent event = new LoggingEvent("org.apache.log4j.Logger",
                 Logger.getRootLogger(), System.currentTimeMillis(), Level.INFO,
                 "Hello, World", null);
-        assertTrue(rule.evaluate(event));
+        assertTrue(rule.evaluate(event, null));
     }
 
 }
