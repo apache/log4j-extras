@@ -36,7 +36,8 @@
        <action action="add" issue="48902">Add %throwable{n} and {-n} pattern to EnhancedPatternLayout to print n or drop last n lines.</action>
        <action action="fix" issue="49812">Improve javadoc for LogMF, LogSF, LogXF</action>
        <action action="fix" issue="49007">CachedDateFormatTest fails on Apache Harmony.</action>
-       <action action="fix" issue="48953">Unused imports and variables in test code cause gcj compile warnings.</action>       
+       <action action="fix" issue="48953">Unused imports and variables in test code cause gcj compile warnings.</action>
+       <action action="add" issue="43282">Add OSGi packaging info.</action>       
     </release>
 
 

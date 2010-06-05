@@ -19,7 +19,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>log4j</groupId>
   <artifactId>apache-log4j-extras</artifactId>
-  <packaging>jar</packaging>
+  <packaging>bundle</packaging>
   <version>1.1-SNAPSHOT</version>
   <name>Apache Extras Companion for log4j 1.2.</name>
   <description>This companion provides additional appenders, filters and
@@ -190,6 +190,9 @@
 	 </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
         <executions>
             <execution>
                 <goals>
@@ -212,7 +215,53 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>rat-maven-plugin</artifactId>
+        <version>1.0-alpha-3</version>
+        <configuration>
+            <excludes>
+                <exclude>src/test/resources/org/apache/log4j/**/*.log</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.null</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.throwable</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.0</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.1</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.2</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.3</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.4</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.5</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.6</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.7</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.8</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.9</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.9</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.10</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.11</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.12</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.13</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.14</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.15</exclude>
+            </excludes>
+        </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <version>2.0.1</version>
+        <extensions>true</extensions>
+        <configuration>
+            <instructions>
+		<!--  currently only exporting packages that
+                     are also supplied by log4j.
+                     Exporting org.apache.log4j.varia.SoundAppender
+                     and org.apache.log4j.xml.XSLTLayout requires someone
+                     more experiences with OSGi  -->
+                <Export-Package>org.apache.log4j.extras;
+			org.apache.log4j.filter;
+			org.apache.log4j.rolling;
+			org.apache.log4j.rule</Export-Package>
+                <Bundle-DocURL>http://logging.apache.org/log4j/companions/extras/index.html</Bundle-DocURL>
+            </instructions>
+        </configuration>
+      </plugin>
+
     </plugins>
 </build>
   <dependencies>
@@ -255,7 +304,7 @@
           <artifactId>maven-release-plugin</artifactId>
 		  <!--  attempt to work-around MRELEASE-273, see bug 42099 for release build notes -->
           <configuration>
-              <goals>package site-deploy assembly:attached deploy</goals>
+              <goals>package site-depl oy assembly:attached deploy</goals>
           </configuration>
       </plugin>
       <plugin>
