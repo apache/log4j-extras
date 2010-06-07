@@ -18,7 +18,10 @@
 package org.apache.log4j.spi;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Locale;
 
@@ -227,6 +230,17 @@ public final class LoggingEventFieldResolver {
     } else if (upperField.startsWith(PROP_FIELD)) {
       //note: need to use actual fieldname since case matters
       Object propValue = event.getMDC(fieldName.substring(5));
+      if (propValue == null) {
+          //case-specific match didn't work, try case insensitive match
+          String lowerPropKey = fieldName.substring(5).toLowerCase();
+          Set entrySet = event.getProperties().entrySet();
+          for (Iterator iter = entrySet.iterator();iter.hasNext();) {
+              Map.Entry thisEntry = (Map.Entry) iter.next();
+              if (thisEntry.getKey().toString().toLowerCase().equals(lowerPropKey)) {
+                  propValue = thisEntry.getValue();
+              }
+          }
+      }
       return ((propValue == null) ? EMPTY_STRING : propValue.toString());
     } else {
         LocationInfo info = event.getLocationInformation();
