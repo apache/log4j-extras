@@ -165,6 +165,11 @@
             <version>1.6.5</version>
           </dependency>
           <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.6.5</version>
+          </dependency>
+          <dependency>
             <groupId>ant-contrib</groupId>
             <artifactId>ant-contrib</artifactId>
             <version>1.0b2</version>
@@ -283,6 +288,8 @@
     <plugins>
       <plugin>
         <artifactId>maven-project-info-reports-plugin</artifactId>
+        <!--  version 2.2 runs into http://jira.codehaus.org/browse/DOXIA-215  -->
+        <version>2.1</version>
         <reportSets>
           <reportSet>
             <reports>
@@ -325,6 +332,9 @@
       </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
       </plugin>
     </plugins>
   </reporting>
