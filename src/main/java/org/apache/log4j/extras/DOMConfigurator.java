@@ -671,9 +671,14 @@ public class DOMConfigurator implements Configurator {
   void doConfigure(final URL url, LoggerRepository repository) {
       ParseAction action = new ParseAction() {
           public Document parse(final DocumentBuilder parser) throws SAXException, IOException {
-              InputSource src = new InputSource(url.openStream());
-              src.setSystemId(url.toString());
-              return parser.parse(src);
+              InputStream stream = url.openStream();
+              try {
+                InputSource src = new InputSource(stream);
+                src.setSystemId(url.toString());
+                return parser.parse(src);
+              } finally {
+                stream.close();
+              }
           }
           public String toString() { 
               return "url [" + url.toString() + "]"; 

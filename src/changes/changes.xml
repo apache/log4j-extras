@@ -37,7 +37,8 @@
        <action action="fix" issue="49812">Improve javadoc for LogMF, LogSF, LogXF</action>
        <action action="fix" issue="49007">CachedDateFormatTest fails on Apache Harmony.</action>
        <action action="fix" issue="48953">Unused imports and variables in test code cause gcj compile warnings.</action>
-       <action action="add" issue="43282">Add OSGi packaging info.</action>       
+       <action action="add" issue="43282">Add OSGi packaging info.</action>
+       <action issue="48588" action="fix">DOMConfigurator does not close input stream when configured based on URL.</action>
     </release>
 
 
