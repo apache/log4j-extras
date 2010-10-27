@@ -20,7 +20,7 @@
   <groupId>log4j</groupId>
   <artifactId>apache-log4j-extras</artifactId>
   <packaging>bundle</packaging>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <name>Apache Extras Companion for log4j 1.2.</name>
   <description>This companion provides additional appenders, filters and
   other capabilities for log4j 1.2.  Several of these were backported from
