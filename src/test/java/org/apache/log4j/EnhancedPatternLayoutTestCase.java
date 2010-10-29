@@ -416,6 +416,19 @@ public class EnhancedPatternLayoutTestCase extends TestCase {
       assertTrue(cstDate.getTime() >= start - 1000 && cstDate.getTime() < end + 1000);
     }
 
+  /**
+   *   Test left and right truncation
+   */
+  public void test17() throws Exception {
+    configure("input/pattern/enhancedPatternLayout17.properties");
+    root.info("012");
+    root.info("");
+    root.info("12345");
+    root.info("0123456789");
+    assertTrue(compare("patternLayout17.log", "witness/pattern/enhancedPatternLayout.17"));
+  }
+
+
   void common() {
     int i = -1;
 

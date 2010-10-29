@@ -40,6 +40,7 @@
        <action action="add" issue="43282">Add OSGi packaging info.</action>
        <action issue="48588" action="fix">DOMConfigurator does not close input stream when configured based on URL.</action>
        <action issue="49078" action="fix">javadoc.jar was missing NOTICE and LICENSE.</action>
+       <action issue="50039" action="add">Add right truncation modifier to EnhancedPatternLayout.</action>
     </release>
 
 
