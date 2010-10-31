@@ -13,14 +13,14 @@
 ~~ See the License for the specific language governing permissions and
 ~~ limitations under the License.
  ------
-Download apache-log4j-extras
+Download Apache Extras Companion\u2122 for Apache LOG4J\u2122
  ------
  ------
  ------
 
-Download apache-log4j-extras
+Download Apache Extras Companion\u2122 for Apache LOG4J\u2122
 
-  Apache Extras Companion for log4j 1.2 is distributed under the {{{http://www.apache.org/licenses/LICENSE-2.0.html} Apache License, version 2.0}}.
+  Apache Extras Companion for LOG4J is distributed under the {{{http://www.apache.org/licenses/LICENSE-2.0.html} Apache License, version 2.0}}.
 
   The link in the Mirrors column should display a list of available mirrors with a
   default selection based on your inferred location.  If you do not see that page,
@@ -57,4 +57,4 @@ Download apache-log4j-extras
 
 * Previous Releases
 
-  Apache log4j extras 1.0 can be found in the {{{http://archive.apache.org/dist/logging/log4j/companions/extras}archive repository}}.
+    Previous releases can be found in the {{{http://archive.apache.org/dist/logging/log4j/companions/extras}archive repository}}.
