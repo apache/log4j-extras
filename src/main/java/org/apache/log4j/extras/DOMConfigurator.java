@@ -851,10 +851,9 @@ public class DOMConfigurator implements Configurator {
       //
     String resetAttrib = subst(element.getAttribute(RESET_ATTR));
     LogLog.debug("reset attribute= \"" + resetAttrib +"\".");
-    if(!("".equals(resetAttrib))) {
-         if (OptionConverter.toBoolean(resetAttrib, false)) {
-             repository.resetConfiguration();
-         }
+    if(!("".equals(resetAttrib)) &&
+         OptionConverter.toBoolean(resetAttrib, false)) {
+         repository.resetConfiguration();
     }
 
 

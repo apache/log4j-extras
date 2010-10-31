@@ -17,12 +17,9 @@
 
 package org.apache.log4j.rule;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Stack;
-import org.apache.log4j.LogManager;
 
 /**
  * A Factory class which, given a string representation of the rule,

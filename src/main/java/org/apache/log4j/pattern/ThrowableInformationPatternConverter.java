@@ -57,6 +57,7 @@ public class ThrowableInformationPatternConverter
           try {
               maxLines = Integer.parseInt(options[0]);
           } catch(NumberFormatException ex) {
+              maxLines = Integer.MAX_VALUE;
           }
       }
     }
