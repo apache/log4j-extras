@@ -267,10 +267,14 @@ public class InFixToPostFix {
 //                System.out.println("adding non-prop field: " + tempString);
                 temp.setLength(0);
               } else {
-                //if building a property field, go until an operator are encountered
+                //if building a property field, go until an operator is encountered
                 if (tempString.toUpperCase().startsWith(LoggingEventFieldResolver.PROP_FIELD)) {
                   for (Iterator iter = operators.iterator();iter.hasNext();) {
+                    //skip the NOT operator, since there is both a ! and !=, and ! will match (check not after we don't have a match)
                     String thisOperator = (String)iter.next();
+                    if (thisOperator.equals("!")) {
+                      continue;
+                    }
                     if (tempString.endsWith(thisOperator)) {
                       String property = tempString.substring(0, tempString.indexOf(thisOperator));
                       if (!property.trim().equals("")) {
@@ -281,6 +285,16 @@ public class InFixToPostFix {
 //                      System.out.println("adding operator: " + thisOperator);
 
                       temp.setLength(0);
+                    }
+                  }
+                  //is ! the 2nd to last character?
+                  if (tempString.length() > 2 && tempString.substring(tempString.length() - 2, tempString.length() - 1).equals("!")) {
+                    if (!tempString.endsWith("!=")) {
+                      String property = tempString.substring(0, tempString.indexOf("!"));
+                      linkedList.add(property);
+                      linkedList.add("!");
+                      temp.setLength(0);
+                      temp.append(tempString.substring(tempString.length() - 1));
                     }
                   }
                   if (tempString.endsWith("(")) {
@@ -308,6 +322,9 @@ public class InFixToPostFix {
                 } else {
                   for (Iterator iter = operators.iterator();iter.hasNext();) {
                     String thisOperator = (String)iter.next();
+                    if (thisOperator.equals("!")) {
+                      continue;
+                    }
                     //handling operator equality below
                     if (!tempString.equals(thisOperator) && tempString.endsWith(thisOperator)) {
                       String firstPart = tempString.substring(0, tempString.indexOf(thisOperator));
@@ -321,15 +338,29 @@ public class InFixToPostFix {
                       temp.setLength(0);
                     }
                   }
+                  //is ! the 2nd to last character?
+                  if (tempString.length() > 2 && tempString.substring(tempString.length() - 2, tempString.length() - 1).equals("!")) {
+                    if (!tempString.endsWith("!=")) {
+                      String firstPart = tempString.substring(0, tempString.indexOf("!"));
+                      linkedList.add(firstPart);
+                      linkedList.add("!");
+                      temp.setLength(0);
+                      temp.append(tempString.substring(tempString.length() - 1));
+                    }
+                  }
 
                   for (Iterator iter = operators.iterator();iter.hasNext();) {
                     String thisOperator = (String)iter.next();
+                    if (thisOperator.equals("!")) {
+                      continue;
+                    }
                     if (tempString.equals(thisOperator)) {
                       linkedList.add(thisOperator);
                       temp.setLength(0);
 //                      System.out.println("adding operator: " + thisOperator);
                     }
                   }
+
                   if (tempString.endsWith("(")) {
                     String firstPart = tempString.substring(0, tempString.indexOf("("));
                     if (!firstPart.trim().equals("")) {
