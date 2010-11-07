@@ -18,11 +18,14 @@
 package org.apache.log4j.rule;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
-import java.util.StringTokenizer;
 import java.util.Vector;
+
+import org.apache.log4j.spi.LoggingEventFieldResolver;
 
 /**
  * A helper class which converts infix expressions to postfix expressions
@@ -55,18 +58,14 @@ public class InFixToPostFix {
     /**
      * Precedence map.
      */
-  private final Map precedenceMap = new HashMap();
+  private static final Map precedenceMap = new HashMap();
     /**
      * Operators.
      */
-  private final List operators = new Vector();
+  private static final List operators = new Vector();
 
-    /**
-     * Create new instance.
-     */
-  public InFixToPostFix() {
-     super();
-    //boolean operators
+
+  static {
     operators.add("!");
     operators.add("!=");
     operators.add("==");
@@ -96,14 +95,13 @@ public class InFixToPostFix {
     precedenceMap.put("||", new Integer(2));
     precedenceMap.put("&&", new Integer(2));
   }
-
     /**
      * Convert in-fix expression to post-fix.
      * @param expression in-fix expression.
      * @return post-fix expression.
      */
   public String convert(final String expression) {
-    return infixToPostFix(new StringTokenizer(expression));
+    return infixToPostFix(new CustomTokenizer(expression));
   }
 
     /**
@@ -111,7 +109,7 @@ public class InFixToPostFix {
      * @param s symbol.
      * @return true if operand.
      */
-  boolean isOperand(final String s) {
+  public static boolean isOperand(final String s) {
     String symbol = s.toLowerCase();
     return (!operators.contains(symbol));
   }
@@ -147,7 +145,7 @@ public class InFixToPostFix {
      * @param tokenizer tokenizer.
      * @return post-fix expression.
      */
-  String infixToPostFix(final StringTokenizer tokenizer) {
+  String infixToPostFix(final CustomTokenizer tokenizer) {
     final String space = " ";
     StringBuffer postfix = new StringBuffer();
 
@@ -220,5 +218,159 @@ public class InFixToPostFix {
     }
 
     return postfix.toString();
+  }
+
+  public static class CustomTokenizer {
+    private LinkedList linkedList = new LinkedList();
+    public CustomTokenizer(String input) {
+      int index = 0;
+//      System.out.println("parsing: " + input);
+      boolean inString = false;
+      StringBuffer temp = new StringBuffer();
+      while (index < input.length()) {
+        String thisChar = input.substring(index, index + 1);
+        if (inString) {
+          if (thisChar.equals("'")) {
+//            System.out.println("ending a delimited string");
+            //end delimited string, add to linkedlist & continue
+            inString = false;
+            temp.append(thisChar);
+            linkedList.add(temp.toString());
+//            System.out.println("adding delimited string: " + temp.toString());
+            temp.setLength(0);
+          } else {
+            temp.append(thisChar);
+          }
+        } else {
+          if (thisChar.equals("'")) {
+            //starting a delimited string
+            inString = true;
+            temp.append(thisChar);
+//            System.out.println("starting a delimited string");
+          } else {
+            if (thisChar.equals(" ")) {
+              //no need to add the space - just add the linked list
+              if (!temp.toString().trim().equals("")) {
+//                System.out.println("found space - adding string: " + temp.toString());
+                linkedList.add(temp.toString());
+              }
+              temp.setLength(0);
+            } else {
+              //not a string delimited by single ticks or a space
+              //collect values until keyword is matched or operator is encountered
+              temp.append(thisChar);
+              String tempString = temp.toString();
+              //all fields except PROP. field can be added if present
+              if (LoggingEventFieldResolver.getInstance().isField(tempString) &&
+                  !tempString.toUpperCase().startsWith(LoggingEventFieldResolver.PROP_FIELD)) {
+                linkedList.add(tempString);
+//                System.out.println("adding non-prop field: " + tempString);
+                temp.setLength(0);
+              } else {
+                //if building a property field, go until an operator are encountered
+                if (tempString.toUpperCase().startsWith(LoggingEventFieldResolver.PROP_FIELD)) {
+                  for (Iterator iter = operators.iterator();iter.hasNext();) {
+                    String thisOperator = (String)iter.next();
+                    if (tempString.endsWith(thisOperator)) {
+                      String property = tempString.substring(0, tempString.indexOf(thisOperator));
+                      if (!property.trim().equals("")) {
+                        linkedList.add(property);
+//                        System.out.println("adding property: " + property);
+                      }
+                      linkedList.add(thisOperator);
+//                      System.out.println("adding operator: " + thisOperator);
+
+                      temp.setLength(0);
+                    }
+                  }
+                  if (tempString.endsWith("(")) {
+                    String property = tempString.substring(0, tempString.indexOf("("));
+//                    System.out.println("adding property: " + property + " and left paren");
+
+                    if (!property.trim().equals("")) {
+                      linkedList.add(property);
+//                      System.out.println("adding property: " + property);
+                    }
+//                    System.out.println("adding (");
+                    linkedList.add("(");
+                    temp.setLength(0);
+                  }
+                  if (tempString.endsWith(")")) {
+                    String property = tempString.substring(0, tempString.indexOf(")"));
+                    if (!property.trim().equals("")) {
+//                      System.out.println("adding property: " + property);
+                      linkedList.add(property);
+                    }
+//                    System.out.println("adding )");
+                    linkedList.add(")");
+                    temp.setLength(0);
+                  }
+                } else {
+                  for (Iterator iter = operators.iterator();iter.hasNext();) {
+                    String thisOperator = (String)iter.next();
+                    //handling operator equality below
+                    if (!tempString.equals(thisOperator) && tempString.endsWith(thisOperator)) {
+                      String firstPart = tempString.substring(0, tempString.indexOf(thisOperator));
+                      if (!firstPart.trim().equals("")) {
+                        linkedList.add(firstPart);
+//                        System.out.println("adding first part: " + firstPart);
+                      }
+                      linkedList.add(thisOperator);
+//                      System.out.println("adding operator: " + thisOperator);
+
+                      temp.setLength(0);
+                    }
+                  }
+
+                  for (Iterator iter = operators.iterator();iter.hasNext();) {
+                    String thisOperator = (String)iter.next();
+                    if (tempString.equals(thisOperator)) {
+                      linkedList.add(thisOperator);
+                      temp.setLength(0);
+//                      System.out.println("adding operator: " + thisOperator);
+                    }
+                  }
+                  if (tempString.endsWith("(")) {
+                    String firstPart = tempString.substring(0, tempString.indexOf("("));
+                    if (!firstPart.trim().equals("")) {
+                      linkedList.add(firstPart);
+//                      System.out.println("adding first part: " + firstPart);
+                    }
+                    linkedList.add("(");
+//                    System.out.println("adding (");
+                    temp.setLength(0);
+                  }
+                  if (tempString.endsWith(")")) {
+                    String firstPart = tempString.substring(0, tempString.indexOf(")"));
+                    if (!firstPart.trim().equals("")) {
+//                      System.out.println("adding first part: " + firstPart);
+                      linkedList.add(firstPart);
+                    }
+                    linkedList.add(")");
+//                    System.out.println("adding  )");
+                    temp.setLength(0);
+                  }
+                }
+              }
+            }
+          }
+        }
+        index++;
+      }
+      if (temp.length() > 0) {
+//        System.out.println("adding remaining text: " + temp.toString());
+        linkedList.add(temp.toString());
+        temp.setLength(0);
+      }
+//      System.out.println("linked list: " + linkedList);
+    }
+
+    public boolean hasMoreTokens() {
+      return linkedList.size() > 0;
+    }
+
+    public String nextToken() {
+      return linkedList.remove().toString();
+    }
   }
 }

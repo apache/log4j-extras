@@ -22,8 +22,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.StringTokenizer;
 import java.util.Locale;
+
+import org.apache.log4j.rule.InFixToPostFix;
 
 
 /**
@@ -157,7 +158,7 @@ public final class LoggingEventFieldResolver {
       if (replaceText == null) {
         return null;
       }
-      StringTokenizer tokenizer = new StringTokenizer(replaceText);
+      InFixToPostFix.CustomTokenizer tokenizer = new InFixToPostFix.CustomTokenizer(replaceText);
       StringBuffer result = new StringBuffer();
       boolean found = false;
 

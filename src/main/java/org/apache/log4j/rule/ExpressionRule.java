@@ -17,11 +17,10 @@
 
 package org.apache.log4j.rule;
 
-import org.apache.log4j.spi.LoggingEvent;
-
 import java.util.Map;
 import java.util.Stack;
-import java.util.StringTokenizer;
+
+import org.apache.log4j.spi.LoggingEvent;
 
 
 /**
@@ -129,7 +128,7 @@ public class ExpressionRule extends AbstractRule {
       RuleFactory factory = RuleFactory.getInstance();
 
       Stack stack = new Stack();
-      StringTokenizer tokenizer = new StringTokenizer(expression);
+      InFixToPostFix.CustomTokenizer tokenizer = new InFixToPostFix.CustomTokenizer(expression);
 
           while (tokenizer.hasMoreTokens()) {
             //examine each token
