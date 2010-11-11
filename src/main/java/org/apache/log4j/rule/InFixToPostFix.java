@@ -66,7 +66,9 @@ public class InFixToPostFix {
 
 
   static {
-    operators.add("!");
+    //order multi-char operators before single-char operators (will use this order during parsing)
+    operators.add("<=");
+    operators.add(">=");
     operators.add("!=");
     operators.add("==");
     operators.add("~=");
@@ -74,10 +76,9 @@ public class InFixToPostFix {
     operators.add("&&");
     operators.add("like");
     operators.add("exists");
+    operators.add("!");
     operators.add("<");
     operators.add(">");
-    operators.add("<=");
-    operators.add(">=");
 
     //boolean precedence
     precedenceMap.put("<", new Integer(3));
@@ -222,178 +223,149 @@ public class InFixToPostFix {
 
   public static class CustomTokenizer {
     private LinkedList linkedList = new LinkedList();
+
     public CustomTokenizer(String input) {
-      int index = 0;
-//      System.out.println("parsing: " + input);
-      boolean inString = false;
-      StringBuffer temp = new StringBuffer();
-      while (index < input.length()) {
-        String thisChar = input.substring(index, index + 1);
-        if (inString) {
-          if (thisChar.equals("'")) {
-//            System.out.println("ending a delimited string");
-            //end delimited string, add to linkedlist & continue
-            inString = false;
-            temp.append(thisChar);
-            linkedList.add(temp.toString());
-//            System.out.println("adding delimited string: " + temp.toString());
-            temp.setLength(0);
-          } else {
-            temp.append(thisChar);
-          }
-        } else {
-          if (thisChar.equals("'")) {
-            //starting a delimited string
-            inString = true;
-            temp.append(thisChar);
-//            System.out.println("starting a delimited string");
-          } else {
-            if (thisChar.equals(" ")) {
-              //no need to add the space - just add the linked list
-              if (!temp.toString().trim().equals("")) {
-//                System.out.println("found space - adding string: " + temp.toString());
-                linkedList.add(temp.toString());
-              }
-              temp.setLength(0);
-            } else {
-              //not a string delimited by single ticks or a space
-              //collect values until keyword is matched or operator is encountered
-              temp.append(thisChar);
-              String tempString = temp.toString();
-              //all fields except PROP. field can be added if present
-              if (LoggingEventFieldResolver.getInstance().isField(tempString) &&
-                  !tempString.toUpperCase().startsWith(LoggingEventFieldResolver.PROP_FIELD)) {
-                linkedList.add(tempString);
-//                System.out.println("adding non-prop field: " + tempString);
-                temp.setLength(0);
-              } else {
-                //if building a property field, go until an operator is encountered
-                if (tempString.toUpperCase().startsWith(LoggingEventFieldResolver.PROP_FIELD)) {
-                  for (Iterator iter = operators.iterator();iter.hasNext();) {
-                    //skip the NOT operator, since there is both a ! and !=, and ! will match (check not after we don't have a match)
-                    String thisOperator = (String)iter.next();
-                    if (thisOperator.equals("!")) {
-                      continue;
-                    }
-                    if (tempString.endsWith(thisOperator)) {
-                      String property = tempString.substring(0, tempString.indexOf(thisOperator));
-                      if (!property.trim().equals("")) {
-                        linkedList.add(property);
-//                        System.out.println("adding property: " + property);
-                      }
-                      linkedList.add(thisOperator);
-//                      System.out.println("adding operator: " + thisOperator);
+      parseInput(input, linkedList);
+    }
 
-                      temp.setLength(0);
-                    }
-                  }
-                  //is ! the 2nd to last character?
-                  if (tempString.length() > 2 && tempString.substring(tempString.length() - 2, tempString.length() - 1).equals("!")) {
-                    if (!tempString.endsWith("!=")) {
-                      String property = tempString.substring(0, tempString.indexOf("!"));
-                      linkedList.add(property);
-                      linkedList.add("!");
-                      temp.setLength(0);
-                      temp.append(tempString.substring(tempString.length() - 1));
-                    }
-                  }
-                  if (tempString.endsWith("(")) {
-                    String property = tempString.substring(0, tempString.indexOf("("));
-//                    System.out.println("adding property: " + property + " and left paren");
-
-                    if (!property.trim().equals("")) {
-                      linkedList.add(property);
-//                      System.out.println("adding property: " + property);
-                    }
-//                    System.out.println("adding (");
-                    linkedList.add("(");
-                    temp.setLength(0);
-                  }
-                  if (tempString.endsWith(")")) {
-                    String property = tempString.substring(0, tempString.indexOf(")"));
-                    if (!property.trim().equals("")) {
-//                      System.out.println("adding property: " + property);
-                      linkedList.add(property);
-                    }
-//                    System.out.println("adding )");
-                    linkedList.add(")");
-                    temp.setLength(0);
-                  }
-                } else {
-                  for (Iterator iter = operators.iterator();iter.hasNext();) {
-                    String thisOperator = (String)iter.next();
-                    if (thisOperator.equals("!")) {
-                      continue;
-                    }
-                    //handling operator equality below
-                    if (!tempString.equals(thisOperator) && tempString.endsWith(thisOperator)) {
-                      String firstPart = tempString.substring(0, tempString.indexOf(thisOperator));
-                      if (!firstPart.trim().equals("")) {
-                        linkedList.add(firstPart);
-//                        System.out.println("adding first part: " + firstPart);
-                      }
-                      linkedList.add(thisOperator);
-//                      System.out.println("adding operator: " + thisOperator);
-
-                      temp.setLength(0);
-                    }
-                  }
-                  //is ! the 2nd to last character?
-                  if (tempString.length() > 2 && tempString.substring(tempString.length() - 2, tempString.length() - 1).equals("!")) {
-                    if (!tempString.endsWith("!=")) {
-                      String firstPart = tempString.substring(0, tempString.indexOf("!"));
-                      linkedList.add(firstPart);
-                      linkedList.add("!");
-                      temp.setLength(0);
-                      temp.append(tempString.substring(tempString.length() - 1));
-                    }
-                  }
-
-                  for (Iterator iter = operators.iterator();iter.hasNext();) {
-                    String thisOperator = (String)iter.next();
-                    if (thisOperator.equals("!")) {
-                      continue;
-                    }
-                    if (tempString.equals(thisOperator)) {
-                      linkedList.add(thisOperator);
-                      temp.setLength(0);
-//                      System.out.println("adding operator: " + thisOperator);
-                    }
-                  }
-
-                  if (tempString.endsWith("(")) {
-                    String firstPart = tempString.substring(0, tempString.indexOf("("));
-                    if (!firstPart.trim().equals("")) {
-                      linkedList.add(firstPart);
-//                      System.out.println("adding first part: " + firstPart);
-                    }
-                    linkedList.add("(");
-//                    System.out.println("adding (");
-                    temp.setLength(0);
-                  }
-                  if (tempString.endsWith(")")) {
-                    String firstPart = tempString.substring(0, tempString.indexOf(")"));
-                    if (!firstPart.trim().equals("")) {
-//                      System.out.println("adding first part: " + firstPart);
-                      linkedList.add(firstPart);
-                    }
-                    linkedList.add(")");
-//                    System.out.println("adding  )");
-                    temp.setLength(0);
-                  }
-                }
-              }
-            }
+    public void parseInput(String input, LinkedList linkedList) {
+      /*
+     Operators:
+         !
+         !=
+         ==
+         ~=
+         ||
+         &&
+         like
+         exists
+         <
+         <=
+         >
+         >=
+      */
+      //for operators, handle multi-char matches before single-char matches
+      //order does not matter for keywords
+      List keywords = LoggingEventFieldResolver.KEYWORD_LIST;
+      //remove PROP. from the keyword list...it is a keyword in that list, but is handled separately here from the other keywords since its name is not fixed
+      keywords.remove("PROP.");
+      int pos = 0;
+      while (pos < input.length()) {
+        if (nextValueIs(input, pos, "'")) {
+          pos = handleQuotedString(input, pos, linkedList);
+        }
+        if (nextValueIs(input, pos, "PROP.")) {
+          pos = handleProperty(input, pos, linkedList);
+        }
+        boolean operatorFound = false;
+        for (Iterator iter = operators.iterator();iter.hasNext();) {
+          String operator = (String)iter.next();
+          if (nextValueIs(input, pos, operator)) {
+            operatorFound = true;
+            pos = handle(pos, linkedList, operator);
           }
         }
-        index++;
+        boolean keywordFound = false;
+        for (Iterator iter = keywords.iterator();iter.hasNext();) {
+          String keyword = (String)iter.next();
+          if (nextValueIs(input, pos, keyword)) {
+            keywordFound = true;
+            pos = handle(pos, linkedList, keyword);
+          }
+        }
+        if (operatorFound || keywordFound) {
+          continue;
+        }
+        if (nextValueIs(input, pos, ")")) {
+          pos = handle(pos, linkedList, ")");
+        } else if (nextValueIs(input, pos, "(")) {
+          pos = handle(pos, linkedList, "(");
+        } else if (nextValueIs(input, pos, " ")) {
+          pos++;
+        } else {
+          pos = handleText(input, pos, linkedList);
+        }
       }
-      if (temp.length() > 0) {
-//        System.out.println("adding remaining text: " + temp.toString());
-        linkedList.add(temp.toString());
-        temp.setLength(0);
+    }
+
+    private boolean nextValueIs(String input, int pos, String value) {
+      return (input.length() >= (pos + value.length())) && (input.substring(pos, pos + value.length()).equalsIgnoreCase(value));
+    }
+
+    private int handle(int pos, LinkedList linkedList, String value) {
+      linkedList.add(value);
+      return pos + value.length();
+    }
+
+    private int handleQuotedString(String input, int pos, LinkedList linkedList) {
+      int nextSingleQuotePos = input.indexOf("'", pos + 1);
+      if (nextSingleQuotePos < 0) {
+        throw new IllegalArgumentException("Missing an end quote");
       }
-//      System.out.println("linked list: " + linkedList);
+      String result = input.substring(pos, nextSingleQuotePos + 1);
+      linkedList.add(result);
+      return nextSingleQuotePos + 1;
+    }
+
+    private int handleText(String input, int pos, LinkedList linkedList) {
+     StringBuffer text = new StringBuffer("");
+     int newPos = pos;
+     while (newPos < input.length()) {
+       if (nextValueIs(input, newPos, " ")) {
+         linkedList.add(text);
+         return newPos;
+       }
+       if (nextValueIs(input, newPos, "(")) {
+         linkedList.add(text);
+         return newPos;
+       }
+       if (nextValueIs(input, newPos, ")")) {
+         linkedList.add(text);
+         return newPos;
+       }
+       for (Iterator iter = operators.iterator();iter.hasNext();) {
+         String operator = (String)iter.next();
+         if (nextValueIs(input, newPos, operator)) {
+           linkedList.add(text);
+           return newPos;
+         }
+       }
+       text.append(input.substring(newPos, ++newPos));
+     }
+     //don't add empty text entry (may be at end)
+     if (!text.toString().trim().equals("")) {
+      linkedList.add(text);
+     }
+     return newPos;
+    }
+
+    private int handleProperty(String input, int pos, LinkedList linkedList) {
+     int propertyPos = pos + "PROP.".length();
+     StringBuffer propertyName = new StringBuffer("PROP.");
+     while (propertyPos < input.length()) {
+       if (nextValueIs(input, propertyPos, " ")) {
+         linkedList.add(propertyName);
+         return propertyPos;
+       }
+       if (nextValueIs(input, propertyPos, "(")) {
+         linkedList.add(propertyName);
+         return propertyPos;
+       }
+       if (nextValueIs(input, propertyPos, ")")) {
+         linkedList.add(propertyName);
+         return propertyPos;
+       }
+       for (Iterator iter = operators.iterator();iter.hasNext();) {
+         String operator = (String)iter.next();
+         if (nextValueIs(input, propertyPos, operator)) {
+           linkedList.add(propertyName);
+           return propertyPos;
+         }
+       }
+       propertyName.append(input.substring(propertyPos, ++propertyPos));
+     }
+      linkedList.add(propertyName);
+      return propertyPos;
     }
 
     public boolean hasMoreTokens() {
