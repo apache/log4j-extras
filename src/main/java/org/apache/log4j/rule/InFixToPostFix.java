@@ -32,10 +32,7 @@ import org.apache.log4j.spi.LoggingEventFieldResolver;
  * Currently grouping is supported, as well as all of the
  * Rules supported by <code>RuleFactory</code>
  *
- * NOTE: parsing is supported through the use of <code>StringTokenizer</code>,
- * which means all tokens in the expression must be separated by spaces.
- *
- * Supports grouping via parens, mult-word operands using single quotes,
+ * Supports grouping via parens, mult-word operands using single or double quotes,
  * and these operators:
  *
  * !        NOT operator
@@ -155,11 +152,12 @@ public class InFixToPostFix {
     while (tokenizer.hasMoreTokens()) {
       String token = tokenizer.nextToken();
 
-      boolean inText = (token.startsWith("'") && (!token.endsWith("'")));
+      boolean inText = (token.startsWith("'") && (!token.endsWith("'"))) || (token.startsWith("\"") && (!token.endsWith("\"")));
+      String quoteChar = token.substring(0, 1);
       if (inText) {
           while (inText && tokenizer.hasMoreTokens()) {
             token = token + " " + tokenizer.nextToken();
-            inText = !(token.endsWith("'"));
+            inText = !(token.endsWith(quoteChar));
         }
       }
 
@@ -251,7 +249,7 @@ public class InFixToPostFix {
       keywords.remove("PROP.");
       int pos = 0;
       while (pos < input.length()) {
-        if (nextValueIs(input, pos, "'")) {
+        if (nextValueIs(input, pos, "'") || nextValueIs(input, pos, "\"")) {
           pos = handleQuotedString(input, pos, linkedList);
         }
         if (nextValueIs(input, pos, "PROP.")) {
@@ -298,7 +296,8 @@ public class InFixToPostFix {
     }
 
     private int handleQuotedString(String input, int pos, LinkedList linkedList) {
-      int nextSingleQuotePos = input.indexOf("'", pos + 1);
+      String quoteChar = input.substring(pos, pos + 1);
+      int nextSingleQuotePos = input.indexOf(quoteChar, pos + 1);
       if (nextSingleQuotePos < 0) {
         throw new IllegalArgumentException("Missing an end quote");
       }

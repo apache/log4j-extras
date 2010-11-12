@@ -133,9 +133,10 @@ public class ExpressionRule extends AbstractRule {
           while (tokenizer.hasMoreTokens()) {
             //examine each token
             String token = tokenizer.nextToken();
-              if (token.startsWith("'")) {
+              if (token.startsWith("'") || token.startsWith("\"")) {
+                String quoteChar = token.substring(0, 1);
                 token = token.substring(1);
-                while (!token.endsWith("'") && tokenizer.hasMoreTokens()) {
+                while (!token.endsWith(quoteChar) && tokenizer.hasMoreTokens()) {
                   token = token + " " + tokenizer.nextToken();
                 }
                 if (token.length() > 0) {
