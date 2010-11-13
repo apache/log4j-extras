@@ -71,7 +71,7 @@
 	<url>http://svn.apache.org/viewcvs.cgi/logging/log4j/companions/extras/tags/apache-log4j-extras-1.1</url>
 </scm>
 <organization>
-    <name>Apache Software Foundation</name>
+    <name>The Apache Software Foundation</name>
     <url>http://www.apache.org</url>
 </organization>
 <build>
@@ -369,6 +369,8 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
           <encoding>UTF-8</encoding>
+          <bottom><![CDATA[<p>Copyright ]]>&#169; {currentYear} The Apache Software Foundation. Licensed under the <![CDATA[<a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></p>
+<p>Apache Extras Companion for Apache log4j, Apache log4j and Apache are trademarks of the Apache Software Foundation.</p>]]></bottom> 
         </configuration>
       </plugin>
     </plugins>
