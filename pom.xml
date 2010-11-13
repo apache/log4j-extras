@@ -20,10 +20,10 @@
   <groupId>log4j</groupId>
   <artifactId>apache-log4j-extras</artifactId>
   <packaging>bundle</packaging>
-  <version>1.1-SNAPSHOT</version>
-  <name>Apache Extras Companion&#x2122; for Apache log4j&#x2122;.</name>
+  <version>1.1</version>
+  <name>Apache Extras Companion™ for Apache log4j™.</name>
   <description>This companion provides additional appenders, filters and
-  other capabilities for version 1.2 of Apache log4j&#x2122;.  Several of these were backported from
+  other capabilities for version 1.2 of Apache log4j™.  Several of these were backported from
   the abandoned Apache log4j 1.3 development effort.</description>
   <url>http://logging.apache.org:80/log4j/companions/extras</url>
   <issueManagement>
@@ -66,9 +66,9 @@
 	</license>
 </licenses>
 <scm>
-	<connection>scm:svn:http://svn.apache.org/repos/asf/logging/log4j/companions/extras/tags/apache-log4j-extras-1.1</connection>
-	<developerConnection>scm:svn:https://svn.apache.org/repos/asf/logging/log4j/companions/extras/tags/apache-log4j-extras-1.1</developerConnection>
-	<url>http://svn.apache.org/viewcvs.cgi/logging/log4j/companions/extras/tags/apache-log4j-extras-1.1</url>
+	<connection>scm:svn:http://svn.apache.org/repos/asf/logging/log4j/companions/extras/tags/v1_1</connection>
+	<developerConnection>scm:svn:https://svn.apache.org/repos/asf/logging/log4j/companions/extras/tags/v1_1</developerConnection>
+	<url>http://svn.apache.org/viewcvs.cgi/logging/log4j/companions/extras/tags/v1_1</url>
 </scm>
 <organization>
     <name>The Apache Software Foundation</name>
@@ -369,7 +369,7 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
           <encoding>UTF-8</encoding>
-          <bottom><![CDATA[<p>Copyright ]]>&#169; {currentYear} The Apache Software Foundation. Licensed under the <![CDATA[<a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></p>
+          <bottom><![CDATA[<p>Copyright ]]>© {currentYear} The Apache Software Foundation. Licensed under the <![CDATA[<a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></p>
 <p>Apache Extras Companion for Apache log4j, Apache log4j and Apache are trademarks of the Apache Software Foundation.</p>]]></bottom> 
         </configuration>
       </plugin>
