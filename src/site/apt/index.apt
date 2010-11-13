@@ -23,6 +23,9 @@
    use with an later 1.2.x release.  Some components may be usable with Apache log4j 1.2.8 
    and earlier.   
 
+   Apache Extras Companion for Apache log4j is a product of the {{{http://logging.apache.org}Apache Logging Services Project}},
+   a project of {{{http://www.apache.org}The Apache Software Foundation}}.
+
    Many of these components were originally developed in the discontinued Apache log4j 1.3
    development effort.
 
