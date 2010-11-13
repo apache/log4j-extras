@@ -13,16 +13,16 @@
 ~~ See the License for the specific language governing permissions and
 ~~ limitations under the License.
  ------
- Apache Extras Companion\u2122 for Apache LOG4J\u2122
+ Apache Extras Companion\u2122 for Apache log4j\u2122
  ------
  ------
  ------
 
-   Apache Extras Companion\u2122 for Apache LOG4J\u2122 is a collection of appenders, filters, 
-   and layouts for Apache LOG4J 1.2.  These components are built and tested using Apache LOG4J 1.2.9 and supported for
-   use with an later 1.2.x release.  Some components may be usable with Apache LOG4J 1.2.8 
+   Apache Extras Companion\u2122 for Apache log4j\u2122 is a collection of appenders, filters, 
+   and layouts for Apache log4j 1.2.  These components are built and tested using Apache log4j 1.2.9 and supported for
+   use with an later 1.2.x release.  Some components may be usable with Apache log4j 1.2.8 
    and earlier.   
 
-   Many of these components were originally developed in the discontinued Apache LOG4J 1.3
+   Many of these components were originally developed in the discontinued Apache log4j 1.3
    development effort.
 

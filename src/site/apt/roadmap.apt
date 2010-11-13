@@ -13,13 +13,13 @@
 ~~ See the License for the specific language governing permissions and
 ~~ limitations under the License.
  ------
-Apache Extras Companion\u2122 for Apache LOG4J\u2122 Roadmap
+Apache Extras Companion\u2122 for Apache log4j\u2122 Roadmap
  ------
  ------
  ------
 
-Apache Extras Companion\u2122 for Apache LOG4J\u2122 Roadmap
+Apache Extras Companion\u2122 for Apache log4j\u2122 Roadmap
 
 
    The extras component is open to additional generally useful features that are compatible
-   with the widely deployed Apache LOG4J 1.2 releases and do not add additional dependencies.
+   with the widely deployed Apache log4j 1.2 releases and do not add additional dependencies.
