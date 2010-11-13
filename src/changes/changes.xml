@@ -20,7 +20,7 @@
     <title>apache-log4j-extras</title>
   </properties>
   <body>
-    <release version="1.1" date="2010-11-04" description="Maintenance release">
+    <release version="1.1" date="2010-11-16" description="Maintenance release">
        <action action="fix" issue="43312">Mangled source-repository.html</action>
        <action action="fix" issue="44899">Extra NPE error message when using missing appender class with DOMConfigurator.</action>
        <action action="fix" issue="46046">Track changes of default timezone in EnhancedPatternLayout's %d conversion pattern.</action>
@@ -41,6 +41,7 @@
        <action issue="48588" action="fix">DOMConfigurator does not close input stream when configured based on URL.</action>
        <action issue="49078" action="fix">javadoc.jar was missing NOTICE and LICENSE.</action>
        <action issue="50039" action="add">Add right truncation modifier to EnhancedPatternLayout.</action>
+       <action issue="50188" action="fix">Update for Apache Project Branding Requirements.</action>
     </release>
 
 
