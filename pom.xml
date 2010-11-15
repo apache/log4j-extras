@@ -218,7 +218,7 @@
       <plugin>
         <artifactId>maven-site-plugin</artifactId>
         <configuration>
-	   <templateFile>${basedir}/maven-site.vm</templateFile>
+	   <templateFile>${basedir}/src/site/maven-site.vm</templateFile>
         </configuration>
         <executions>
             <execution>
@@ -280,6 +280,15 @@
                 <exclude>src/test/resources/org/apache/log4j/**/*.13</exclude>
                 <exclude>src/test/resources/org/apache/log4j/**/*.14</exclude>
                 <exclude>src/test/resources/org/apache/log4j/**/*.15</exclude>
+                <exclude>src/test/resources/org/apache/log4j/**/*.17</exclude>
+                <exclude>site/**/*-frame.html</exclude>
+                <exclude>site/**/*-summary.html</exclude>
+                <exclude>site/xref*/index.html</exclude>
+                <exclude>site/pmd.xml</exclude>
+                <exclude>site/cpd.xml</exclude>
+                <exclude>site/apidocs/**/*</exclude>
+                <exclude>site/testapidocs/**/*</exclude>
+                <exclude>site/css/maven-theme.css</exclude>
             </excludes>
         </configuration>
       </plugin>

@@ -513,7 +513,7 @@
     <div id="footer">
       <div class="xleft">Copyright &#169;#copyright()#publishDate( "bottom" $decoration.publishDate $decoration.version ) Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache Software License, Version 2.0</a>.</div>
       <div class="xleft">Apache Extras Companion for Apache log4j, Apache log4j, Apache, the Apache feather logo,
-   the Apache Logging Services project logo, and the log4j logo are trademarks of The Apache Software Foundation.</div>
+   the Apache Logging Services project logo, the log4j logo, and the Built by Maven logo are trademarks of The Apache Software Foundation.</div>
       <div class="clear">
         <hr/>
       </div>
