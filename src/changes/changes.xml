@@ -20,6 +20,9 @@
     <title>apache-log4j-extras</title>
   </properties>
   <body>
+    <release version="1.2" date="TBA" description="Maintenance release">
+      <action action="update">Upgraded to Apache Maven 3</action>
+    </release>
     <release version="1.1" date="2010-11-19" description="Maintenance release">
        <action action="fix" issue="43312">Mangled source-repository.html</action>
        <action action="fix" issue="44899">Extra NPE error message when using missing appender class with DOMConfigurator.</action>

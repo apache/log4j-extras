@@ -52,13 +52,12 @@
 		<item name="Issue Tracking" href="/issue-tracking.html"/>
 	</menu>
 	
+  <menu ref="reports"/>
+    
 	<menu name="Development">
 		<item name="Repository" href="/source-repository.html"/>
-		<item name="Cross Reference" href="/jxr.html"/>
 		<item name="Dependencies" href="/dependencies.html"/>
 		<item name="Continuous Integration" href="/integration.html"/>
-		<item name="Duplication" href="/cpd.html"/>
-		<item name="PMD" href="/pmd.html"/>
 	</menu>
 
 	<menu name="Apache">
