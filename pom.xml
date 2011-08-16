@@ -137,14 +137,6 @@
           <workingDirectory>target</workingDirectory>
         </configuration>
       </plugin>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-            <source>1.4</source>
-            <target>1.4</target>
-            <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>
       <!-- JAR Plugin -->
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
