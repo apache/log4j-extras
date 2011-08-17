@@ -21,7 +21,7 @@
   	<groupId>log4j</groupId>
   	<artifactId>apache-log4j-companions-parent</artifactId>
   	<version>1.0-SNAPSHOT</version>
-    <relativePath>.../apache-log4j-companions-parent</relativePath>
+    <relativePath>../apache-log4j-companions-parent</relativePath>
   </parent>
   <groupId>log4j</groupId>
   <artifactId>apache-log4j-extras</artifactId>
