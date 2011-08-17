@@ -26,7 +26,7 @@ public class JunitTestRunnerFilter implements Filter {
           "at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner",
           "at org.apache.tools.ant",
           "at junit.textui.TestRunner",
-          "at com.intellij.rt.execution.junit",
+          "at com.intellij",
           "at java.lang.reflect.Method.invoke",
           "at org.apache.maven.",
           "at org.codehaus.",
