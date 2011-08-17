@@ -237,7 +237,7 @@ public final class LoggingEventFieldResolver {
           Set entrySet = event.getProperties().entrySet();
           for (Iterator iter = entrySet.iterator();iter.hasNext();) {
               Map.Entry thisEntry = (Map.Entry) iter.next();
-              if (thisEntry.getKey().toString().toLowerCase().equals(lowerPropKey)) {
+              if (thisEntry.getKey().toString().equalsIgnoreCase(lowerPropKey)) {
                   propValue = thisEntry.getValue();
               }
           }

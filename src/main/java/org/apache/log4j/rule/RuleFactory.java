@@ -19,6 +19,7 @@ package org.apache.log4j.rule;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Locale;
 import java.util.Stack;
 
 /**
@@ -124,7 +125,7 @@ public final class RuleFactory {
      * @return true if string is a known operator
      */
   public boolean isRule(final String symbol) {
-    return ((symbol != null) && (RULES.contains(symbol.toLowerCase())));
+    return ((symbol != null) && (RULES.contains(symbol.toLowerCase(Locale.ENGLISH))));
   }
 
     /**

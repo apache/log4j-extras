@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Stack;
 import java.util.Vector;
@@ -108,7 +109,7 @@ public class InFixToPostFix {
      * @return true if operand.
      */
   public static boolean isOperand(final String s) {
-    String symbol = s.toLowerCase();
+    String symbol = s.toLowerCase(Locale.ENGLISH);
     return (!operators.contains(symbol));
   }
 
@@ -119,8 +120,8 @@ public class InFixToPostFix {
      * @return true if symbol 1 precedes symbol 2
      */
   boolean precedes(final String s1, final String s2) {
-    String symbol1 = s1.toLowerCase();
-    String symbol2 = s2.toLowerCase();
+    String symbol1 = s1.toLowerCase(Locale.ENGLISH);
+    String symbol2 = s2.toLowerCase(Locale.ENGLISH);
 
     if (!precedenceMap.keySet().contains(symbol1)) {
       return false;
