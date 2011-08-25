@@ -28,8 +28,100 @@ Specify -Dcompanion.jar=foo.jar to test a previously prepared jar.
     <!--  use build.properties file or command line to override these properties  -->
     <property file="build.properties"/>
 	
-    <property name="svnsite.url" value="https://svn.apache.org/repos/asf/logging/site/trunk/docs/log4j/companions/extras"/>
+	<!--  project details  -->
+    <property name="project.name" value="apache-log4j-extras"/>
+    <property name="project.title" value="Apache Extras Companion for log4j 1.2."/>
+    <property name="project.version" value="1.0"/>
+    <property name="project.jar" value="${project.name}-${project.version}.jar"/>
+    
+    <!--  Location of local Maven 2 repository   -->
+    <property name="m2_repo" location="${user.home}/.m2/repository"/>
+
+	<!--  Versions for dependencies   -->
+    <property name="log4j.version" value="1.2.9"/>
+    <property name="junit.version" value="3.8.1"/>
+	
+	<!--  Dependency locations - assumed to be in Maven 2 repository   -->
+    <property name="junit.jar" 
+       location="${m2_repo}/junit/junit/${junit.version}/junit-${junit.version}.jar"/>
+    <property name="log4j.jar" 
+       location="${m2_repo}/log4j/log4j/${log4j.version}/log4j-${log4j.version}.jar"/>
+
+    <!--   Java compiler settings   -->
+    <property name="javac.source" value="1.2"/>
+    <property name="javac.target" value="1.1"/>   
+    <property name="javac.deprecation" value="true"/>
+    <property name="javac.debug" value="true"/>
+	
+    <property name="svnrepo.url" value="https://svn.apache.org/repos/asf"/>
+	<property name="svnsite.url" value="${svnrepo.url}/logging/site/trunk/docs/log4j/companions/extras"/>
 	<available property="svn-available" file="target/site-deploy/.svn"/>
+	
+       
+    <target name="init"/>
+    
+    <target name="clean" depends="init" description="Clean up generated files">
+    	<delete dir="target"/>
+    </target>
+    
+    
+    <target name="compile" depends="init" unless="companion.jar" description="Compile implementation files">
+        <mkdir dir="target/classes"/>
+    	<javac destdir="target/classes"
+           srcdir="src/main/java"
+    	   deprecation="${javac.deprecation}"
+    	   debug="${javac.debug}"
+    	   target="${javac.target}"
+    	   source="${javac.source}"
+    	   classpath="${log4j.jar}"/>
+    	<copy todir="target/classes">
+    	    <fileset dir="src/main/resources"/>
+    	</copy>
+    </target>
+    
+    <target name="jar" depends="compile" unless="companion.jar" description="Create jar">
+    	<jar destfile="target/${project.jar}"
+    	     basedir="target/classes">
+    	  	<manifest>
+    			<attribute name="Built-By" value="${user.name}"/>
+    			<section name="common">
+      				<attribute name="Implementation-Title" value="${project.title}"/>
+      				<attribute name="Implementation-Version" value="${project.version}"/> 
+      				<attribute name="Implementation-Vendor" value="Apache Software Foundation"/>
+    			</section>
+    		</manifest>    	     
+    	</jar>
+    </target>    
+
+    <target name="test-compile" depends="jar" description="Compile test files">
+	    <property name="companion.jar" value="target/${project.jar}"/>
+		<mkdir dir="target/test-classes"/>
+    	<javac destdir="target/test-classes"
+           srcdir="src/test/java"
+    	   deprecation="${javac.deprecation}"
+    	   debug="${javac.debug}"
+    	   target="${javac.target}"
+    	   source="${javac.source}"
+    	   classpath="${log4j.jar}:${junit.jar}:${companion.jar}"/>
+    	<copy todir="target/test-classes">
+    		<fileset dir="src/test/resources"/>
+    	</copy>
+    </target>    
+
+
+    <target name="test" depends="test-compile" description="Run unit tests">
+    	<junit printsummary="yes" fork="yes" dir="target">
+    	    <classpath path="target/test-classes:${companion.jar}:${log4j.jar}"/>
+    		<batchtest>
+    			<fileset dir="src/test/java/">
+    				<include name="**/*TestCase.java"/>
+    				<include name="**/*Test.java"/>
+    			</fileset>
+    	    </batchtest>
+    	    <formatter type="plain" usefile="false"/>
+    	</junit>
+    </target>    
+
 
 	<target name="checkout-site" unless="svn-available">
 		<exec executable="svn">
