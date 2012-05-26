@@ -17,22 +17,22 @@
 
 package org.apache.log4j;
 
+import org.apache.log4j.component.plugins.Plugin;
+import org.apache.log4j.component.plugins.PluginRegistry;
+import org.apache.log4j.component.scheduler.Scheduler;
+import org.apache.log4j.component.spi.ErrorItem;
+import org.apache.log4j.component.spi.LoggerEventListener;
+import org.apache.log4j.component.spi.LoggerRepositoryEventListener;
+import org.apache.log4j.component.spi.LoggerRepositoryEx;
 import org.apache.log4j.helpers.LogLog;
 import org.apache.log4j.or.ObjectRenderer;
 import org.apache.log4j.or.RendererMap;
-import org.apache.log4j.plugins.Plugin;
-import org.apache.log4j.plugins.PluginRegistry;
-import org.apache.log4j.scheduler.Scheduler;
-import org.apache.log4j.spi.ErrorItem;
 import org.apache.log4j.spi.HierarchyEventListener;
-import org.apache.log4j.spi.LoggerEventListener;
 import org.apache.log4j.spi.LoggerFactory;
 import org.apache.log4j.spi.LoggerRepository;
-import org.apache.log4j.spi.LoggerRepositoryEventListener;
-import org.apache.log4j.spi.LoggerRepositoryEx;
 import org.apache.log4j.spi.RendererSupport;
-import org.apache.log4j.xml.UnrecognizedElementHandler;
 import org.apache.log4j.xml.DOMConfigurator;
+import org.apache.log4j.xml.UnrecognizedElementHandler;
 import org.w3c.dom.Element;
 
 import java.util.ArrayList;
@@ -415,7 +415,7 @@ public final class LoggerRepositoryExImpl
   }
 
   /**
-   * Return the the list of previously encoutered {@link ErrorItem error items}.
+   * Return the the list of previously encoutered {@link org.apache.log4j.component.spi.ErrorItem error items}.
    * @return list of errors
    */
   public List getErrorList() {
