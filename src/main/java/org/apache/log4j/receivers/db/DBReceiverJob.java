@@ -61,8 +61,6 @@ class DBReceiverJob extends ComponentBase implements Job {
   }
 
   public void execute() {
-    getLogger().debug("DBReceiverJob.execute() called");
-
     Connection connection = null;
 
     try {

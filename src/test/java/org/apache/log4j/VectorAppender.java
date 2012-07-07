@@ -53,7 +53,7 @@ public class VectorAppender extends AppenderSkeleton {
             Thread.currentThread().sleep(100);
         } catch (Exception e) {
         }
-
+        System.out.println("Adding event - timestamp: " + event.getTimeStamp() + ": " + event.getMessage());
         vector.addElement(event);
     }
 

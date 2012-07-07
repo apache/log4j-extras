@@ -21,7 +21,7 @@
 <log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/' debug="true">
 	  
   <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
-     <layout class="org.apache.log4j.PatternLayout">
+     <layout class="org.apache.log4j.EnhancedPatternLayout">
        <param name="ConversionPattern" value="READING %relative %level %logger - %message%n"/>
      </layout>
   </appender>
@@ -29,8 +29,8 @@
   <appender name="VECTOR" class="org.apache.log4j.VectorAppender">
   </appender>
   
-  <plugin name="DB" class="org.apache.log4j.db.DBReceiver">
-     <connectionSource class="org.apache.log4j.db.DriverManagerConnectionSource">
+  <plugin name="DB" class="org.apache.log4j.receivers.db.DBReceiver">
+     <connectionSource class="org.apache.log4j.receivers.db.DriverManagerConnectionSource">
        <param name="driverClass" value="org.hsqldb.jdbcDriver"/>
        <param name="url" value="jdbc:hsqldb:mem:testdb"/>
        <param name="user" value="sa"/>

@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.LoggerRepositoryExImpl;
 import org.apache.log4j.MDC;
 import org.apache.log4j.component.helpers.Constants;
-import org.apache.log4j.receivers.VectorAppender;
+import org.apache.log4j.VectorAppender;
 import org.apache.log4j.spi.LocationInfo;
 import org.apache.log4j.spi.LoggerRepository;
 import org.apache.log4j.spi.LoggingEvent;
@@ -302,9 +302,9 @@ public class FullCycleDBTest
     for(Iterator i = v.iterator(); i.hasNext(); ) {
       LoggingEvent event = (LoggingEvent) i.next();  
       if(startTime > event.getTimeStamp()) {
-        System.out.println("***Removing event with timestamp "+event.getTimeStamp());
+        System.out.println("***Removing event with timestamp "+event.getTimeStamp() + ": " + event.getMessage());
       } else {
-        System.out.println("***Keeping event with timestamo"+event.getTimeStamp());
+        System.out.println("***Keeping event with timestamp "+event.getTimeStamp() + ": " + event.getMessage());
         r.add(event);
       }
     }
