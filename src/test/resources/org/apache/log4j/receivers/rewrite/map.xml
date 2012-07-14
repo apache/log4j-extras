@@ -25,9 +25,9 @@
     </appender>
 
 
-  <appender name="A1" class="org.apache.log4j.rewrite.RewriteAppender">
+  <appender name="A1" class="org.apache.log4j.receivers.rewrite.RewriteAppender">
       <appender-ref ref="F1"/>
-      <rewritePolicy class="org.apache.log4j.rewrite.MapRewritePolicy"/>
+      <rewritePolicy class="org.apache.log4j.receivers.rewrite.MapRewritePolicy"/>
   </appender>
 
   <root>

@@ -102,7 +102,7 @@ Specify -Dcompanion.jar=foo.jar to test a previously prepared jar.
     	   debug="${javac.debug}"
     	   target="${javac.target}"
     	   source="${javac.source}"
-    	   classpath="${log4j.jar}:${junit.jar}:${companion.jar}"/>
+    	   classpath="${companion.jar}:${log4j.jar}:${junit.jar}"/>
     	<copy todir="target/test-classes">
     		<fileset dir="src/test/resources"/>
     	</copy>

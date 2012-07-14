@@ -25,9 +25,9 @@
     </appender>
 
 
-  <appender name="A1" class="org.apache.log4j.rewrite.RewriteAppender">
+  <appender name="A1" class="org.apache.log4j.receivers.rewrite.RewriteAppender">
       <appender-ref ref="F1"/>
-      <rewritePolicy class="org.apache.log4j.rewrite.PropertyRewritePolicy">
+      <rewritePolicy class="org.apache.log4j.receivers.rewrite.PropertyRewritePolicy">
           <param name="properties" value="p1=Hello,p2=World,x1=3.1415"/>
       </rewritePolicy>
   </appender>
