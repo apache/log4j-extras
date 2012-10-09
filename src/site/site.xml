@@ -32,20 +32,24 @@
       <item name="Logging Services" href="http://logging.apache.org/"/>
       <item name="log4j" href="http://logging.apache.org/log4j/"/>
       <item name="Companions"  href="http://logging.apache.org/log4j/companions/"/>
-      <item name="extras"  href="http://logging.apache.org:80/log4j/companions/extras/"/>
     </breadcrumbs>
   
-	<menu name="Get extras">
+	<menu name="Get it">
 	   <item name="Download" href="/download.html"/>
 	   <item name="Changes" href="/changes-report.html"/>
 	   <item name="License" href="http://www.apache.org/licenses/"/>
 	</menu>
 
-	<menu name="About extras">
+	<menu name="About">
 	   <item name="What is it?" href="/index.html"/>
 	   <item name="Roadmap" href="/roadmap.html"/>
 	   <item name="JavaDoc" href="/apidocs/index.html"/>
 	</menu>
+
+    <menu name="More">
+       <item name="Apache log4j 1.x" href="http://logging.apache.org/log4j/1.2/"/>
+       <item name="Apache log4j 2.x" href="http://logging.apache.org/log4j/2.x/"/>
+    </menu>
 
 	<menu name="Community">
 		<item name="Mailing Lists" href="/mail-lists.html"/>
