@@ -219,15 +219,6 @@
               </plugin>
           </reportPlugins>
         </configuration>
-       <!-- <executions>
-            <execution>
-		          <phase>package</phase>		
-              <goals>
-                 <goal>site</goal>
-              </goals>
-         </execution>
-        </executions>
-         -->
       </plugin>
       
       <plugin>
