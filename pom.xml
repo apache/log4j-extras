@@ -237,13 +237,6 @@
             </instructions>
         </configuration>
       </plugin>
-      <plugin>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>2.0-beta-9</version>
-        <configuration>
-          <goals>package site-deploy assembly:attached deploy</goals>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
   <dependencies>
@@ -284,16 +277,4 @@
           <optional>true</optional>
       </dependency>
   </dependencies>
-    <!--
-  <distributionManagement>
-    <repository>
-      <id>logging.repo</id>
-      <url>scp://people.apache.org/www/people.apache.org/builds/logging/repo/</url>
-    </repository>
-    <site>
-      <id>logging.site</id>
-      <url>scp://localhost/${user.dir}/target/site-deploy</url>
-    </site>
-  </distributionManagement>
-  -->
 </project>
