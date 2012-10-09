@@ -21,7 +21,9 @@
   </properties>
   <body>
     <release version="1.2" date="TBA" description="Maintenance release">
-      <action action="update">Upgraded to Apache Maven 3</action>
+        <action action="update">Merged all companions into the extras companion</action>
+        <action action="update">Switched Parent to Apache parent</action>
+        <action action="update">Upgraded to Apache Maven 3</action>
     </release>
     <release version="1.1" date="2010-11-19" description="Maintenance release">
        <action action="fix" issue="43312">Mangled source-repository.html</action>
