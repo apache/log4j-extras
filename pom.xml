@@ -32,10 +32,10 @@
       other capabilities for version 1.2 of Apache log4j™.  Several of these were backported from
       the abandoned Apache log4j 1.3 development effort.
   </description>
-  <url>http://logging.apache.org:80/log4j/companions/extras</url>
+  <url>http://logging.apache.org/log4j/companions</url>
   <issueManagement>
     <system>Bugzilla</system>
-    <url>http://issues.apache.org/bugzilla/</url>
+    <url>https://issues.apache.org/bugzilla/buglist.cgi?product=Log4j&amp;component=Companions</url>
   </issueManagement>
   <ciManagement>
   		<system>Gump</system>
