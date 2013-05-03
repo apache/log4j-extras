@@ -47,8 +47,8 @@ public class SimpleFilterTest extends TestCase {
   Logger root; 
   Logger logger;
 
-  public final static String FILTERED = "filtered";
-  public final static String TEMP = "temp";
+  public final static String FILTERED = "target/filtered";
+  public final static String TEMP = "target/temp";
   
   static String TEST1_PAT = "(DEBUG|INFO|WARN|ERROR|FATAL) - Message \\d";
   static String TEST8_PAT = "WARN org.apache.log4j.filter.SimpleFilterTest - Message \\d";

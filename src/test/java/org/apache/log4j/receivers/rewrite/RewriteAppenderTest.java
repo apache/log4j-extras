@@ -71,7 +71,7 @@ public class RewriteAppenderTest extends TestCase {
         logger.info(msg);
         msg.put("message", "Message 1");
         logger.info(msg);
-        assertTrue(Compare.compare(RewriteAppenderTest.class, "temp", "map.log"));
+        assertTrue(Compare.compare(RewriteAppenderTest.class, "target/temp", "map.log"));
     }
 
     private static class BaseBean {
@@ -120,7 +120,7 @@ public class RewriteAppenderTest extends TestCase {
         MDC.put("p1", "Hola");
         MDC.put("p2", "p2");
         logger.info(new MessageBean("Welcome to The Hub", "Hello", "World" ));
-        assertTrue(Compare.compare(RewriteAppenderTest.class, "temp", "reflection.log"));
+        assertTrue(Compare.compare(RewriteAppenderTest.class, "target/temp", "reflection.log"));
     }
 
     public void testPropertyPolicy() throws Exception {
@@ -129,6 +129,6 @@ public class RewriteAppenderTest extends TestCase {
         logger.info("Message 0");
         MDC.put("p1", "Hola");
         logger.info("Message 1");
-        assertTrue(Compare.compare(RewriteAppenderTest.class, "temp", "property.log"));
+        assertTrue(Compare.compare(RewriteAppenderTest.class, "target/temp", "property.log"));
     }
 }

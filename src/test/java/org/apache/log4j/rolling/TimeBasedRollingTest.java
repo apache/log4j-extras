@@ -105,7 +105,7 @@ public class TimeBasedRollingTest extends TestCase {
     String datePattern = "yyyy-MM-dd_HH_mm_ss";
 
     TimeBasedRollingPolicy tbrp = new TimeBasedRollingPolicy();
-    tbrp.setFileNamePattern("test1-%d{" + datePattern + "}");
+    tbrp.setFileNamePattern("target/test1-%d{" + datePattern + "}");
     tbrp.activateOptions();
     rfa.setRollingPolicy(tbrp);
     rfa.activateOptions();
@@ -117,7 +117,7 @@ public class TimeBasedRollingTest extends TestCase {
     Calendar cal = Calendar.getInstance();
 
     for (int i = 0; i < 4; i++) {
-      filenames[i] = "test1-" + sdf.format(cal.getTime());
+      filenames[i] = "target/test1-" + sdf.format(cal.getTime());
       cal.add(Calendar.SECOND, 1);
     }
 
@@ -128,10 +128,6 @@ public class TimeBasedRollingTest extends TestCase {
     for (int i = 0; i < 5; i++) {
       logger.debug("Hello---" + i);
       Thread.sleep(500);
-    }
-
-    for (int i = 0; i < 4; i++) {
-      //System.out.println(i + " expected filename [" + filenames[i] + "].");
     }
 
     for (int i = 0; i < 4; i++) {
@@ -150,7 +146,7 @@ public class TimeBasedRollingTest extends TestCase {
     rfa1.setLayout(layout1);
 
     TimeBasedRollingPolicy tbrp1 = new TimeBasedRollingPolicy();
-    tbrp1.setFileNamePattern("test2-%d{" + datePattern + "}");
+    tbrp1.setFileNamePattern("target/test2-%d{" + datePattern + "}");
     tbrp1.activateOptions();
     rfa1.setRollingPolicy(tbrp1);
     rfa1.activateOptions();
@@ -162,7 +158,7 @@ public class TimeBasedRollingTest extends TestCase {
     Calendar cal = Calendar.getInstance();
 
     for (int i = 0; i < 4; i++) {
-      filenames[i] = "test2-" + sdf.format(cal.getTime());
+      filenames[i] = "target/test2-" + sdf.format(cal.getTime());
       cal.add(Calendar.SECOND, 1);
     }
 
@@ -183,7 +179,7 @@ public class TimeBasedRollingTest extends TestCase {
     rfa2.setLayout(layout2);
 
     TimeBasedRollingPolicy tbrp2 = new TimeBasedRollingPolicy();
-    tbrp2.setFileNamePattern("test2-%d{" + datePattern + "}");
+    tbrp2.setFileNamePattern("target/test2-%d{" + datePattern + "}");
     tbrp2.activateOptions();
     rfa2.setRollingPolicy(tbrp2);
     rfa2.activateOptions();
@@ -212,7 +208,7 @@ public class TimeBasedRollingTest extends TestCase {
     String datePattern = "yyyy-MM-dd_HH_mm_ss";
 
     TimeBasedRollingPolicy tbrp = new TimeBasedRollingPolicy();
-    tbrp.setFileNamePattern("test3-%d{" + datePattern + "}.gz");
+    tbrp.setFileNamePattern("target/test3-%d{" + datePattern + "}.gz");
     tbrp.activateOptions();
     rfa.setRollingPolicy(tbrp);
     rfa.activateOptions();
@@ -224,11 +220,11 @@ public class TimeBasedRollingTest extends TestCase {
     Calendar cal = Calendar.getInstance();
 
     for (int i = 0; i < 3; i++) {
-      filenames[i] = "test3-" + sdf.format(cal.getTime()) + ".gz";
+      filenames[i] = "target/test3-" + sdf.format(cal.getTime()) + ".gz";
       cal.add(Calendar.SECOND, 1);
     }
 
-    filenames[3] = "test3-" + sdf.format(cal.getTime());
+    filenames[3] = "target/test3-" + sdf.format(cal.getTime());
 
     System.out.println("Waiting until next second and 100 millis.");
     delayUntilNextSecond(100);
@@ -237,10 +233,6 @@ public class TimeBasedRollingTest extends TestCase {
     for (int i = 0; i < 5; i++) {
       logger.debug("Hello---" + i);
       Thread.sleep(500);
-    }
-
-    for (int i = 0; i < 4; i++) {
-      //System.out.println(i + " expected filename [" + filenames[i] + "].");
     }
 
     rfa.close();
@@ -263,8 +255,8 @@ public class TimeBasedRollingTest extends TestCase {
     rfa1.setLayout(layout1);
 
     TimeBasedRollingPolicy tbrp1 = new TimeBasedRollingPolicy();
-    rfa1.setFile("test4.log");
-    tbrp1.setFileNamePattern("test4-%d{" + datePattern + "}");
+    rfa1.setFile("target/test4.log");
+    tbrp1.setFileNamePattern("target/test4-%d{" + datePattern + "}");
     tbrp1.activateOptions();
     rfa1.setRollingPolicy(tbrp1);
     rfa1.setAppend(false);
@@ -277,10 +269,10 @@ public class TimeBasedRollingTest extends TestCase {
     Calendar cal = Calendar.getInstance();
 
     for (int i = 0; i < 3; i++) {
-      filenames[i] = "test4-" + sdf.format(cal.getTime());
+      filenames[i] = "target/test4-" + sdf.format(cal.getTime());
       cal.add(Calendar.SECOND, 1);
     }
-    filenames[3] = "test4.log";
+    filenames[3] = "target/test4.log";
     
     System.out.println("Waiting until next second and 100 millis.");
     delayUntilNextSecond(100);
@@ -299,8 +291,8 @@ public class TimeBasedRollingTest extends TestCase {
     rfa2.setLayout(layout2);
 
     TimeBasedRollingPolicy tbrp2 = new TimeBasedRollingPolicy();
-    tbrp2.setFileNamePattern("test4-%d{" + datePattern + "}");
-    rfa2.setFile("test4.log");
+    tbrp2.setFileNamePattern("target/test4-%d{" + datePattern + "}");
+    rfa2.setFile("target/test4.log");
     tbrp2.activateOptions();
     rfa2.setRollingPolicy(tbrp2);
     rfa2.activateOptions();
@@ -329,8 +321,8 @@ public class TimeBasedRollingTest extends TestCase {
     String datePattern = "yyyy-MM-dd_HH_mm_ss";
 
     TimeBasedRollingPolicy tbrp = new TimeBasedRollingPolicy();
-    tbrp.setFileNamePattern("test5-%d{" + datePattern + "}");
-    rfa.setFile("test5.log");
+    tbrp.setFileNamePattern("target/test5-%d{" + datePattern + "}");
+    rfa.setFile("target/test5.log");
     tbrp.activateOptions();
     rfa.setRollingPolicy(tbrp);
     rfa.setAppend(false);
@@ -343,11 +335,11 @@ public class TimeBasedRollingTest extends TestCase {
     Calendar cal = Calendar.getInstance();
 
     for (int i = 0; i < 3; i++) {
-      filenames[i] = "test5-" + sdf.format(cal.getTime());
+      filenames[i] = "target/test5-" + sdf.format(cal.getTime());
       cal.add(Calendar.SECOND, 1);
     }
 
-    filenames[3] = "test5.log";
+    filenames[3] = "target/test5.log";
 
     System.out.println("Waiting until next second and 100 millis.");
     delayUntilNextSecond(100);
@@ -374,8 +366,8 @@ public class TimeBasedRollingTest extends TestCase {
     String datePattern = "yyyy-MM-dd_HH_mm_ss";
 
     TimeBasedRollingPolicy tbrp = new TimeBasedRollingPolicy();
-    tbrp.setFileNamePattern("test6-%d{" + datePattern + "}.gz");
-    rfa.setFile("test6.log");
+    tbrp.setFileNamePattern("target/test6-%d{" + datePattern + "}.gz");
+    rfa.setFile("target/test6.log");
     tbrp.activateOptions();
     rfa.setRollingPolicy(tbrp);
     rfa.setAppend(false);
@@ -388,11 +380,11 @@ public class TimeBasedRollingTest extends TestCase {
     Calendar cal = Calendar.getInstance();
 
     for (int i = 0; i < 3; i++) {
-      filenames[i] = "test6-" + sdf.format(cal.getTime()) + ".gz";
+      filenames[i] = "target/test6-" + sdf.format(cal.getTime()) + ".gz";
       cal.add(Calendar.SECOND, 1);
     }
 
-    filenames[3] = "test6.log";
+    filenames[3] = "target/test6.log";
 
     System.out.println("Waiting until next second and 100 millis.");
     delayUntilNextSecond(100);
@@ -401,10 +393,6 @@ public class TimeBasedRollingTest extends TestCase {
     for (int i = 0; i < 5; i++) {
       logger.debug("Hello---" + i);
       Thread.sleep(500);
-    }
-
-    for (int i = 0; i < 4; i++) {
-      //System.out.println(i + " expected filename [" + filenames[i] + "].");
     }
 
     rfa.close();
@@ -427,7 +415,7 @@ public class TimeBasedRollingTest extends TestCase {
     Calendar cal = Calendar.getInstance();
 
     for (int i = 0; i < 4; i++) {
-      filenames[i] = "test1-" + sdf.format(cal.getTime());
+      filenames[i] = "target/test1-" + sdf.format(cal.getTime());
       cal.add(Calendar.SECOND, 1);
     }
 
@@ -438,10 +426,6 @@ public class TimeBasedRollingTest extends TestCase {
     for (int i = 0; i < 5; i++) {
       logger.debug("Hello---" + i);
       Thread.sleep(500);
-    }
-
-    for (int i = 0; i < 4; i++) {
-      //System.out.println(i + " expected filename [" + filenames[i] + "].");
     }
 
     for (int i = 0; i < 4; i++) {
@@ -460,7 +444,7 @@ public class TimeBasedRollingTest extends TestCase {
 
     Calendar cal = Calendar.getInstance();
 
-    filenames[0] = "test1-" + sdf.format(cal.getTime());
+    filenames[0] = "target/test1-" + sdf.format(cal.getTime());
 
     for (int i = 0; i < 5; i++) {
       logger.debug("Hello---" + i);

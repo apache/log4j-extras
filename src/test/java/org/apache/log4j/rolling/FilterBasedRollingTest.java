@@ -72,8 +72,8 @@ public class FilterBasedRollingTest extends TestCase {
    * Test basic rolling functionality using configuration file.
    */
   public void test1() throws Exception {
-    configure("./input/rolling/filter1.xml");
-    common("filterBased-test1");
+    configure("filter1.xml");
+    common("target/filterBased-test1");
   }
 
   /**
@@ -95,10 +95,10 @@ public class FilterBasedRollingTest extends TestCase {
     fbtp.activateOptions();
 
     swrp.setMinIndex(0);
-    rfa.setFile("filterBased-test2.log");
+    rfa.setFile("target/filterBased-test2.log");
     rfa.setAppend(false);
 
-    swrp.setFileNamePattern("filterBased-test2.%i");
+    swrp.setFileNamePattern("target/filterBased-test2.%i");
     swrp.activateOptions();
 
     rfa.setRollingPolicy(swrp);
@@ -107,7 +107,7 @@ public class FilterBasedRollingTest extends TestCase {
     Logger.getRootLogger().addAppender(rfa);
     Logger.getRootLogger().setLevel(Level.DEBUG);
 
-    common("filterBased-test2");
+    common("target/filterBased-test2");
   }
 
   /**

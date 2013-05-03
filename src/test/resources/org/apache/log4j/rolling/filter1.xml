@@ -23,8 +23,8 @@
   <appender name="ROLLING" class="org.apache.log4j.rolling.RollingFileAppender">
     <param name="append" value="false"/>
     <rollingPolicy class="org.apache.log4j.rolling.FixedWindowRollingPolicy">
-       <param name="activeFileName" value="filterBased-test1.log"/>
-       <param name="fileNamePattern" value="filterBased-test1.%i"/>
+       <param name="activeFileName" value="target/filterBased-test1.log"/>
+       <param name="fileNamePattern" value="target/filterBased-test1.%i"/>
        <param name="minIndex" value="0"/>
     </rollingPolicy>
     <triggeringPolicy class="org.apache.log4j.rolling.FilterBasedTriggeringPolicy">

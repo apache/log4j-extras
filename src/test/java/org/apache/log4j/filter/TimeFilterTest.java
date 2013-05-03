@@ -248,7 +248,7 @@ public class TimeFilterTest extends TestCase {
       common(Calendar.getInstance());
 
       assertTrue(Compare.compare(TimeFilterTest.class,
-               "timeFilter.1", "timeFilter1.log"));
+               "target/timeFilter.1", "timeFilter1.log"));
     }
 
     /**
@@ -260,7 +260,7 @@ public class TimeFilterTest extends TestCase {
       common(Calendar.getInstance(TimeZone.getTimeZone("GMT")));
 
       assertTrue(Compare.compare(TimeFilterTest.class,
-                 "timeFilter.2", "timeFilter2.log"));
+                 "target/timeFilter.2", "timeFilter2.log"));
     }
 
 }

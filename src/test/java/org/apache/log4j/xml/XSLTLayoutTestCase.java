@@ -41,8 +41,8 @@ import java.util.Hashtable;
 
 
 public class XSLTLayoutTestCase extends TestCase {
-  static String TEMP = "temp";
-  static String FILTERED = "filtered";
+  static String TEMP = "target/temp";
+  static String FILTERED = "target/filtered";
   Logger root;
   Logger logger;
 

@@ -347,13 +347,13 @@ public class XSLTLayoutTest extends LayoutTest {
         logger.debug("DEBUG message");
         logger.info("INFO message");
         Transformer.transform(
-          "temp", "filtered",
+          "target/temp", "target/filtered",
           new Filter[] { new LineNumberFilter(),
               new JunitTestRunnerFilter(),
               new XMLTimestampFilter(),
               new XMLDateFilter()});
         assertTrue(Compare.compare(XSLTLayoutTest.class,
-                "filtered", "witness/xml/xsltLayout.4"));
+                "target/filtered", "witness/xml/xsltLayout.4"));
   }
 
     /**
@@ -372,13 +372,13 @@ public class XSLTLayoutTest extends LayoutTest {
         logger.debug("DEBUG message");
         logger.info("INFO message");
         Transformer.transform(
-          "temp", "filtered",
+          "target/temp", "target/filtered",
           new Filter[] { new LineNumberFilter(),
               new JunitTestRunnerFilter(),
               new XMLTimestampFilter(),
               new XMLDateFilter()});
         assertTrue(Compare.compare(XSLTLayoutTest.class,
-                "filtered", "witness/xml/xsltLayout.4"));
+                "target/filtered", "witness/xml/xsltLayout.4"));
   }
 
     /**

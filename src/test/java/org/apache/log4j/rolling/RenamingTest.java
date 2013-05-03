@@ -69,8 +69,8 @@ public class RenamingTest extends TestCase {
     SimpleDateFormat sdf = new SimpleDateFormat(datePattern);
 
     TimeBasedRollingPolicy tbrp = new TimeBasedRollingPolicy();
-    tbrp.setFileNamePattern("test-%d{" + datePattern + "}");
-    rfa.setFile("test.log");
+    tbrp.setFileNamePattern("target/test-%d{" + datePattern + "}");
+    rfa.setFile("target/test.log");
     tbrp.activateOptions();
     rfa.setRollingPolicy(tbrp);
     rfa.activateOptions();
@@ -82,7 +82,7 @@ public class RenamingTest extends TestCase {
     Thread.sleep(5000);
     logger.debug("Hello   " + 1);
     
-    String rolledFile = "test-" + sdf.format(cal.getTime());
+    String rolledFile = "target/test-" + sdf.format(cal.getTime());
 
     //
     //   if the rolled file exists
@@ -93,13 +93,13 @@ public class RenamingTest extends TestCase {
         assertTrue(Compare.compare(RenamingTest.class,
                 rolledFile, "witness/rolling/renaming.0"));
         assertTrue(Compare.compare(RenamingTest.class,
-                "test.log", "witness/rolling/renaming.1"));
+                "target/test.log", "witness/rolling/renaming.1"));
     } else {
         //
         //   otherwise the rollover should have been blocked
         //
         assertTrue(Compare.compare(RenamingTest.class,
-                "test.log", "witness/rolling/renaming.2"));
+                "target/test.log", "witness/rolling/renaming.2"));
     }
   }
 }

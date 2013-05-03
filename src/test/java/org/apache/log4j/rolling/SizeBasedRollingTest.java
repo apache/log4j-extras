@@ -72,7 +72,7 @@ public class SizeBasedRollingTest extends TestCase {
         sbtp.setMaxFileSize(100);
         swrp.setMinIndex(0);
 
-        swrp.setFileNamePattern("sizeBased-test1.%i");
+        swrp.setFileNamePattern("target/sizeBased-test1.%i");
         swrp.activateOptions();
 
         rfa.setRollingPolicy(swrp);
@@ -89,18 +89,18 @@ public class SizeBasedRollingTest extends TestCase {
           }
         }
 
-        assertTrue(new File("sizeBased-test1.0").exists());
-        assertTrue(new File("sizeBased-test1.1").exists());
-        assertTrue(new File("sizeBased-test1.2").exists());
+        assertTrue(new File("target/sizeBased-test1.0").exists());
+        assertTrue(new File("target/sizeBased-test1.1").exists());
+        assertTrue(new File("target/sizeBased-test1.2").exists());
 
         assertTrue(Compare.compare(SizeBasedRollingTest.class,
-                "sizeBased-test1.0",
+                "target/sizeBased-test1.0",
          "witness/rolling/sbr-test2.log"));
         assertTrue(Compare.compare(SizeBasedRollingTest.class,
-                "sizeBased-test1.1",
+                "target/sizeBased-test1.1",
          "witness/rolling/sbr-test2.0"));
         assertTrue(Compare.compare(SizeBasedRollingTest.class,
-                "sizeBased-test1.2",
+                "target/sizeBased-test1.2",
          "witness/rolling/sbr-test2.1"));
   }
 
@@ -113,7 +113,7 @@ public class SizeBasedRollingTest extends TestCase {
     rfa.setName("ROLLING");
     rfa.setAppend(false);
     rfa.setLayout(layout);
-    rfa.setFile("sizeBased-test2.log");
+    rfa.setFile("target/sizeBased-test2.log");
 
     FixedWindowRollingPolicy swrp = new FixedWindowRollingPolicy();
     SizeBasedTriggeringPolicy sbtp = new SizeBasedTriggeringPolicy();
@@ -121,7 +121,7 @@ public class SizeBasedRollingTest extends TestCase {
     sbtp.setMaxFileSize(100);
     swrp.setMinIndex(0);
 
-    swrp.setFileNamePattern("sizeBased-test2.%i");
+    swrp.setFileNamePattern("target/sizeBased-test2.%i");
     swrp.activateOptions();
     
     rfa.setRollingPolicy(swrp);
@@ -138,18 +138,18 @@ public class SizeBasedRollingTest extends TestCase {
       }
     }
 
-    assertTrue(new File("sizeBased-test2.log").exists());
-    assertTrue(new File("sizeBased-test2.0").exists());
-    assertTrue(new File("sizeBased-test2.1").exists());
+    assertTrue(new File("target/sizeBased-test2.log").exists());
+    assertTrue(new File("target/sizeBased-test2.0").exists());
+    assertTrue(new File("target/sizeBased-test2.1").exists());
 
     assertTrue(Compare.compare(SizeBasedRollingTest.class,
-            "sizeBased-test2.log",
+            "target/sizeBased-test2.log",
      "witness/rolling/sbr-test2.log"));
     assertTrue(Compare.compare(SizeBasedRollingTest.class,
-            "sizeBased-test2.0",
+            "target/sizeBased-test2.0",
      "witness/rolling/sbr-test2.0"));
     assertTrue(Compare.compare(SizeBasedRollingTest.class,
-            "sizeBased-test2.1",
+            "target/sizeBased-test2.1",
      "witness/rolling/sbr-test2.1"));
   }
 
@@ -167,8 +167,8 @@ public class SizeBasedRollingTest extends TestCase {
 
      sbtp.setMaxFileSize(100);
      fwrp.setMinIndex(0);
-     rfa.setFile("sbr-test3.log");
-     fwrp.setFileNamePattern("sbr-test3.%i.gz");
+     rfa.setFile("target/sbr-test3.log");
+     fwrp.setFileNamePattern("target/sbr-test3.%i.gz");
      fwrp.activateOptions();
      rfa.setRollingPolicy(fwrp);
      rfa.setTriggeringPolicy(sbtp);
@@ -185,16 +185,16 @@ public class SizeBasedRollingTest extends TestCase {
        }
      }
 
-    assertTrue(new File("sbr-test3.log").exists());
-    assertTrue(new File("sbr-test3.0.gz").exists());
-    assertTrue(new File("sbr-test3.1.gz").exists());
+    assertTrue(new File("target/sbr-test3.log").exists());
+    assertTrue(new File("target/sbr-test3.0.gz").exists());
+    assertTrue(new File("target/sbr-test3.1.gz").exists());
 
     assertTrue(Compare.compare(SizeBasedRollingTest.class,
-            "sbr-test3.log",  "witness/rolling/sbr-test3.log"));
+            "target/sbr-test3.log",  "witness/rolling/sbr-test3.log"));
     assertTrue(Compare.gzCompare(SizeBasedRollingTest.class,
-            "sbr-test3.0.gz", "witness/rolling/sbr-test3.0.gz"));
+            "target/sbr-test3.0.gz", "witness/rolling/sbr-test3.0.gz"));
     assertTrue(Compare.gzCompare(SizeBasedRollingTest.class,
-            "sbr-test3.1.gz", "witness/rolling/sbr-test3.1.gz"));
+            "target/sbr-test3.1.gz", "witness/rolling/sbr-test3.1.gz"));
   }
 
     /**
@@ -206,7 +206,7 @@ public class SizeBasedRollingTest extends TestCase {
     rfa.setName("ROLLING");
     rfa.setAppend(false);
     rfa.setLayout(layout);
-    rfa.setFile("sizeBased-test4.log");
+    rfa.setFile("target/sizeBased-test4.log");
 
     FixedWindowRollingPolicy swrp = new FixedWindowRollingPolicy();
     SizeBasedTriggeringPolicy sbtp = new SizeBasedTriggeringPolicy();
@@ -217,7 +217,7 @@ public class SizeBasedRollingTest extends TestCase {
     //
     //   test4 directory should not exists.  Should cause all rollover attempts to fail.
     //
-    swrp.setFileNamePattern("test4/sizeBased-test4.%i");
+    swrp.setFileNamePattern("target/test4/sizeBased-test4.%i");
     swrp.activateOptions();
 
     rfa.setRollingPolicy(swrp);
@@ -234,10 +234,10 @@ public class SizeBasedRollingTest extends TestCase {
       }
     }
 
-    assertTrue(new File("sizeBased-test4.log").exists());
+    assertTrue(new File("target/sizeBased-test4.log").exists());
 
     assertTrue(Compare.compare(SizeBasedRollingTest.class,
-            "sizeBased-test4.log",
+            "target/sizeBased-test4.log",
      "witness/rolling/sbr-test4.log"));
   }
 
@@ -248,14 +248,14 @@ public class SizeBasedRollingTest extends TestCase {
   public void test5() throws Exception {
     //
 	//   delete any stray files that might confuse test
-    new File("sizeBased-test5.2").delete();
-    new File("sizeBased-test5.3").delete();
+    new File("target/sizeBased-test5.2").delete();
+    new File("target/sizeBased-test5.3").delete();
     PatternLayout layout = new PatternLayout("%m\n");
     RollingFileAppender rfa = new RollingFileAppender();
     rfa.setName("ROLLING");
     rfa.setAppend(false);
     rfa.setLayout(layout);
-    rfa.setFile("sizeBased-test5.log");
+    rfa.setFile("target/sizeBased-test5.log");
 
     FixedWindowRollingPolicy swrp = new FixedWindowRollingPolicy();
     SizeBasedTriggeringPolicy sbtp = new SizeBasedTriggeringPolicy();
@@ -263,7 +263,7 @@ public class SizeBasedRollingTest extends TestCase {
     sbtp.setMaxFileSize(100);
     swrp.setMinIndex(0);
 
-    swrp.setFileNamePattern("sizeBased-test5.%i");
+    swrp.setFileNamePattern("target/sizeBased-test5.%i");
     swrp.activateOptions();
 
     rfa.setRollingPolicy(swrp);
@@ -273,11 +273,11 @@ public class SizeBasedRollingTest extends TestCase {
 
     //
     //   put stray file above locked file
-    FileOutputStream os1 = new FileOutputStream("sizeBased-test5.1");
+    FileOutputStream os1 = new FileOutputStream("target/sizeBased-test5.1");
     os1.close();
 
 
-    FileOutputStream os0 = new FileOutputStream("sizeBased-test5.0");
+    FileOutputStream os0 = new FileOutputStream("target/sizeBased-test5.0");
 
     // Write exactly 10 bytes with each log
     for (int i = 0; i < 25; i++) {
@@ -290,25 +290,25 @@ public class SizeBasedRollingTest extends TestCase {
 
     os0.close();
 
-    if (new File("sizeBased-test5.3").exists()) {
+    if (new File("target/sizeBased-test5.3").exists()) {
         //
         //    looks like platform where open files can be renamed
         //
-        assertTrue(new File("sizeBased-test5.log").exists());
-        assertTrue(new File("sizeBased-test5.0").exists());
-        assertTrue(new File("sizeBased-test5.1").exists());
-        assertTrue(new File("sizeBased-test5.2").exists());
-        assertTrue(new File("sizeBased-test5.3").exists());
+        assertTrue(new File("target/sizeBased-test5.log").exists());
+        assertTrue(new File("target/sizeBased-test5.0").exists());
+        assertTrue(new File("target/sizeBased-test5.1").exists());
+        assertTrue(new File("target/sizeBased-test5.2").exists());
+        assertTrue(new File("target/sizeBased-test5.3").exists());
 
         assertTrue(Compare.compare(
                 SizeBasedRollingTest.class,
-                "sizeBased-test5.log",
+                "target/sizeBased-test5.log",
          "witness/rolling/sbr-test2.log"));
         assertTrue(Compare.compare(SizeBasedRollingTest.class,
-                "sizeBased-test5.0",
+                "target/sizeBased-test5.0",
          "witness/rolling/sbr-test2.0"));
         assertTrue(Compare.compare(SizeBasedRollingTest.class,
-                "sizeBased-test5.1",
+                "target/sizeBased-test5.1",
          "witness/rolling/sbr-test2.1"));
 
     } else {
@@ -317,12 +317,12 @@ public class SizeBasedRollingTest extends TestCase {
         //    so initial log file should have all log content
         //    open file should be unaffected
         //    stray file should have only been moved one slot.
-        assertTrue(new File("sizeBased-test5.log").exists());
-        assertTrue(new File("sizeBased-test5.0").exists());
-        assertTrue(new File("sizeBased-test5.2").exists());
+        assertTrue(new File("target/sizeBased-test5.log").exists());
+        assertTrue(new File("target/sizeBased-test5.0").exists());
+        assertTrue(new File("target/sizeBased-test5.2").exists());
 
         assertTrue(Compare.compare(
-                SizeBasedRollingTest.class,"sizeBased-test5.log",
+                SizeBasedRollingTest.class,"target/sizeBased-test5.log",
             "witness/rolling/sbr-test4.log"));
     }
   }
@@ -345,9 +345,9 @@ public class SizeBasedRollingTest extends TestCase {
 
     sbtp.setMaxFileSize(100);
     swrp.setMinIndex(0);
-    swrp.setActiveFileName("sizeBased-test6.log");
+    swrp.setActiveFileName("target/sizeBased-test6.log");
 
-    swrp.setFileNamePattern("sizeBased-test6.%i");
+    swrp.setFileNamePattern("target/sizeBased-test6.%i");
     swrp.activateOptions();
 
     rfa.setRollingPolicy(swrp);
@@ -364,18 +364,18 @@ public class SizeBasedRollingTest extends TestCase {
       }
     }
 
-    assertTrue(new File("sizeBased-test6.log").exists());
-    assertTrue(new File("sizeBased-test6.0").exists());
-    assertTrue(new File("sizeBased-test6.1").exists());
+    assertTrue(new File("target/sizeBased-test6.log").exists());
+    assertTrue(new File("target/sizeBased-test6.0").exists());
+    assertTrue(new File("target/sizeBased-test6.1").exists());
 
     assertTrue(Compare.compare(SizeBasedRollingTest.class,
-            "sizeBased-test6.log",
+            "target/sizeBased-test6.log",
      "witness/rolling/sbr-test2.log"));
     assertTrue(Compare.compare(SizeBasedRollingTest.class,
-            "sizeBased-test6.0",
+            "target/sizeBased-test6.0",
      "witness/rolling/sbr-test2.0"));
     assertTrue(Compare.compare(SizeBasedRollingTest.class,
-            "sizeBased-test6.1",
+            "target/sizeBased-test6.1",
      "witness/rolling/sbr-test2.1"));
   }
 

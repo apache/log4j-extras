@@ -21,7 +21,7 @@
   <appender name="A1" class="org.apache.log4j.FileAppender">
 
     <param name="Append" value="false" />
-    <param name="File"   value="timeFilter.2" />
+    <param name="File"   value="target/timeFilter.2" />
 
     <layout class="org.apache.log4j.EnhancedPatternLayout">
       <param name="ConversionPattern" value="%d{HH:mm:ss}{GMT} - %m\n"/>

@@ -41,8 +41,8 @@ import java.util.Properties;
 
 
 public class EnhancedPatternLayoutTestCase extends TestCase {
-  static String TEMP = "temp";
-  static String FILTERED = "filtered";
+  static String TEMP = "target/temp";
+  static String FILTERED = "target/filtered";
   static String EXCEPTION1 = "java.lang.Exception: Just testing";
   static String EXCEPTION2 = "\\s*at .*\\(.*:\\d{1,4}\\)";
   static String EXCEPTION3 = "\\s*at .*\\((Native Method|Unknown Source)\\)";
@@ -123,7 +123,7 @@ public class EnhancedPatternLayoutTestCase extends TestCase {
 
 
   public void test1() throws Exception {
-    configure("input/pattern/enhancedPatternLayout1.properties");
+    configure("enhancedPatternLayout1.properties");
     common();
     Transformer.transform(
       TEMP, FILTERED,
@@ -400,7 +400,7 @@ public class EnhancedPatternLayoutTestCase extends TestCase {
       configure("input/pattern/enhancedPatternLayout16.properties");
       common();
       final long end = new Date().getTime();
-      FileReader reader = new FileReader("patternLayout16.log");
+      FileReader reader = new FileReader("target/patternLayout16.log");
       char chars[] = new char[50];
       reader.read(chars, 0, chars.length);
       reader.close();
@@ -425,7 +425,7 @@ public class EnhancedPatternLayoutTestCase extends TestCase {
     root.info("");
     root.info("12345");
     root.info("0123456789");
-    assertTrue(compare("patternLayout17.log", "witness/pattern/enhancedPatternLayout.17"));
+    assertTrue(compare("target/patternLayout17.log", "witness/pattern/enhancedPatternLayout.17"));
   }
 
 
@@ -459,7 +459,7 @@ public class EnhancedPatternLayoutTestCase extends TestCase {
   /**
     Test case for MDC conversion pattern. */
   public void testMDC2() throws Exception {
-    String OUTPUT_FILE   = "patternLayout.mdc.2";
+    String OUTPUT_FILE   = "target/patternLayout.mdc.2";
     String WITNESS_FILE  = "witness/pattern/enhancedPatternLayout.mdc.2";
     
     String mdcMsgPattern1 = "%m : %X%n";
@@ -544,7 +544,7 @@ public class EnhancedPatternLayoutTestCase extends TestCase {
   /**
     Test case for throwable conversion pattern. */
   public void testThrowable() throws Exception {
-    String OUTPUT_FILE   = "patternLayout.throwable";
+    String OUTPUT_FILE   = "target/patternLayout.throwable";
     String WITNESS_FILE  = "witness/pattern/enhancedPatternLayout.throwable";
     
     
