@@ -11,11 +11,6 @@
 	at java.lang.reflect.Method.invoke(X)
 	at junit.framework.TestCase.runTest(X)
 	at junit.framework.TestCase.runBare(X)
-	at junit.framework.TestResult$1.protect(X)
-	at junit.framework.TestResult.runProtected(X)
-	at junit.framework.TestResult.run(X)
 	at junit.framework.TestCase.run(X)
-	at junit.framework.TestSuite.runTest(X)
-	at junit.framework.TestSuite.run(X)
 </log4j:throwable>
 </log4j:event>

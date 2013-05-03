@@ -30,7 +30,9 @@ public class JunitTestRunnerFilter implements Filter {
           "at java.lang.reflect.Method.invoke",
           "at org.apache.maven.",
           "at org.codehaus.",
-		  "at org.junit.internal.runners."
+		  "at org.junit.internal.runners.",
+          "at junit.framework.TestSuite",
+          "at junit.framework.TestResult"
   };
   private final Pattern[] patterns;
 
