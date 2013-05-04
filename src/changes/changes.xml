@@ -20,7 +20,7 @@
     <title>apache-log4j-extras</title>
   </properties>
   <body>
-    <release version="1.2" date="TBA" description="Maintenance release">
+    <release version="1.2" date="2013-05-04" description="Maintenance release">
         <action action="update">Removed ant build</action>
         <action action="update">Made tests writing to target folder</action>
         <action action="update">Merged all companions into the extras companion</action>
