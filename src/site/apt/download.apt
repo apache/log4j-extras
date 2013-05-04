@@ -30,7 +30,7 @@ Download Apache Extras Companion\u2122 for Apache log4j\u2122
 *-------------------------+---------+----------+-----------+
 |                         | Mirrors | Checksum | Signature |
 *-------------------------+---------+----------+-----------+
-| apache-log4j-companions-1.2 (tar.gz)      | {{{http://www.apache.org/dyn/closer.cgi/logging/log4j/companions/1.2/apache-log4j-companions-1.2.tar.gz} apache-log4j-companions-1.2.tar.gz}} | {{{http://www.apache.org/dist/logging/log4j/companions/1.2/apache-log4j-companions-1.2.tar.gz.md5} apache-log4j-companions-1.1.tar.gz.md5}} | {{{http://www.apache.org/dist/logging/log4j/companions/1.2/apache-log4j-companions-1.2.tar.gz.asc} apache-log4j-companions-1.2.tar.gz.asc}} |
+| apache-log4j-companions-1.2 (tar.gz)      | {{{http://www.apache.org/dyn/closer.cgi/logging/log4j/companions/1.2/apache-log4j-companions-1.2.tar.gz} apache-log4j-companions-1.2.tar.gz}} | {{{http://www.apache.org/dist/logging/log4j/companions/1.2/apache-log4j-companions-1.2.tar.gz.md5} apache-log4j-companions-1.2.tar.gz.md5}} | {{{http://www.apache.org/dist/logging/log4j/companions/1.2/apache-log4j-companions-1.2.tar.gz.asc} apache-log4j-companions-1.2.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
 | apache-log4j-companions-1.2 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/logging/log4j/companions/1.2/apache-log4j-extras-1.2.zip} apache-log4j-companions-1.2.zip}} | {{{http://www.apache.org/dist/logging/log4j/companions/1.2/apache-log4j-companions-1.2.zip.md5} apache-log4j-companions-1.2.zip.md5}} | {{{http://www.apache.org/dist/logging/log4j/companions/1.2/apache-log4j-companions-1.2.zip.asc} apache-log4j-companions-1.2.zip.asc}} |
 *-------------------------+---------+----------+-----------+

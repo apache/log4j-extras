@@ -134,6 +134,13 @@
       <plugin>
         <artifactId>maven-site-plugin</artifactId>
         <version>3.0</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.wagon</groupId>
+            <artifactId>wagon-ssh</artifactId>
+            <version>2.2</version>
+          </dependency>
+        </dependencies>
         <configuration>
           <templateFile>${basedir}/src/site/maven-site.vm</templateFile>
           <reportPlugins>
@@ -176,7 +183,7 @@
               <configuration>
                 <encoding>UTF-8</encoding>
                 <bottom><![CDATA[<p>Copyright ]]>© {currentYear} The Apache Software Foundation. Licensed under the <![CDATA[<a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></p>
-<p>Apache Extras Companion for Apache log4j, Apache log4j and Apache are trademarks of the Apache Software Foundation.</p>]]></bottom> 
+<p>Apache Companions for Apache log4j, Apache log4j and Apache are trademarks of the Apache Software Foundation.</p>]]></bottom>
               </configuration>
             </plugin>
             <plugin>
@@ -282,4 +289,10 @@
           <optional>true</optional>
       </dependency>
   </dependencies>
+  <distributionManagement>
+    <site>
+      <id>apache.website</id>
+      <url>scp://people.apache.org/www/logging.apache.org/log4j/companions</url>
+    </site>
+  </distributionManagement>
 </project>
