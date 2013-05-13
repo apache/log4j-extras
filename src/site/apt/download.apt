@@ -48,7 +48,7 @@ Download Apache Extras Companion\u2122 for Apache log4j\u2122
 % gpg --verify apache-log4j-companions-1.2.tar.gz.asc
 ---
 
-    Apache log4j companions 1.2 is signed by Christian Grobmeier E4694898
+    Apache log4j companions 1.2 is signed by Christian Grobmeier 42196CA8
 
     Alternatively, you can verify the MD5 signature on the files. A unix program called md5 or md5sum is included 
     in many unix distributions.
