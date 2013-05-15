@@ -28,6 +28,12 @@ Apache Companions\u2122
    Many of these components were originally developed in the discontinued Apache log4j 1.3
    development effort.
 
+   Version naming:
+
+   The package will use the log4j it requires + optional bugfix version after version 1.2.
+   For example, if the Companions release requires log4j 1.2.17 to work, the Companions
+   release will have the version number 1.2.17 too. If new version is necessary, the release
+   will be named 1.2.17.1, 1.2.17.2 and so on.
 
 * Component
 
