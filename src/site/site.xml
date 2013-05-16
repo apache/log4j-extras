@@ -17,7 +17,7 @@
 -->
 <project name="Extras">
   <bannerLeft>
-    <name>Logging Services</name>
+    <name>Apache Logging Services</name>
     <src>images/ls-logo.jpg</src>
     <href>http://logging.apache.org/</href>
   </bannerLeft>
@@ -31,7 +31,7 @@
       <item name="Apache" href="http://www.apache.org/"/>
       <item name="Logging Services" href="http://logging.apache.org/"/>
       <item name="log4j" href="http://logging.apache.org/log4j/"/>
-      <item name="Companions"  href="http://logging.apache.org/log4j/companions/"/>
+      <item name="Extras"  href="http://logging.apache.org/log4j/extras/"/>
     </breadcrumbs>
   
 	<menu name="Get it">

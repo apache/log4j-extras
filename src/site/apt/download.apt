@@ -20,7 +20,7 @@ Download Apache Extras Companion\u2122 for Apache log4j\u2122
 
 Download Apache Extras Companion\u2122 for Apache log4j\u2122
 
-  Apache Companions\u2122 for Apache log4j\u2122 is distributed under the {{{http://www.apache.org/licenses/LICENSE-2.0.html} Apache License, version 2.0}}.
+"Apache Extras\u2122 for Apache log4j\u2122 is distributed under the {{{http://www.apache.org/licenses/LICENSE-2.0.html} Apache License","version 2.0}}."
 
   The link in the Mirrors column should display a list of available mirrors with a
   default selection based on your inferred location.  If you do not see that page,
@@ -30,9 +30,9 @@ Download Apache Extras Companion\u2122 for Apache log4j\u2122
 *-------------------------+---------+----------+-----------+
 |                         | Mirrors | Checksum | Signature |
 *-------------------------+---------+----------+-----------+
-| apache-log4j-companions-1.2 (tar.gz)      | {{{http://www.apache.org/dyn/closer.cgi/logging/log4j/companions/1.2/apache-log4j-companions-1.2.tar.gz} apache-log4j-companions-1.2.tar.gz}} | {{{http://www.apache.org/dist/logging/log4j/companions/1.2/apache-log4j-companions-1.2.tar.gz.md5} apache-log4j-companions-1.2.tar.gz.md5}} | {{{http://www.apache.org/dist/logging/log4j/companions/1.2/apache-log4j-companions-1.2.tar.gz.asc} apache-log4j-companions-1.2.tar.gz.asc}} |
+| apache-log4j-extras-1.2.17 (tar.gz)      | {{{http://www.apache.org/dyn/closer.cgi/logging/log4j/extras/1.2.17/apache-log4j-extras-1.2.17.tar.gz} apache-log4j-extras-1.2.17.tar.gz}} | {{{http://www.apache.org/dist/logging/log4j/extras/1.2/apache-log4j-extras-1.2.17.tar.gz.md5} apache-log4j-extras-1.2.17.tar.gz.md5}} | {{{http://www.apache.org/dist/logging/log4j/extras/1.2/apache-log4j-extras-1.2.17.tar.gz.asc} apache-log4j-extras-1.2.17.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| apache-log4j-companions-1.2 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/logging/log4j/companions/1.2/apache-log4j-extras-1.2.zip} apache-log4j-companions-1.2.zip}} | {{{http://www.apache.org/dist/logging/log4j/companions/1.2/apache-log4j-companions-1.2.zip.md5} apache-log4j-companions-1.2.zip.md5}} | {{{http://www.apache.org/dist/logging/log4j/companions/1.2/apache-log4j-companions-1.2.zip.asc} apache-log4j-companions-1.2.zip.asc}} |
+| apache-log4j-extras-1.2.17 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/logging/log4j/extras/1.2.17/apache-log4j-extras-1.2.17.zip} apache-log4j-extras-1.2.17.zip}} | {{{http://www.apache.org/dist/logging/log4j/extras/1.2/apache-log4j-extras-1.2.17.zip.md5} apache-log4j-extras-1.2.17.zip.md5}} | {{{http://www.apache.org/dist/logging/log4j/extras/1.2/apache-log4j-extras-1.2.17.zip.asc} apache-log4j-extras-1.2.17.zip.asc}} |
 *-------------------------+---------+----------+-----------+
 
     It is essential that you verify the integrity of the downloaded files using the PGP or MD5 signatures. 
@@ -45,10 +45,10 @@ Download Apache Extras Companion\u2122 for Apache log4j\u2122
 
 ---
 % gpg --import KEYS
-% gpg --verify apache-log4j-companions-1.2.tar.gz.asc
+% gpg --verify apache-log4j-extras-1.2.17.tar.gz.asc
 ---
 
-    Apache log4j companions 1.2 is signed by Christian Grobmeier 42196CA8
+    Apache Extras for Apache log4j 1.2.17 is signed by Christian Grobmeier 42196CA8
 
     Alternatively, you can verify the MD5 signature on the files. A unix program called md5 or md5sum is included 
     in many unix distributions.
