@@ -15,10 +15,11 @@
  * limitations under the License.
  */
 
-package org.apache.log4j.receivers.db;
+package org.apache.log4j;
 
-import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.helpers.LogLog;
+import org.apache.log4j.receivers.db.ConnectionSource;
+import org.apache.log4j.receivers.db.DBHelper;
 import org.apache.log4j.receivers.db.dialect.SQLDialect;
 import org.apache.log4j.receivers.db.dialect.Util;
 import org.apache.log4j.spi.LocationInfo;
@@ -29,7 +30,11 @@ import org.w3c.dom.Element;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
