@@ -30,6 +30,7 @@ import org.apache.log4j.xml.UnrecognizedElementHandler;
 import org.w3c.dom.Element;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -285,8 +286,9 @@ public final class RollingFileAppender extends FileAppender
             } else {
               Writer newWriter =
                 createWriter(
-                  new FileOutputStream(
-                    rollover.getActiveFileName(), rollover.getAppend()));
+                    createFileOutputStream(
+                        rollover.getActiveFileName(), rollover.getAppend()));
+
               closeWriter();
               setFile(rollover.getActiveFileName());
               this.qw = createQuietWriter(newWriter);
@@ -334,6 +336,41 @@ public final class RollingFileAppender extends FileAppender
 
     return false;
   }
+
+ /**
+  * Creates a new FileOutputStream of a new log file, possibly creating first all the needed parent directories
+  *
+  * @param newFileName Filename of new log file to be created
+  * @param append If file should be appended
+  * @return newly created FileOutputStream
+  * @throws FileNotFoundException if creating log file or parent directories was unsuccessful
+  */
+ private FileOutputStream createFileOutputStream(String newFileName, boolean append)
+         throws FileNotFoundException {
+    try {
+          //
+          //   attempt to create file
+          //
+          return new FileOutputStream(newFileName, append);
+    } catch(FileNotFoundException ex) {
+        //
+        //   if parent directory does not exist then
+        //      attempt to create it and try to create file
+        //      see bug 9150
+        //
+        String parentName = new File(newFileName).getParent();
+        if (parentName != null) {
+            File parentDir = new File(parentName);
+            if (!parentDir.exists() && parentDir.mkdirs()) {
+                return new FileOutputStream(newFileName, append);
+            } else {
+                throw ex;
+            }
+        } else {
+            throw ex;
+        }
+    }
+ }
 
   /**
    * {@inheritDoc}

@@ -21,6 +21,7 @@
   </properties>
   <body>
     <release version="1.2" date="2013-05-04" description="Maintenance release">
+        <action action="fix" issue="53536">RollingFileAppender with TimeBasedRolling policy doesn't create parent-path if FileNamePattern contains date pattern as directory (thanks to Daniel Stankiewicz)</action>
         <action action="fix" issue="53645">DBAppender has a compile error (thanks to Antonio Petrelli)</action>
         <action action="update">Prefixed FormattingInfo and PatternParser with Extras to avoid classloading conflict</action>
         <action action="update">Fixed product naming</action>
