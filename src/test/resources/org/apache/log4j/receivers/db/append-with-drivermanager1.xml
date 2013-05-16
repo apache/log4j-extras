@@ -20,7 +20,7 @@
 	  
 <log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/' debug="true">
 	  
-  <appender name="DB" class="org.apache.log4j.db.DBAppender">
+  <appender name="DB" class="org.apache.log4j.DBAppender">
      <param name="locationInfo" value="true"/>
      <connectionSource class="org.apache.log4j.receivers.db.DriverManagerConnectionSource">
        <param name="driverClass" value="org.hsqldb.jdbcDriver"/>
@@ -36,7 +36,7 @@
   <!-- Prevent internal log4j DEBUG messages from polluting the output. -->
   <logger name="org.apache.log4j.joran"><level value="INFO" /></logger>
   <logger name="org.apache.log4j.config"><level value="INFO" /></logger>
-  <logger name="org.apache.log4j.db.DBAppender"><level value="INFO" /></logger>
+  <logger name="org.apache.log4j.DBAppender"><level value="INFO" /></logger>
   
   <root>
     <level value ="debug"/>
