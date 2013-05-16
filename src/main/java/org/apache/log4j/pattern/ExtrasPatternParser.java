@@ -564,7 +564,7 @@ public final class ExtrasPatternParser {
     if (pc == null) {
       StringBuffer msg;
 
-      if ((converterId == null) || (converterId.length() == 0)) {
+      if (converterId.length() == 0) {
         msg =
           new StringBuffer("Empty conversion specifier starting at position ");
       } else {
