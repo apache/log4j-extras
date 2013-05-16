@@ -15,12 +15,10 @@
  * limitations under the License.
  */
 
-package org.apache.log4j.db;
+package org.apache.log4j.receivers.db;
 
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.helpers.LogLog;
-import org.apache.log4j.receivers.db.ConnectionSource;
-import org.apache.log4j.receivers.db.DBHelper;
 import org.apache.log4j.receivers.db.dialect.SQLDialect;
 import org.apache.log4j.receivers.db.dialect.Util;
 import org.apache.log4j.spi.LocationInfo;
