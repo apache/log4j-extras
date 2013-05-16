@@ -34,7 +34,7 @@ import java.util.Set;
 
 /**
  * Most of the work of the {@link org.apache.log4j.EnhancedPatternLayout} class
- * is delegated to the PatternParser class.
+ * is delegated to the ExtrasPatternParser class.
  * <p>It is this class that parses conversion patterns and creates
  * a chained list of {@link PatternConverter PatternConverters}.
  *
@@ -45,7 +45,7 @@ import java.util.Set;
  * @author Curt Arnold
  *
 */
-public final class PatternParser {
+public final class ExtrasPatternParser {
   /**
    * Escape character for format specifier.
    */
@@ -87,7 +87,7 @@ public final class PatternParser {
   private static final Map FILENAME_PATTERN_RULES;
 
   static {
-    // We set the global rules in the static initializer of PatternParser class
+    // We set the global rules in the static initializer of ExtrasPatternParser class
     Map rules = new HashMap(17);
     rules.put("c", LoggerPatternConverter.class);
     rules.put("logger", LoggerPatternConverter.class);
@@ -147,7 +147,7 @@ public final class PatternParser {
   /**
    * Private constructor.
    */
-  private PatternParser() {
+  private ExtrasPatternParser() {
   }
 
   /**
@@ -254,7 +254,7 @@ public final class PatternParser {
     int state = LITERAL_STATE;
     char c;
     int i = 0;
-    FormattingInfo formattingInfo = FormattingInfo.getDefault();
+    ExtrasFormattingInfo formattingInfo = ExtrasFormattingInfo.getDefault();
 
     while (i < patternLength) {
       c = pattern.charAt(i++);
@@ -283,13 +283,13 @@ public final class PatternParser {
             if (currentLiteral.length() != 0) {
               patternConverters.add(
                 new LiteralPatternConverter(currentLiteral.toString()));
-              formattingInfos.add(FormattingInfo.getDefault());
+              formattingInfos.add(ExtrasFormattingInfo.getDefault());
             }
 
             currentLiteral.setLength(0);
             currentLiteral.append(c); // append %
             state = CONVERTER_STATE;
-            formattingInfo = FormattingInfo.getDefault();
+            formattingInfo = ExtrasFormattingInfo.getDefault();
           }
         } else {
           currentLiteral.append(c);
@@ -303,7 +303,7 @@ public final class PatternParser {
         switch (c) {
         case '-':
           formattingInfo =
-            new FormattingInfo(
+            new ExtrasFormattingInfo(
               true, 
               formattingInfo.isRightTruncated(),
               formattingInfo.getMinLength(),
@@ -312,7 +312,7 @@ public final class PatternParser {
 
         case '!':
           formattingInfo =
-            new FormattingInfo(
+            new ExtrasFormattingInfo(
               formattingInfo.isLeftAligned(), 
               true,
               formattingInfo.getMinLength(),
@@ -329,7 +329,7 @@ public final class PatternParser {
 
           if ((c >= '0') && (c <= '9')) {
             formattingInfo =
-              new FormattingInfo(
+              new ExtrasFormattingInfo(
                 formattingInfo.isLeftAligned(), 
                 formattingInfo.isRightTruncated(),
                 c - '0',
@@ -342,7 +342,7 @@ public final class PatternParser {
 
             // Next pattern is assumed to be a literal.
             state = LITERAL_STATE;
-            formattingInfo = FormattingInfo.getDefault();
+            formattingInfo = ExtrasFormattingInfo.getDefault();
             currentLiteral.setLength(0);
           }
         } // switch
@@ -354,7 +354,7 @@ public final class PatternParser {
 
         if ((c >= '0') && (c <= '9')) {
           formattingInfo =
-            new FormattingInfo(
+            new ExtrasFormattingInfo(
               formattingInfo.isLeftAligned(),
               formattingInfo.isRightTruncated(),
               (formattingInfo.getMinLength() * 10) + (c - '0'),
@@ -366,7 +366,7 @@ public final class PatternParser {
               c, pattern, i, currentLiteral, formattingInfo,
               converterRegistry, rules, patternConverters, formattingInfos);
           state = LITERAL_STATE;
-          formattingInfo = FormattingInfo.getDefault();
+          formattingInfo = ExtrasFormattingInfo.getDefault();
           currentLiteral.setLength(0);
         }
 
@@ -377,7 +377,7 @@ public final class PatternParser {
 
         if ((c >= '0') && (c <= '9')) {
           formattingInfo =
-            new FormattingInfo(
+            new ExtrasFormattingInfo(
               formattingInfo.isLeftAligned(), 
               formattingInfo.isRightTruncated(),
               formattingInfo.getMinLength(),
@@ -398,7 +398,7 @@ public final class PatternParser {
 
         if ((c >= '0') && (c <= '9')) {
           formattingInfo =
-            new FormattingInfo(
+            new ExtrasFormattingInfo(
               formattingInfo.isLeftAligned(), 
               formattingInfo.isRightTruncated(),
               formattingInfo.getMinLength(),
@@ -408,7 +408,7 @@ public final class PatternParser {
               c, pattern, i, currentLiteral, formattingInfo,
               converterRegistry, rules, patternConverters, formattingInfos);
           state = LITERAL_STATE;
-          formattingInfo = FormattingInfo.getDefault();
+          formattingInfo = ExtrasFormattingInfo.getDefault();
           currentLiteral.setLength(0);
         }
 
@@ -420,7 +420,7 @@ public final class PatternParser {
     if (currentLiteral.length() != 0) {
       patternConverters.add(
         new LiteralPatternConverter(currentLiteral.toString()));
-      formattingInfos.add(FormattingInfo.getDefault());
+      formattingInfos.add(ExtrasFormattingInfo.getDefault());
     }
   }
 
@@ -461,7 +461,7 @@ public final class PatternParser {
       return null;
     }
 
-    Class converterClass = null;
+    Class converterClass;
 
     if (converterObj instanceof Class) {
       converterClass = (Class) converterObj;
@@ -546,7 +546,7 @@ public final class PatternParser {
    */
   private static int finalizeConverter(
     char c, String pattern, int i,
-    final StringBuffer currentLiteral, final FormattingInfo formattingInfo,
+    final StringBuffer currentLiteral, final ExtrasFormattingInfo formattingInfo,
     final Map converterRegistry, final Map rules, final List patternConverters,
     final List formattingInfos) {
     StringBuffer convBuf = new StringBuffer();
@@ -580,7 +580,7 @@ public final class PatternParser {
 
       patternConverters.add(
         new LiteralPatternConverter(currentLiteral.toString()));
-      formattingInfos.add(FormattingInfo.getDefault());
+      formattingInfos.add(ExtrasFormattingInfo.getDefault());
     } else {
       patternConverters.add(pc);
       formattingInfos.add(formattingInfo);
@@ -588,7 +588,7 @@ public final class PatternParser {
       if (currentLiteral.length() > 0) {
         patternConverters.add(
           new LiteralPatternConverter(currentLiteral.toString()));
-        formattingInfos.add(FormattingInfo.getDefault());
+        formattingInfos.add(ExtrasFormattingInfo.getDefault());
       }
     }
 

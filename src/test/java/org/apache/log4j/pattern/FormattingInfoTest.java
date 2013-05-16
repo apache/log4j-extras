@@ -21,7 +21,7 @@ import junit.framework.TestCase;
 
 
 /**
- * Tests for FormattingInfo.
+ * Tests for ExtrasFormattingInfo.
  *
  * @author Curt Arnold
  *
@@ -41,7 +41,7 @@ public class FormattingInfoTest extends TestCase {
    *
    */
   public void testGetDefault() {
-    FormattingInfo field = FormattingInfo.getDefault();
+    ExtrasFormattingInfo field = ExtrasFormattingInfo.getDefault();
     assertNotNull(field);
     assertEquals(0, field.getMinLength());
     assertEquals(Integer.MAX_VALUE, field.getMaxLength());
@@ -53,7 +53,7 @@ public class FormattingInfoTest extends TestCase {
    *
    */
   public void testConstructor() {
-      FormattingInfo field = new FormattingInfo(true, false, 3, 6);
+      ExtrasFormattingInfo field = new ExtrasFormattingInfo(true, false, 3, 6);
       assertNotNull(field);
       assertEquals(3, field.getMinLength());
       assertEquals(6, field.getMaxLength());
@@ -65,7 +65,7 @@ public class FormattingInfoTest extends TestCase {
    */
   public void testTruncate() {
       StringBuffer buf = new StringBuffer("foobar");
-      FormattingInfo field = new FormattingInfo(true, false, 0, 3);
+      ExtrasFormattingInfo field = new ExtrasFormattingInfo(true, false, 0, 3);
       field.format(2, buf);
       assertEquals("fobar", buf.toString());
   }
@@ -75,7 +75,7 @@ public class FormattingInfoTest extends TestCase {
    */
   public void testRightTruncate() {
       StringBuffer buf = new StringBuffer("foobar");
-      FormattingInfo field = new FormattingInfo(true, true, 0, 3);
+      ExtrasFormattingInfo field = new ExtrasFormattingInfo(true, true, 0, 3);
       field.format(2, buf);
       assertEquals("fooba", buf.toString());
   }
@@ -85,7 +85,7 @@ public class FormattingInfoTest extends TestCase {
      */
     public void testPadLeft() {
         StringBuffer buf = new StringBuffer("foobar");
-        FormattingInfo field = new FormattingInfo(false, false, 5, 10);
+        ExtrasFormattingInfo field = new ExtrasFormattingInfo(false, false, 5, 10);
         field.format(2, buf);
         assertEquals("fo obar", buf.toString());
     }
@@ -95,7 +95,7 @@ public class FormattingInfoTest extends TestCase {
      */
     public void testPadRight() {
         StringBuffer buf = new StringBuffer("foobar");
-        FormattingInfo field = new FormattingInfo(true, false, 5, 10);
+        ExtrasFormattingInfo field = new ExtrasFormattingInfo(true, false, 5, 10);
         field.format(2, buf);
         assertEquals("foobar ", buf.toString());
     }

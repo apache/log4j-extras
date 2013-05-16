@@ -21,6 +21,7 @@
   </properties>
   <body>
     <release version="1.2" date="2013-05-04" description="Maintenance release">
+        <action action="update">Prefixed FormattingInfo and PatternParser with Extras to avoid classloading conflict</action>
         <action action="update">Fixed product naming</action>
         <action action="update">Removed duplicated classes (thanks to Jess Holle for spotting it)</action>
         <action action="update">Removed ant build</action>

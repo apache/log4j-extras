@@ -17,9 +17,9 @@
 
 package org.apache.log4j.rolling;
 
-import org.apache.log4j.pattern.FormattingInfo;
+import org.apache.log4j.pattern.ExtrasFormattingInfo;
+import org.apache.log4j.pattern.ExtrasPatternParser;
 import org.apache.log4j.pattern.PatternConverter;
-import org.apache.log4j.pattern.PatternParser;
 import org.apache.log4j.pattern.IntegerPatternConverter;
 import org.apache.log4j.pattern.DatePatternConverter;
 import org.apache.log4j.helpers.LogLog;
@@ -59,7 +59,7 @@ public abstract class RollingPolicyBase
   /**
    * File name field specifiers.
    */
-  private FormattingInfo[] patternFields;
+  private ExtrasFormattingInfo[] patternFields;
 
   /**
    * File name pattern.
@@ -128,14 +128,14 @@ public abstract class RollingPolicyBase
     List converters = new ArrayList();
     List fields = new ArrayList();
 
-    PatternParser.parse(
-      fileNamePatternStr, converters, fields, null,
-      PatternParser.getFileNamePatternRules());
+    ExtrasPatternParser.parse(
+            fileNamePatternStr, converters, fields, null,
+            ExtrasPatternParser.getFileNamePatternRules());
     patternConverters = new PatternConverter[converters.size()];
     patternConverters =
       (PatternConverter[]) converters.toArray(patternConverters);
-    patternFields = new FormattingInfo[converters.size()];
-    patternFields = (FormattingInfo[]) fields.toArray(patternFields);
+    patternFields = new ExtrasFormattingInfo[converters.size()];
+    patternFields = (ExtrasFormattingInfo[]) fields.toArray(patternFields);
   }
 
   /**

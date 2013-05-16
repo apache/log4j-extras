@@ -21,7 +21,6 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -31,16 +30,14 @@ import junit.framework.TestCase;
 
 import org.apache.log4j.Layout;
 import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerRepository;
 import org.apache.log4j.spi.LoggingEvent;
 
 
 /**
-   Test case for PatternParser.java. Tests the various
-   conversion patterns supported by PatternParser. This test
-   class tests PatternParser via the EnhancedPatternLayout class which
+   Test case for ExtrasPatternParser.java. Tests the various
+   conversion patterns supported by ExtrasPatternParser. This test
+   class tests ExtrasPatternParser via the EnhancedPatternLayout class which
    uses it.
  */
 public class PatternParserTest extends TestCase {
@@ -59,9 +56,9 @@ public class PatternParserTest extends TestCase {
                  LoggingEvent event) {
     List converters = new ArrayList();
     List fields = new ArrayList();
-    PatternParser.parse(pattern, converters, fields,
+    ExtrasPatternParser.parse(pattern, converters, fields,
             registry,
-            PatternParser.getPatternLayoutRules());
+            ExtrasPatternParser.getPatternLayoutRules());
     assertEquals(converters.size(), fields.size());
 
     StringBuffer buf = new StringBuffer();
@@ -70,26 +67,9 @@ public class PatternParserTest extends TestCase {
     while(converterIter.hasNext()) {
         int fieldStart = buf.length();
         ((PatternConverter) converterIter.next()).format(event, buf);
-        ((FormattingInfo) fieldIter.next()).format(fieldStart, buf);
+        ((ExtrasFormattingInfo) fieldIter.next()).format(fieldStart, buf);
     }
     return buf.toString();
-  }
-
-  public void testNewWord() throws Exception {
-    HashMap ruleRegistry = new HashMap(5);
-    ruleRegistry.put("z343", Num343PatternConverter.class.getName());
-    String result = convert("%z343", ruleRegistry, event);
-    assertEquals("343", result);
-  }
-
-  /* Test whether words starting with the letter 'n' are treated differently,
-   * which was previously the case by mistake.
-   */
-  public void testNewWord2() throws Exception {
-    HashMap ruleRegistry = new HashMap(5);
-    ruleRegistry.put("n343", Num343PatternConverter.class.getName());
-    String result = convert("%n343", ruleRegistry, event);
-    assertEquals("343", result);
   }
 
   public void testBogusWord1() throws Exception {
@@ -163,11 +143,11 @@ public class PatternParserTest extends TestCase {
   }
 
   public void testPatternLayoutFactories() throws Exception {
-      assertFactories(PatternParser.getPatternLayoutRules());
+      assertFactories(ExtrasPatternParser.getPatternLayoutRules());
   }
 
   public void testFileNamePatternFactories() throws Exception {
-        assertFactories(PatternParser.getFileNamePatternRules());
+        assertFactories(ExtrasPatternParser.getFileNamePatternRules());
   }
 
 }

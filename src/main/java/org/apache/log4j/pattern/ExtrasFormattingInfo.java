@@ -28,7 +28,7 @@ package org.apache.log4j.pattern;
  *  @author Curt Arnold
  *
  */
-public final class FormattingInfo {
+public final class ExtrasFormattingInfo {
   /**
    *  Array of spaces.
    */
@@ -38,8 +38,8 @@ public final class FormattingInfo {
   /**
    * Default instance.
    */
-  private static final FormattingInfo DEFAULT =
-    new FormattingInfo(false, 0, Integer.MAX_VALUE);
+  private static final ExtrasFormattingInfo DEFAULT =
+    new ExtrasFormattingInfo(false, 0, Integer.MAX_VALUE);
 
   /**
    * Minimum length.
@@ -69,10 +69,10 @@ public final class FormattingInfo {
    * @param maxLength maximum length.
    * @deprecated since 1.2.17
    */
-  public FormattingInfo(
-    final boolean leftAlign, 
-    final int minLength, 
-    final int maxLength) {
+  public ExtrasFormattingInfo(
+          final boolean leftAlign,
+          final int minLength,
+          final int maxLength) {
     this.leftAlign = leftAlign;
     this.minLength = minLength;
     this.maxLength = maxLength;
@@ -87,11 +87,11 @@ public final class FormattingInfo {
    * @param maxLength maximum length.
    * @since 1.2.17
    */
-  public FormattingInfo(
-    final boolean leftAlign, 
-    final boolean rightTruncate,
-    final int minLength, 
-    final int maxLength) {
+  public ExtrasFormattingInfo(
+          final boolean leftAlign,
+          final boolean rightTruncate,
+          final int minLength,
+          final int maxLength) {
     this.leftAlign = leftAlign;
     this.minLength = minLength;
     this.maxLength = maxLength;
@@ -102,7 +102,7 @@ public final class FormattingInfo {
    * Gets default instance.
    * @return default instance.
    */
-  public static FormattingInfo getDefault() {
+  public static ExtrasFormattingInfo getDefault() {
     return DEFAULT;
   }
 
