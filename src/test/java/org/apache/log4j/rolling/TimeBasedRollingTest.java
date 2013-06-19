@@ -105,7 +105,7 @@ public class TimeBasedRollingTest extends TestCase {
     String datePattern = "yyyy-MM-dd_HH_mm_ss";
 
     TimeBasedRollingPolicy tbrp = new TimeBasedRollingPolicy();
-    tbrp.setFileNamePattern("target/test1-%d{" + datePattern + "}");
+    tbrp.setFileNamePattern("target/test-tbr-1-%d{" + datePattern + "}");
     tbrp.activateOptions();
     rfa.setRollingPolicy(tbrp);
     rfa.activateOptions();
@@ -117,7 +117,7 @@ public class TimeBasedRollingTest extends TestCase {
     Calendar cal = Calendar.getInstance();
 
     for (int i = 0; i < 4; i++) {
-      filenames[i] = "target/test1-" + sdf.format(cal.getTime());
+      filenames[i] = "target/test-tbr-1-" + sdf.format(cal.getTime());
       cal.add(Calendar.SECOND, 1);
     }
 
