@@ -20,7 +20,7 @@ package org.apache.log4j.receivers.net;
 import java.util.EventListener;
 
 /**
-  Interface used to listen for {@link SocketNode} related
+  Interface used to listen for {@link org.apache.log4j.net.SocketNode} related
   events. Clients register an instance of the interface and the
   instance is called back when the various events occur.
 

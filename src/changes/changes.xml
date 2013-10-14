@@ -20,7 +20,7 @@
     <title>apache-log4j-extras</title>
   </properties>
   <body>
-    <release version="1.2" date="2013-06-19" description="Maintenance release">
+    <release version="1.2.17" date="2013-10-14" description="Maintenance release">
         <action action="fix" issue="53536">RollingFileAppender with TimeBasedRolling policy doesn't create parent-path if FileNamePattern contains date pattern as directory (thanks to Daniel Stankiewicz)</action>
         <action action="fix" issue="53645">DBAppender has a compile error (thanks to Antonio Petrelli)</action>
         <action action="update">Prefixed FormattingInfo and PatternParser with Extras to avoid classloading conflict</action>

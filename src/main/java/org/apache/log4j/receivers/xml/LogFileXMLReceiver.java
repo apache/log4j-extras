@@ -91,7 +91,7 @@ public class LogFileXMLReceiver extends Receiver {
     /**
      * Accessor
      * 
-     * @return
+     * @return the decoder
      */
     public String getDecoder() {
         return decoder;
@@ -287,7 +287,7 @@ public class LogFileXMLReceiver extends Receiver {
      * When true, this property uses the current Thread to perform the import, otherwise when false
      * (the default), a new Thread is created and started to manage the import.
      * 
-     * @return
+     * @return true, if the current thread is used
      */
     public final boolean isUseCurrentThread() {
         return useCurrentThread;

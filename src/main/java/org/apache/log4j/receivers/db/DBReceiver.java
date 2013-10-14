@@ -121,7 +121,7 @@ public class DBReceiver extends Receiver implements Pauseable, UnrecognizedEleme
   }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
   public boolean parseUnrecognizedElement(Element element, Properties props) throws Exception {
         if ("connectionSource".equals(element.getNodeName())) {

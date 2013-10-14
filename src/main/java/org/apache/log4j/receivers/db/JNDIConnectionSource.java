@@ -79,7 +79,7 @@ public class JNDIConnectionSource
   }
   
   /**
-   * @see org.apache.log4j.db.ConnectionSource#getConnection()
+   * @see org.apache.log4j.receivers.db.ConnectionSource#getConnection()
    */
   public Connection getConnection()
          throws SQLException {

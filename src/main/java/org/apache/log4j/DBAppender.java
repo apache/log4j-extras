@@ -386,7 +386,7 @@ public class DBAppender extends AppenderSkeleton implements UnrecognizedElementH
   }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
   public boolean parseUnrecognizedElement(Element element, Properties props) throws Exception {
         if ("connectionSource".equals(element.getNodeName())) {
