@@ -25,7 +25,7 @@
   <groupId>log4j</groupId>
   <artifactId>apache-log4j-extras</artifactId>
   <packaging>bundle</packaging>
-  <version>1.2.17-SNAPSHOT</version>
+  <version>1.2.17</version>
   <name>Apache Extras™ for Apache log4j™.</name>
   <description>
       This package provides additional appenders, filters and
@@ -66,9 +66,9 @@
     </mailingList>
   </mailingLists>
   <scm>
-  	<connection>scm:svn:http://svn.apache.org/repos/asf/logging/log4j/companions/extras/trunk</connection>
-  	<developerConnection>scm:svn:https://svn.apache.org/repos/asf/logging/log4j/companions/extras/trunk</developerConnection>
-  	<url>http://svn.apache.org/viewcvs.cgi/logging/log4j/companions/extras/trunk</url>
+  	<connection>scm:svn:http://svn.apache.org/repos/asf/logging/log4j/companions/extras/tags/apache-log4j-extras-1.2.17</connection>
+  	<developerConnection>scm:svn:https://svn.apache.org/repos/asf/logging/log4j/companions/extras/tags/apache-log4j-extras-1.2.17</developerConnection>
+  	<url>http://svn.apache.org/viewcvs.cgi/logging/log4j/companions/extras/tags/apache-log4j-extras-1.2.17</url>
   </scm>
 
   <!--+
