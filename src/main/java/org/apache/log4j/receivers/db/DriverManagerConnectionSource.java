@@ -85,7 +85,7 @@ public class DriverManagerConnectionSource extends ConnectionSourceSkeleton {
 
 
   /**
-   * @see org.apache.log4j.db.ConnectionSource#getConnection()
+   * @see org.apache.log4j.receivers.db.ConnectionSource#getConnection()
    */
   public Connection getConnection() throws SQLException {
     if (getUser() == null) {

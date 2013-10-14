@@ -64,7 +64,7 @@ public class DataSourceConnectionSource extends ConnectionSourceSkeleton
   }
 
   /**
-   * @see org.apache.log4j.db.ConnectionSource#getConnection()
+   * @see org.apache.log4j.receivers.db.ConnectionSource#getConnection()
    */
   public Connection getConnection() throws SQLException {
     if (dataSource == null) {
@@ -88,7 +88,7 @@ public class DataSourceConnectionSource extends ConnectionSourceSkeleton
   }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
   public boolean parseUnrecognizedElement(Element element, Properties props) throws Exception {
         if ("dataSource".equals(element.getNodeName())) {

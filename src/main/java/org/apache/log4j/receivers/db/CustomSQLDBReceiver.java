@@ -450,7 +450,7 @@ public class CustomSQLDBReceiver extends Receiver implements Pauseable, Unrecogn
     }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
   public boolean parseUnrecognizedElement(Element element, Properties props) throws Exception {
         if ("connectionSource".equals(element.getNodeName())) {

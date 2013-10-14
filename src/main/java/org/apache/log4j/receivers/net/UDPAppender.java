@@ -46,7 +46,7 @@ import java.net.UnknownHostException;
  *  By setting the remoteHost to a broadcast address any number of clients can
  *  listen for log messages.
  *
- *  <p>This was inspired and really extended/copied from {@link SocketAppender}.
+ *  <p>This was inspired and really extended/copied from {@link org.apache.log4j.net.SocketAppender}.
  *  Please see the docs for the proper credit to the authors of that class.
  *
  *  @author  <a href="mailto:kbrown@versatilesolutions.com">Kevin Brown</a>

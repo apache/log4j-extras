@@ -114,12 +114,10 @@ public class SocketReceiver extends Receiver implements Runnable, PortBased,
     repository = repo;
   }
 
-    /** {@inheritDoc} */
   public int getPort() {
     return port;
   }
 
-  /** {@inheritDoc} */
   public void setPort(final int p) {
     port = p;
   }
