@@ -250,6 +250,7 @@
         <version>2.4</version>
         <configuration>
           <descriptor>src/main/assembly/bin.xml</descriptor>
+          <descriptor>src/main/assembly/src.xml</descriptor>
         </configuration>
       </plugin>
     </plugins>
