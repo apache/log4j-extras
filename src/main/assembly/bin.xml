@@ -22,15 +22,11 @@
 		<format>tar.gz</format>
 	</formats>
 	<baseDirectory>apache-log4j-extras-${project.version}</baseDirectory>
-	<includeSiteDirectory>true</includeSiteDirectory>
 	<fileSets>
 		<fileSet>
 			<includes>
 				<include>LICENSE</include>
 				<include>NOTICE</include>
-				<include>build.xml</include>
-				<include>pom.xml</include>
-				<include>src/**</include>
 			</includes>
 		</fileSet>
 		<fileSet>
@@ -41,5 +37,4 @@
 			</includes>
 		</fileSet>
 	</fileSets>
-	
 </assembly>
