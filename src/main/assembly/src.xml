@@ -22,7 +22,6 @@
 		<format>tar.gz</format>
 	</formats>
 	<baseDirectory>apache-log4j-extras-${project.version}</baseDirectory>
-    <includeSiteDirectory>true</includeSiteDirectory>
 	<fileSets>
 		<fileSet>
 			<includes>
