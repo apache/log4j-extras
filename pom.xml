@@ -24,6 +24,7 @@
   </parent>
   <groupId>log4j</groupId>
   <artifactId>apache-log4j-extras</artifactId>
+  <packaging>bundle</packaging>
   <version>1.2.17</version>
   <name>Apache Extras™ for Apache log4j™.</name>
   <description>
