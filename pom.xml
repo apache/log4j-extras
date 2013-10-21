@@ -24,7 +24,7 @@
   </parent>
   <groupId>log4j</groupId>
   <artifactId>apache-log4j-extras</artifactId>
-  <version>1.2.18-SNAPSHOT</version>
+  <version>1.2.17.1-SNAPSHOT</version>
   <name>Apache Extras™ for Apache log4j™.</name>
   <description>
       This package provides additional appenders, filters and
@@ -250,8 +250,10 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <version>2.4</version>
         <configuration>
-          <descriptor>src/main/assembly/bin.xml</descriptor>
-          <descriptor>src/main/assembly/src.xml</descriptor>
+            <descriptorRefs>
+              <descriptorRef>bin</descriptorRef>
+              <descriptorRef>src</descriptorRef>
+            </descriptorRefs>
         </configuration>
         <executions>
           <execution>
