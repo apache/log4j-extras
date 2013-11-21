@@ -35,7 +35,6 @@ import org.apache.log4j.util.XMLDateFilter;
 import org.apache.log4j.util.XMLLineAttributeFilter;
 import org.apache.log4j.util.XMLTimestampFilter;
 
-
 public class XSLTLayoutTestCase extends TestCase {
   static String TEMP = "target/temp";
   static String FILTERED = "target/filtered";
