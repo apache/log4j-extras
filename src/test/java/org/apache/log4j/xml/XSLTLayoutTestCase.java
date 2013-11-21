@@ -17,27 +17,23 @@
 
 package org.apache.log4j.xml;
 
+import java.util.Hashtable;
+
 import junit.framework.TestCase;
 
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
-import org.apache.log4j.helpers.MDCKeySetExtractor;
-import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.util.Compare;
 import org.apache.log4j.util.Filter;
 import org.apache.log4j.util.JunitTestRunnerFilter;
 import org.apache.log4j.util.LineNumberFilter;
 import org.apache.log4j.util.SunReflectFilter;
 import org.apache.log4j.util.Transformer;
+import org.apache.log4j.util.XMLDateFilter;
 import org.apache.log4j.util.XMLLineAttributeFilter;
 import org.apache.log4j.util.XMLTimestampFilter;
-import org.apache.log4j.util.XMLDateFilter;
-
-import java.util.Set;
-import java.util.Iterator;
-import java.util.Hashtable;
 
 
 public class XSLTLayoutTestCase extends TestCase {
