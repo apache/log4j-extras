@@ -73,7 +73,7 @@ public final class FileRenameAction extends ActionBase {
    */
   public static boolean execute(
     final File source, final File destination, boolean renameEmptyFiles) {
-    if (renameEmptyFiles || (source.length() > 0)) {
+    if (renameEmptyFiles || source.length() > 0) {
       return source.renameTo(destination);
     }
 
