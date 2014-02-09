@@ -77,8 +77,8 @@ public class CompositeAction extends ActionBase {
       }
 
       return true;
-    } else {
-      boolean status = true;
+    }
+    boolean status = true;
       IOException exception = null;
 
       for (int i = 0; i < actions.length; i++) {
@@ -98,6 +98,5 @@ public class CompositeAction extends ActionBase {
       }
 
       return status;
-    }
   }
 }
