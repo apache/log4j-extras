@@ -48,7 +48,7 @@ public interface Decoder {
   LoggingEvent decode(String event);
 
     /**
-     * Decode event from document retreived from URL.
+     * Decode event from document retrieved from URL.
      * @param url url of document
      * @return list of LoggingEvent instances.
      * @throws IOException if IO error resolving document.
